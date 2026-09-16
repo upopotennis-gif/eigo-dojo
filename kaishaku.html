@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="長い英文の主語・動詞・修飾関係を見抜く精読ドリル。構造の図解と和訳、読み上げつき。">
+<title>渡邊梢太の英文解釈道場</title>
+<style>
+  :root{
+    --ai:#23406e;
+    --ai-deep:#172b4d;
+    --yamabuki:#dda23a;
+    --yamabuki-deep:#a8761c;
+    --wakatake:#3f8a63;
+    --wakatake-bg:#e6f0e8;
+    --kobai:#b8483f;
+    --kobai-bg:#f6e6e2;
+    --bg:#eef1f5;
+    --surface:#fbfcfe;
+    --surface-2:#e0e6ee;
+    --ink:#1e2530;
+    --ink-soft:#566170;
+    --line:#c6d0dc;
+    --shadow:rgba(30,37,48,0.13);
+    --focus:#a8761c;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ai:#8fb0e6;
+      --ai-deep:#c3d4f2;
+      --yamabuki:#e0ac47;
+      --yamabuki-deep:#f0c877;
+      --wakatake:#7fc39e;
+      --wakatake-bg:#1c3329;
+      --kobai:#e2938c;
+      --kobai-bg:#3a2320;
+      --bg:#10151d;
+      --surface:#171e29;
+      --surface-2:#212a38;
+      --ink:#e6ebf2;
+      --ink-soft:#9aa6b6;
+      --line:#334154;
+      --shadow:rgba(0,0,0,0.45);
+      --focus:#e0ac47;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ai:#8fb0e6;
+    --ai-deep:#c3d4f2;
+    --yamabuki:#e0ac47;
+    --yamabuki-deep:#f0c877;
+    --wakatake:#7fc39e;
+    --wakatake-bg:#1c3329;
+    --kobai:#e2938c;
+    --kobai-bg:#3a2320;
+    --bg:#10151d;
+    --surface:#171e29;
+    --surface-2:#212a38;
+    --ink:#e6ebf2;
+    --ink-soft:#9aa6b6;
+    --line:#334154;
+    --shadow:rgba(0,0,0,0.45);
+    --focus:#e0ac47;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:680px;
+    margin:0 auto;
+    padding:28px 18px 60px;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size:16px 16px;
+    opacity:.22;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  :root:not([data-theme="light"]) .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  :root[data-theme="dark"] .stage::before{ mix-blend-mode:screen; opacity:.10; }
+
+  .stage > *{ position:relative; z-index:1; }
+
+  .rod{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto;
+  }
+  .rod::before,.rod::after{
+    content:'';
+    flex:1;
+    height:5px;
+    border-radius:3px;
+    background:var(--ai-deep);
+  }
+  .rod .knob{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--yamabuki);
+    box-shadow:0 0 0 2px var(--surface);
+    flex:none;
+  }
+
+  header.masthead{ text-align:center; padding:6px 0 22px; }
+  header.masthead .rod{ margin-bottom:16px; }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(1.6rem, 1.1rem + 3vw, 2.3rem);
+    letter-spacing:.03em;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  header.masthead p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.92rem;
+    line-height:1.75;
+  }
+
+  section{ display:block; }
+  section[hidden]{ display:none !important; }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 20px;
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  .card + .card{ margin-top:16px; }
+
+  .steps{
+    list-style:none;
+    margin:0 0 20px;
+    padding:0;
+    display:grid;
+    gap:8px;
+    font-size:.9rem;
+    color:var(--ink-soft);
+  }
+  .steps li{ display:flex; gap:10px; align-items:baseline; }
+  .steps .num{
+    font-family:'Shippori Mincho',serif;
+    color:var(--yamabuki-deep);
+    font-weight:700;
+    flex:none;
+    width:1.4em;
+  }
+
+  label.field-label{
+    display:block;
+    font-weight:700;
+    margin-bottom:4px;
+    font-size:.95rem;
+  }
+  .field-hint{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+
+  .unit-group{ margin-bottom:18px; }
+  .unit-group:last-child{ margin-bottom:0; }
+  .unit-group h3{
+    font-family:'Shippori Mincho',serif;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ai);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    border-radius:999px;
+    padding:8px 14px;
+    font-size:.84rem;
+    line-height:1.4;
+    cursor:pointer;
+    font-family:'Zen Maru Gothic',sans-serif;
+    text-align:left;
+  }
+  .chip:hover{ border-color:var(--ai); }
+  .chip.active{ background:var(--ai); color:var(--surface); border-color:var(--ai); font-weight:700; }
+
+  .selected-unit-box{
+    margin-top:18px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border-radius:8px;
+    font-size:.88rem;
+  }
+  .selected-unit-box strong{
+    font-family:'Shippori Mincho',serif;
+    color:var(--ai);
+  }
+
+  textarea:focus-visible, button:focus-visible, .choice:focus-visible, .chip:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  .actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
+  }
+  button.btn{
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    padding:15px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ button.btn{ transition:none; } }
+  button.btn:active{ transform:translateY(1px); }
+  button.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-primary{
+    background:var(--yamabuki);
+    color:#2a1c04;
+    box-shadow:0 3px 0 var(--yamabuki-deep);
+  }
+  :root:not([data-theme="light"]) .btn-primary{ color:#241a02; }
+  :root[data-theme="dark"] .btn-primary{ color:#241a02; }
+  .btn-primary:hover:not(:disabled){ filter:brightness(1.04); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ai);
+    border-color:var(--ai);
+  }
+  .btn-secondary:hover:not(:disabled){ background:var(--surface-2); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:none;
+    text-decoration:underline;
+    padding:8px;
+    font-size:.9rem;
+  }
+
+  #error-banner[hidden]{ display:none !important; }
+  #error-banner{
+    background:var(--kobai-bg);
+    border:1px solid var(--kobai);
+    color:var(--kobai);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.88rem;
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+  #error-banner button{
+    background:none; border:none; color:inherit; font-weight:700; cursor:pointer; font-size:1rem; line-height:1;
+  }
+
+  .quiz-progress{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-family:'Shippori Mincho',serif;
+  }
+  .quiz-progress .count{ font-size:1.1rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .quiz-progress .score{ font-size:.85rem; color:var(--ink-soft); font-family:'Zen Maru Gothic',sans-serif; }
+  .quiz-unit{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .passage-box{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:0 0 18px;
+  }
+  .passage-box .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:6px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+  .passage-box p{
+    font-family:'Shippori Mincho',serif;
+    font-size:.98rem;
+    line-height:1.9;
+    margin:0;
+    white-space:pre-wrap;
+  }
+  .dots{ display:flex; gap:5px; margin-bottom:18px; flex-wrap:wrap; }
+  .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+  .dots span.done-correct{ background:var(--wakatake); }
+  .dots span.done-wrong{ background:var(--kobai); }
+  .dots span.current{ background:var(--yamabuki); }
+
+  .question-text{
+    font-family:'Shippori Mincho',serif;
+    font-size:clamp(1.05rem, .9rem + 1vw, 1.3rem);
+    line-height:1.85;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+
+  .choices{ display:grid; gap:10px; }
+  .choice{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    width:100%;
+    background:var(--bg);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .choice:hover:not(:disabled){ border-color:var(--ai); }
+  .choice .badge{
+    flex:none;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:.85rem;
+    font-family:'Shippori Mincho',serif;
+  }
+  .choice:disabled{ cursor:default; }
+  .choice.correct{ background:var(--wakatake-bg); border-color:var(--wakatake); }
+  .choice.correct .badge{ background:var(--wakatake); color:#fff; }
+  .choice.incorrect{ background:var(--kobai-bg); border-color:var(--kobai); }
+  .choice.incorrect .badge{ background:var(--kobai); color:#fff; }
+
+  .feedback{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+  }
+  .feedback .verdict{
+    font-family:'Shippori Mincho',serif;
+    font-weight:800;
+    font-size:1.15rem;
+    margin:0 0 10px;
+  }
+  .feedback .verdict.correct{ color:var(--wakatake); }
+  .feedback .verdict.incorrect{ color:var(--kobai); }
+  .feedback .explanation{ font-size:.95rem; line-height:1.8; margin:0 0 12px; }
+  .feedback .translation{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.9rem;
+    line-height:1.8;
+  }
+  .feedback .translation .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:4px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+
+  .result-head{ text-align:center; padding:8px 0 22px; }
+  .stamp{
+    width:118px; height:118px;
+    margin:0 auto 16px;
+    border-radius:50%;
+    border:3px solid var(--kobai);
+    box-shadow:inset 0 0 0 3px var(--surface), 0 3px 10px var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform:rotate(-5deg);
+    color:var(--kobai);
+    font-family:'Shippori Mincho',serif;
+  }
+  .stamp .frac{ font-size:1.7rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+  .stamp .of{ font-size:.7rem; margin-top:2px; }
+  .result-message{ font-size:.98rem; line-height:1.8; color:var(--ink-soft); max-width:32em; margin:0 auto; }
+
+  .guide-content{
+    font-size:.98rem;
+    line-height:1.95;
+  }
+  .guide-content h1,.guide-content h2,.guide-content h3{
+    font-family:'Shippori Mincho',serif;
+    margin:1.2em 0 .5em;
+    line-height:1.5;
+  }
+  .guide-content h1{ font-size:1.25rem; }
+  .guide-content h2{ font-size:1.12rem; }
+  .guide-content h3{ font-size:1.02rem; }
+  .guide-content p{ margin:0 0 .9em; }
+  .guide-content ul,.guide-content ol{ margin:0 0 1em; padding-left:1.4em; }
+  .guide-content li{ margin-bottom:.4em; }
+  .guide-content strong{ color:var(--ai); }
+  .guide-content code{ background:var(--surface-2); padding:.1em .3em; border-radius:4px; }
+  .thinking{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    margin-top:34px;
+    line-height:1.7;
+  }
+
+
+/* ==== 記録機能 追加分 ==== */
+.sub-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:22px; }
+.stat-tile{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--bg); }
+.stat-tile .k{ display:block; font-size:.74rem; color:var(--ink-soft); letter-spacing:.06em; }
+.stat-tile .v{ display:block; font-size:1.5rem; font-weight:700; color:var(--ai); font-variant-numeric:tabular-nums; margin-top:2px; }
+.stat-tile .v small{ font-size:.8rem; font-weight:400; color:var(--ink-soft); margin-left:2px; }
+.stats-empty{ color:var(--ink-soft); padding:18px 0; }
+.stat-table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.stat-table th{ text-align:left; font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px 8px; font-weight:700; }
+.stat-table td{ border-bottom:1px solid var(--line); padding:8px; vertical-align:middle; }
+.stat-table td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rate-bar{ display:block; position:relative; height:8px; border-radius:4px; background:var(--line); min-width:70px; }
+.rate-bar i{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--wakatake); }
+.rate-bar i.low{ background:var(--kobai); }
+.rate-bar i.mid{ background:var(--yamabuki); }
+.cal{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:330px; }
+.cal span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.74rem;
+  border-radius:6px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.cal span.head{ color:var(--ink-soft); font-size:.68rem; aspect-ratio:auto; padding-bottom:2px; }
+.cal span.on{ background:var(--wakatake); color:#fff; font-weight:700; }
+.cal span.today{ outline:2px solid var(--yamabuki); outline-offset:-2px; }
+.stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
+.wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
+.privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+
+/* ==== 狭い画面（スマホ）の調整 ==== */
+@media (max-width:400px){
+  h1{ font-size:1.5rem; letter-spacing:.01em; }
+  .stage{ padding:20px 14px 48px; }
+  .card{ padding:18px 15px; }
+  .chip{ font-size:.82rem; padding:8px 12px; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+#btn-next-question{ scroll-margin-bottom:24px; }
+
+/* ==== 道場の切り替え ==== */
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+
+
+/* ==== 英語道場 追加分 ==== */
+.question-text, .en-sentence, .choice .en{ font-family:'Source Serif 4','Shippori Mincho',serif; }
+.question-text{ font-weight:500; letter-spacing:.005em; }
+.choice .en{ font-size:1.05rem; }
+.speak-box{ border-left:3px solid var(--yamabuki); padding:4px 0 4px 12px; margin:0 0 14px; }
+.en-sentence{ font-size:1.08rem; line-height:1.7; margin:0 0 8px; }
+.speak-row{ display:flex; gap:8px; flex-wrap:wrap; }
+.speak-btn{ font:inherit; font-size:.84rem; padding:6px 14px; border-radius:999px; cursor:pointer;
+  border:1.5px solid var(--line); background:var(--surface); color:var(--ink); }
+.speak-btn:hover{ border-color:var(--ai); color:var(--ai); }
+.speak-btn[aria-pressed="true"]{ background:var(--ai); color:var(--surface); border-color:var(--ai); }
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+.q-prompt{ font-size:.84rem; color:var(--ink-soft); margin:0 0 8px; }
+.question-text .bosen, .translation .bosen{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:.3em; text-decoration-color:var(--yamabuki); font-weight:700; }
+.question-text.big{ font-size:clamp(1.6rem, 1.2rem + 2vw, 2.1rem); text-align:center; letter-spacing:.08em; }
+.q-source{ font-size:.8rem; color:var(--ink-soft); text-align:right; margin:-12px 0 18px; }
+.feedback .word-head{ font-family:'Shippori Mincho',serif; font-weight:700; color:var(--ai); margin:0 0 6px; }
+.feedback .explanation{ white-space:pre-line; }
+.feedback .meta-note{ font-size:.76rem; color:var(--ink-soft); margin:10px 0 0; }
+.range-box{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
+.range-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.range-row input{ width:5.2em; font:inherit; font-size:1rem; padding:8px 10px; border-radius:8px;
+  border:1.5px solid var(--line); background:var(--bg); color:var(--ink); font-variant-numeric:tabular-nums; }
+.range-row .chip{ margin-left:4px; }
+.word-table{ width:100%; border-collapse:collapse; font-size:.9rem; line-height:1.6; }
+.word-table th{ text-align:left; font-size:.72rem; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px; }
+.word-table td{ border-bottom:1px solid var(--line); padding:8px 6px; vertical-align:top; }
+.word-table td.no{ color:var(--ink-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.word-table td.w{ font-family:'Shippori Mincho',serif; font-weight:700; width:8.5em; }
+.word-table td.w small{ display:block; font-weight:500; color:var(--ink-soft); font-size:.74rem; line-height:1.5; }
+.guide-content table{ border-collapse:collapse; font-size:.9rem; margin:0 0 1em; line-height:1.55; }
+.guide-content th, .guide-content td{ border:1px solid var(--line); padding:6px 8px; }
+.guide-content th{ background:var(--surface-2); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+</head>
+<body>
+
+<div class="stage">
+  <header class="masthead">
+    <div class="rod"><span class="knob"></span><span class="knob"></span></div>
+    <h1>渡邊梢太の英文解釈道場</h1>
+    <p>「主語はどこまで？」「このカタマリはどこに係る？」——長い英文の骨組みを見抜く練習です。解説では文の構造をカッコで図解します。アカウント登録は不要です。</p>
+    <div class="rod" style="margin-top:16px"><span class="knob"></span><span class="knob"></span></div>
+  </header>
+
+  <nav class="sister" aria-label="道場の切り替え"><a href="./">英文法道場</a><a href="kaishaku.html" aria-current="page">英文解釈道場</a><a href="tsunagi.html">つなぎ言葉道場</a></nav>
+
+  <div id="error-banner" hidden>
+    <span id="error-text"></span>
+    <button type="button" id="error-close" aria-label="閉じる">×</button>
+  </div>
+
+  <main id="app">
+
+    <section id="view-setup">
+      <div class="card">
+        <ol class="steps">
+          <li><span class="num">一</span>単元を選ぶ（先に「学習ガイド」で要点を読むのがおすすめ）</li>
+          <li><span class="num">二</span>「クイズを始める」を押して4択に挑戦</li>
+        </ol>
+
+        <div id="unit-groups"></div>
+
+        
+
+        <div class="selected-unit-box" id="selected-unit-box" hidden>
+          選択中: <strong id="selected-unit-label"></strong>
+          <span id="selected-unit-count" style="color:var(--ink-soft)"></span>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-make-quiz" disabled>クイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-view-guide" disabled>学習ガイドを見る</button>
+        </div>
+
+        <div class="sub-actions">
+          <button type="button" class="btn btn-secondary" id="btn-wrongbox">苦手ボックスから10問</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats">これまでの記録</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-quiz" hidden>
+      <div class="card">
+        <div class="quiz-progress">
+          <span class="count" id="quiz-count">問 1 / 10</span>
+          <span class="score" id="quiz-score">正解 0</span>
+        </div>
+        <p class="quiz-unit" id="quiz-unit"></p>
+        <div class="dots" id="quiz-dots"></div>
+        <p class="q-prompt" id="quiz-prompt" hidden></p>
+        <p class="question-text" id="quiz-question"></p>
+        <p class="q-source" id="quiz-source" hidden></p>
+        <div class="choices" id="quiz-choices"></div>
+
+        <div class="feedback" id="quiz-feedback" hidden>
+          <p class="verdict" id="feedback-verdict"></p>
+          <p class="word-head" id="feedback-head" hidden></p>
+          <div class="speak-box" id="feedback-speak" hidden>
+            <p class="en-sentence" lang="en" id="feedback-sentence"></p>
+            <div class="speak-row">
+              <button type="button" class="speak-btn" id="btn-speak" aria-label="英文を読み上げる">🔊 聞く</button>
+              <button type="button" class="speak-btn" id="btn-speak-slow" aria-label="英文をゆっくり読み上げる">🐢 ゆっくり</button>
+            </div>
+          </div>
+          <p class="explanation" id="feedback-explanation"></p>
+          <div class="translation" id="feedback-translation" hidden>
+            <span class="label">和訳</span>
+            <span id="feedback-translation-text"></span>
+          </div>
+          <p class="meta-note" id="feedback-meta" hidden></p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-next-question" hidden>次の問題へ</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-result" hidden>
+      <div class="card">
+        <div class="result-head">
+          <div class="stamp"><span class="frac" id="result-frac">0/10</span><span class="of">正解</span></div>
+          <p class="result-message" id="result-message"></p>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-wrong-only" hidden>間違えた問題だけもう一度</button>
+          <button type="button" class="btn btn-secondary" id="btn-retry-quiz">同じ問題にもう一度挑戦</button>
+          <button type="button" class="btn btn-secondary" id="btn-new-quiz">違う10問に挑戦する</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-from-result">学習ガイドを見る</button>
+          <button type="button" class="btn btn-ghost" id="btn-change-unit">別の単元を選ぶ</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-from-result">記録を見る</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-stats" hidden>
+      <div class="card">
+        <h2 class="card-title">これまでの記録</h2>
+        <div id="stats-body"></div>
+        <p class="privacy-note">
+          記録はこの端末のブラウザの中だけに保存されます。先生や他の人に送られることはありません。
+          ブラウザの履歴やサイトデータを消すと記録も消えます。
+        </p>
+        <div class="actions" style="margin-top:18px">
+          <button type="button" class="btn btn-secondary" id="btn-stats-back">単元選択に戻る</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-reset">記録を消す</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-guide" hidden>
+      <div class="card">
+        <div class="guide-content" id="guide-content"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-guide-quiz">この範囲でクイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-back">単元選択に戻る</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>渡邊梢太の英文解釈道場<br>問題・例文・解説はすべて独自に作成しています（市販教材・入試問題からの転載はありません）。<br>試作版です。英文や解説の誤りに気づいたら、先生に知らせてください。</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var CONFIG = {"storeKey":"eigoKaishaku.v1","unitWord":"単元","lowScoreMessage":"学習ガイドで「カッコのつけ方」を確認してから、1文ずつ構造を書き出して解いてみましょう。","maxNo":0};
+  var UNITS = [{"chapter":"文の骨組み","items":[{"id":"svoc","label":"文型と SVOC","hint":"動詞の後ろの形で文の骨格をつかむ"},{"id":"long-subject","label":"長い主語と形式主語・形式目的語","hint":"主語はどこまでか、it は何を指すか"}]},{"chapter":"カタマリを見抜く","items":[{"id":"noun-clause","label":"名詞のカタマリ","hint":"that/whether/疑問詞節・不定詞・動名詞が S・O・C になる"},{"id":"adj-modifier","label":"形容詞のカタマリ","hint":"後置修飾と関係詞節がどの名詞にかかるか"},{"id":"adv-modifier","label":"副詞のカタマリ","hint":"副詞節・不定詞・分詞構文が文のどこにかかるか"},{"id":"that-usage","label":"that の見分け","hint":"接続詞・関係代名詞・同格・強調構文・so〜that"}]},{"chapter":"複雑な文を読む","items":[{"id":"apposition","label":"同格・挿入・並列","hint":"and/or が何と何を結ぶか、カンマやダッシュの働き"},{"id":"inversion","label":"倒置・省略・強調構文","hint":"否定語の前置、主語の見つけ方、省略の補い方"},{"id":"inanimate","label":"無生物主語と名詞構文","hint":"「〜が…させる」を「〜で…する」と訳しかえる"}]}];
+  var POOL = [{"g":"svoc","q":"The long speech at the opening ceremony made most of the new students in the gym very sleepy.","c":["第5文型（SVOC）","第4文型（SVOO）","第3文型（SVO）","第2文型（SVC）"],"a":0,"e":"[The long speech (at the opening ceremony)] S / made V / [most of the new students (in the gym)] O / very sleepy C。make O C「OをCにする」。OとCに「生徒たちが眠い」の関係がある。sleepy は形容詞で目的語になれないので SVOO ではない。","p":"この文の文型として適切なものを選びなさい。","t":"始業式での長い話で、体育館にいた新入生のほとんどがとても眠くなった。","en":"The long speech at the opening ceremony made most of the new students in the gym very sleepy.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"My grandmother keeps the windows of her old house 《open》 even on cold winter mornings.","c":["補語（C）","目的語（O）","述語動詞（V）","主語（S）"],"a":0,"e":"My grandmother S / keeps V / [the windows (of her old house)] O / open C / <even on cold winter mornings>。keep O C「OをCのままにする」。open は形容詞「開いている」で、「窓が開いている」の関係なので補語。述語動詞は keeps。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"祖母は、寒い冬の朝でさえ、古い家の窓を開けたままにしている。","en":"My grandmother keeps the windows of her old house open even on cold winter mornings.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"The girl sitting next to me in the library says the math test we took yesterday was surprisingly easy.","c":["says","sitting","took","was"],"a":0,"e":"[The girl (sitting next to me in the library)] S / says V / [(that) the math test (we took yesterday) was surprisingly easy] O。sitting は girl を修飾する分詞、took は test を修飾する節の動詞、was は目的語の節の中の動詞。述語は says。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"図書館で私の隣に座っている女の子は、昨日受けた数学のテストは意外に簡単だったと言っている。","en":"The girl sitting next to me in the library says the math test we took yesterday was surprisingly easy.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"The members of the club call the quiet new student Professor because he knows so much about insects.","c":["昆虫にとても詳しいので、部員たちはその物静かな新入生を「教授」と呼んでいる。","昆虫にとても詳しいので、部員たちはその物静かな新入生に教授を呼んでやっている。","昆虫にとても詳しいので、その物静かな新入生は部員たちを「教授」と呼んでいる。","昆虫にとても詳しいので、部員たちはその物静かな新入生の教授に電話をかけている。"],"a":0,"e":"[The members (of the club)] S / call V / [the quiet new student] O / Professor C / <because …>。call O C「OをCと呼ぶ」で「新入生＝教授」の関係。SVOO と読んで「新入生に教授を呼ぶ」とすると2人が別人になる。主語は部員たちで、新入生ではない。","p":"この文の最も適切な和訳を選びなさい。","t":"昆虫にとても詳しいので、部員たちはその物静かな新入生を「教授」と呼んでいる。","en":"The members of the club call the quiet new student Professor because he knows so much about insects.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"The leaves of the trees along the river turn bright red and yellow in late autumn.","c":["第2文型（SVC）","第1文型（SV）","第3文型（SVO）","第5文型（SVOC）"],"a":0,"e":"[The leaves (of the trees (along the river))] S / turn V / bright red and yellow C / <in late autumn>。turn＋形容詞は「〜になる」で、「葉＝赤や黄色」の関係がある第2文型。red や yellow はここでは形容詞なので目的語ではない。","p":"この文の文型として適切なものを選びなさい。","t":"晩秋になると、川沿いの木々の葉は鮮やかな赤や黄色に変わる。","en":"The leaves of the trees along the river turn bright red and yellow in late autumn.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"Many visitors to the museum find 《the old maps on the second floor》 especially interesting.","c":["目的語（O）","主語（S）","補語（C）","修飾語（M）"],"a":0,"e":"[Many visitors (to the museum)] S / find V / [the old maps (on the second floor)] O / especially interesting C。find O C「OがCだと思う」。《》は find の目的語で、「地図がおもしろい」の関係。主語は文頭の Many visitors、補語は interesting。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"その博物館を訪れる人の多くは、2階にある古地図が特におもしろいと感じる。","en":"Many visitors to the museum find the old maps on the second floor especially interesting.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"My father became 《a science teacher》 after he worked at a hospital for ten years.","c":["補語（C）","目的語（O）","主語（S）","修飾語（M）"],"a":0,"e":"My father S / became V / a science teacher C / <after he worked at a hospital for ten years>。become の後ろは「主語＝C」となる補語。「父＝理科の教師」の関係なので目的語ではない。after 以下は時を表す副詞のカタマリ。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"父は病院で10年間働いたあと、理科の教師になった。","en":"My father became a science teacher after he worked at a hospital for ten years.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"We painted the walls of our classroom light blue to make it feel calmer and brighter.","c":["教室を落ち着いた明るい雰囲気にするために、私たちは教室の壁を水色に塗った。","教室を落ち着いた明るい雰囲気にするために、私たちは教室の水色の壁に絵を描いた。","教室を落ち着いた明るい雰囲気にするために、私たちは水色の教室の壁を塗り直した。","教室を落ち着いた明るい雰囲気にするために、私たちは教室の壁に水色の絵を描いた。"],"a":0,"e":"We S / painted V / [the walls (of our classroom)] O / light blue C / <to make it feel calmer and brighter>。paint O C「OをCの色に塗る」で「壁が水色」の関係。light blue を壁や教室を修飾する語と読む訳や、paint を「絵を描く」とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"教室を落ち着いた明るい雰囲気にするために、私たちは教室の壁を水色に塗った。","en":"We painted the walls of our classroom light blue to make it feel calmer and brighter.","m":"難易度 ★☆☆ 基礎"},{"g":"svoc","q":"The volunteers from the local high school found the children at the camp a shady place to rest.","c":["第4文型（SVOO）","第5文型（SVOC）","第3文型（SVO）","第2文型（SVC）"],"a":0,"e":"[The volunteers (from the local high school)] S / found V / [the children (at the camp)] O / [a shady place (to rest)] O。find O O「OにOを見つけてやる」の第4文型。「子どもたち＝場所」の関係はないので SVOC ではない。","p":"この文の文型として適切なものを選びなさい。","t":"地元の高校から来たボランティアたちは、キャンプに来た子どもたちに休める日陰の場所を見つけてあげた。","en":"The volunteers from the local high school found the children at the camp a shady place to rest.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"The sound of the heavy rain hitting the roof of our house woke me up several times last night.","c":["woke","hitting","sound","rain"],"a":0,"e":"[The sound (of the heavy rain (hitting the roof of our house))] S / woke V / me O / up <several times last night>。hitting は rain を修飾する分詞で、述語動詞ではない。sound と rain は動詞にもなるが、ここは the がつく名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"昨夜は、家の屋根を打つ激しい雨の音で何度も目が覚めた。","en":"The sound of the heavy rain hitting the roof of our house woke me up several times last night.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"While I was waiting for the last train, I suddenly heard my name 《called》 by someone behind me.","c":["補語（C）","述語動詞（V）","目的語（O）","主語（S）"],"a":0,"e":"<While I was waiting for the last train>, I S / suddenly heard V / my name O / called C / <by someone behind me>。hear O＋過去分詞「Oが〜されるのを聞く」。「名前が呼ばれる」の関係なので called は補語。述語動詞は heard。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"終電を待っていると、突然、後ろにいるだれかに名前を呼ばれるのが聞こえた。","en":"While I was waiting for the last train, I suddenly heard my name called by someone behind me.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"The hot weather this summer has made many farmers in the area worried about their crops.","c":["worried","made","farmers","crops"],"a":0,"e":"[The hot weather (this summer)] S / has made V / [many farmers (in the area)] O / worried about their crops C。make O C で「農家が心配している」の関係。farmers は目的語、crops は about の目的語、made は述語動詞の一部。","p":"この文の補語（C）として適切なものを選びなさい。","t":"今年の夏の暑さで、その地域の多くの農家が作物のことを心配している。","en":"The hot weather this summer has made many farmers in the area worried about their crops.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"Because of her hard work on the festival, the students in her class elected her leader of the next project.","c":["文化祭での努力が認められ、クラスの生徒たちは彼女を次の企画のリーダーに選んだ。","文化祭での努力が認められ、クラスの生徒たちは彼女のために次の企画のリーダーを選んだ。","文化祭での努力が認められ、彼女はクラスの生徒たちを次の企画のリーダーに選んだ。","文化祭での努力が認められ、クラスの生徒たちは彼女と次の企画のリーダーを選んだ。"],"a":0,"e":"<Because of her hard work on the festival>, [the students (in her class)] S / elected V / her O / [leader (of the next project)] C。elect O C「OをCに選ぶ」で「彼女＝リーダー」の関係。SVOO と読んで「彼女のためにリーダーを選ぶ」とするのは誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"文化祭での努力が認められ、クラスの生徒たちは彼女を次の企画のリーダーに選んだ。","en":"Because of her hard work on the festival, the students in her class elected her leader of the next project.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"The plan our teacher suggested for the class trip to Kyoto sounded exciting to everyone in the room.","c":["sounded","suggested","plan","trip"],"a":0,"e":"[The plan (our teacher suggested for the class trip to Kyoto)] S / sounded V / exciting C / <to everyone in the room>。plan の後に関係代名詞が省略され、suggested はその節の中の動詞。sound＋形容詞「〜に聞こえる」。plan や trip は the がつく名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"先生が京都への修学旅行について提案した計画は、部屋にいた全員にとってわくわくするものに思えた。","en":"The plan our teacher suggested for the class trip to Kyoto sounded exciting to everyone in the room.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"Scientists consider this small island 《one of the most important places》 for studying rare birds.","c":["補語（C）","目的語（O）","主語（S）","修飾語（M）"],"a":0,"e":"Scientists S / consider V / [this small island] O / [one of the most important places (for studying rare birds)] C。consider O C「OをCとみなす」。「島＝重要な場所の一つ」の関係なので補語。consider は目的語を2つとる動詞ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"科学者たちは、この小さな島を珍しい鳥を研究するうえで最も重要な場所の一つだと考えている。","en":"Scientists consider this small island one of the most important places for studying rare birds.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"A small café with only four tables stood at the corner of the street near our school.","c":["第1文型（SV）","第2文型（SVC）","第3文型（SVO）","第4文型（SVOO）"],"a":0,"e":"[A small café (with only four tables)] S / stood V / <at the corner of the street (near our school)>。stand＋場所「〜にある」の第1文型。stood の後ろは場所を表す副詞のカタマリで、補語でも目的語でもない。with 〜 は café を修飾する。","p":"この文の文型として適切なものを選びなさい。","t":"学校の近くの通りの角に、テーブルが4つしかない小さなカフェがあった。","en":"A small café with only four tables stood at the corner of the street near our school.","m":"難易度 ★★☆ 標準"},{"g":"svoc","q":"The experience of living abroad for a year proved very valuable when she started working.","c":["第2文型（SVC）","第3文型（SVO）","第5文型（SVOC）","第1文型（SV）"],"a":0,"e":"[The experience (of living abroad for a year)] S / proved V / very valuable C / <when she started working>。prove＋形容詞「〜だとわかる」は第2文型で「経験＝価値がある」の関係。valuable は形容詞なので、prove O「Oを証明する」の第3文型ではない。","p":"この文の文型として適切なものを選びなさい。","t":"1年間海外で暮らした経験は、彼女が働き始めたときにとても役立つことがわかった。","en":"The experience of living abroad for a year proved very valuable when she started working.","m":"難易度 ★★★ 発展"},{"g":"svoc","q":"The long drought left the once green valley a dry and empty place where few animals could live.","c":["長い干ばつで、かつて緑豊かだった谷は、動物がほとんど住めない乾いた何もない場所になった。","長い干ばつはかつて緑豊かだった谷を去り、動物がほとんど住めない乾いた何もない場所へ移った。","長い干ばつは、動物がほとんど住めない乾いた何もない場所に、かつて緑豊かだった谷を残した。","かつて緑豊かだった谷を離れた動物たちは、長い干ばつで乾いた何もない場所にほとんど住めない。"],"a":0,"e":"[The long drought] S / left V / [the once green valley] O / [a dry and empty place (where few animals could live)] C。leave O C「OをCの状態にする」で「谷＝乾いた場所」の関係。left を「去る」と読む訳、SVOO と読む訳、animals を主語とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"長い干ばつで、かつて緑豊かだった谷は、動物がほとんど住めない乾いた何もない場所になった。","en":"The long drought left the once green valley a dry and empty place where few animals could live.","m":"難易度 ★★★ 発展"},{"g":"svoc","q":"The way the players on the other team stayed calm under pressure impressed our coach deeply.","c":["impressed","stayed","calm","pressure"],"a":0,"e":"[The way (the players (on the other team) stayed calm under pressure)] S / impressed V / our coach O / deeply。the way の後の節は way を修飾し、stayed はその中の動詞。calm や pressure は動詞にもなるが、ここは形容詞と名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"相手チームの選手たちが重圧の中でも落ち着いていた様子に、私たちのコーチは深く感心した。","en":"The way the players on the other team stayed calm under pressure impressed our coach deeply.","m":"難易度 ★★★ 発展"},{"g":"svoc","q":"Many people in the town believed the old bridge over the river 《to be strong enough》 for heavy trucks, but it was actually badly damaged.","c":["補語（C）","目的語（O）","bridge を修飾する語句","believed を修飾する語句"],"a":0,"e":"[Many people (in the town)] S / believed V / [the old bridge (over the river)] O / to be strong enough C …。believe O to be C「OがCだと信じる」で「橋が十分丈夫だ」の関係。bridge を修飾する形容詞用法でも、目的などを表す副詞用法でもない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"町の多くの人は、川にかかるその古い橋は大型トラックが通れるほど丈夫だと信じていたが、実際にはひどく傷んでいた。","en":"Many people in the town believed the old bridge over the river to be strong enough for heavy trucks, but it was actually badly damaged.","m":"難易度 ★★★ 発展"},{"g":"long-subject","q":"The students who joined the drama club last spring have become good friends with each other.","c":["spring","students","club","friends"],"a":0,"e":"[The students (who joined the drama club last spring)] S / have become V / good friends C / <with each other>。who 以下は students を修飾する関係詞節で、last spring までその中に入る。述語動詞 have become の直前で主語が終わる。","p":"この文の主語はどこまでか。主語の最後の語を選びなさい。","t":"去年の春に演劇部に入った生徒たちは、互いに仲の良い友達になった。","en":"The students who joined the drama club last spring have become good friends with each other.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"《It》 is important for all of us to check the weather forecast before we go hiking in the mountains.","c":["to check 以下の内容","for all of us","the weather forecast","before 以下の内容"],"a":0,"e":"It S（形式主語）/ is V / important C / <for all of us> / [to check the weather forecast <before we go hiking in the mountains>] 真主語。It は to 不定詞を指す。for all of us は意味上の主語、before 節は check を修飾する。","p":"《It》が指す内容として適切なものを選びなさい。","t":"山へハイキングに行く前に天気予報を確認することは、私たち全員にとって大切だ。","en":"It is important for all of us to check the weather forecast before we go hiking in the mountains.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"Reading short stories in English for ten minutes every day helps students build a larger vocabulary.","c":["helps","Reading","build","stories"],"a":0,"e":"[Reading short stories (in English) <for ten minutes every day>] S / helps V / students O / build a larger vocabulary C。文頭の Reading は動名詞で主語の中心。build は help O＋原形の原形部分。stories はここでは名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"毎日10分間英語で短い物語を読むことは、生徒がより多くの語彙を身につける助けになる。","en":"Reading short stories in English for ten minutes every day helps students build a larger vocabulary.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"It is not easy for young children to sit still during a long concert in a large hall.","c":["大きなホールでの長い演奏会の間、幼い子どもがじっと座っているのは簡単ではない。","それは大きなホールでの長い演奏会で、幼い子どもがじっと座っていられるものではない。","大きなホールでの長い演奏会の間じっと座っている幼い子どもは、簡単な存在ではない。","大きなホールで長い演奏会を開くのは、幼い子どもがじっと座れないので簡単ではない。"],"a":0,"e":"It S（形式主語）/ is not V / easy C / <for young children> / [to sit still <during a long concert in a large hall>] 真主語。It は to sit 以下を指し「それ」とは訳さない。to sit を children の修飾語と読む訳も誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"大きなホールでの長い演奏会の間、幼い子どもがじっと座っているのは簡単ではない。","en":"It is not easy for young children to sit still during a long concert in a large hall.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"The small shop 《on the corner near the station》 sells fresh bread and cakes every morning.","c":["shop を修飾する語句","sells を修飾する語句","文の主語","sells の目的語"],"a":0,"e":"[The small shop (on the corner (near the station))] S / sells V / [fresh bread and cakes] O / <every morning>。主語と動詞の間にある前置詞句は直前の shop を修飾し、主語の一部になる。前置詞句は主語や目的語にはならない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"駅の近くの角にある小さな店は、毎朝焼きたてのパンとケーキを売っている。","en":"The small shop on the corner near the station sells fresh bread and cakes every morning.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"《Talking with people from different countries on the internet》 gives me many new ideas about my future.","c":["主語（S）","目的語（O）","補語（C）","修飾語（M）"],"a":0,"e":"[Talking with people (from different countries) <on the internet>] S / gives V / me O / [many new ideas (about my future)] O。gives の前にほかの主語がないので、Talking 以下は動名詞のカタマリで主語。分詞構文ならコンマの後に主語が来る。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"インターネットでさまざまな国の人と話すことで、私は自分の将来について新しい考えをたくさん得られる。","en":"Talking with people from different countries on the internet gives me many new ideas about my future.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"People who live in big cities like Tokyo often do not know their neighbors very well.","c":["Tokyo","People","cities","neighbors"],"a":0,"e":"[People (who live in big cities (like Tokyo))] S / often do not know V / their neighbors O / <very well>。who 以下は People を修飾する関係詞節で、like Tokyo は cities を修飾する。do not know の前の Tokyo までが主語。","p":"この文の主語はどこまでか。主語の最後の語を選びなさい。","t":"東京のような大都市に住む人々は、近所の人のことをあまりよく知らないことが多い。","en":"People who live in big cities like Tokyo often do not know their neighbors very well.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"The number of students who come to school by bike increased after the new road opened.","c":["increased","come","opened","number"],"a":0,"e":"[The number (of students (who come to school by bike))] S / increased V / <after the new road opened>。come は関係詞節の動詞、opened は after 節の動詞。number は動詞にもなるが、ここは the がつく名詞で主語の中心。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"新しい道路が開通してから、自転車で通学する生徒の数が増えた。","en":"The number of students who come to school by bike increased after the new road opened.","m":"難易度 ★☆☆ 基礎"},{"g":"long-subject","q":"It was kind of the old man at the station to show us the way to the museum.","c":["駅にいたおじいさんが私たちに博物館への道を教えてくれたのは、親切なことだった。","駅で私たちに博物館への道を教えてくれたのは、親切そうな種類のおじいさんだった。","私たちは、駅にいた親切なおじいさんに博物館への道を教えてあげることにした。","それは駅にいたおじいさんのようなもので、私たちに博物館への道を親切に示した。"],"a":0,"e":"It S / was V / kind C / <of the old man at the station> / [to show us the way to the museum] 真主語。kind of 人 to do「〜するとは（人）は親切だ」。of 人 は性質を表す形容詞のときの意味上の主語。kind of を「種類の」「〜のような」と読むのは誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"駅にいたおじいさんが私たちに博物館への道を教えてくれたのは、親切なことだった。","en":"It was kind of the old man at the station to show us the way to the museum.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"The new app makes 《it》 easy for students to share their notes with classmates after class.","c":["to share 以下の内容","the new app","students","their notes"],"a":0,"e":"The new app S / makes V / it O（形式目的語）/ easy C / <for students> / [to share their notes with classmates after class] 真の目的語。it は後ろの to share 以下を指す。for students は不定詞の意味上の主語。","p":"《it》が指す内容として適切なものを選びなさい。","t":"その新しいアプリを使うと、生徒は放課後にクラスメートとノートを簡単に共有できる。","en":"The new app makes it easy for students to share their notes with classmates after class.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"The paintings that the students created during the summer workshop were displayed in the city hall.","c":["workshop","paintings","students","hall"],"a":0,"e":"[The paintings (that the students created during the summer workshop)] S / were displayed V / <in the city hall>。that 以下は created の目的語が欠けた関係詞節で paintings を修飾する。were displayed の前の workshop までが主語。","p":"この文の主語はどこまでか。主語の最後の語を選びなさい。","t":"生徒たちが夏のワークショップで制作した絵は、市役所に展示された。","en":"The paintings that the students created during the summer workshop were displayed in the city hall.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"The fact that many young people rarely read newspapers these days worries some teachers at our school.","c":["worries","read","fact","teachers"],"a":0,"e":"[The fact (that many young people rarely read newspapers these days)] S / worries V / [some teachers (at our school)] O。that 節は fact の内容を説明する同格の節で、read はその中の動詞。主語の中心は単数の fact なので worries。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"最近は多くの若者がめったに新聞を読まないという事実を、うちの学校の一部の先生は心配している。","en":"The fact that many young people rarely read newspapers these days worries some teachers at our school.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"I think it strange that nobody in the class noticed the mistake on the board.","c":["クラスのだれも黒板の誤りに気づかなかったのは、おかしいと私は思う。","黒板の誤りはおかしいと私は思うが、クラスのだれもそれに気づかなかった。","クラスのだれも気づかなかった黒板の誤りを、私はおかしなものだと思う。","私はそれを奇妙に思ったので、クラスのだれも黒板の誤りに気づかなかった。"],"a":0,"e":"I S / think V / it O（形式目的語）/ strange C / [that nobody in the class noticed the mistake on the board] 真の目的語。おかしいのは「だれも気づかなかったこと」。that 節に欠けた要素はないので関係詞節ではなく、理由の意味もない。","p":"この文の最も適切な和訳を選びなさい。","t":"クラスのだれも黒板の誤りに気づかなかったのは、おかしいと私は思う。","en":"I think it strange that nobody in the class noticed the mistake on the board.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"Students who want to take part in the speech contest next month should talk to Ms. Brown by Friday.","c":["month","Students","contest","Friday"],"a":0,"e":"[Students (who want to take part in the speech contest next month)] S / should talk V / <to Ms. Brown> <by Friday>。next month はコンテストの時期で、関係詞節の中にある。述語動詞 should talk の直前の month までが主語。","p":"この文の主語はどこまでか。主語の最後の語を選びなさい。","t":"来月のスピーチコンテストに参加したい生徒は、金曜日までにブラウン先生に相談すること。","en":"Students who want to take part in the speech contest next month should talk to Ms. Brown by Friday.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"It is surprising 《that such a small town has produced so many famous athletes over the years》.","c":["真の主語（It の内容）","surprising の目的語","It を修飾する関係詞節","理由を表す副詞節"],"a":0,"e":"It S（形式主語）/ is V / surprising C / [that such a small town has produced so many famous athletes over the years] 真主語。It は that 節を指す。節の中に欠けた要素がないので関係詞節ではない。形容詞 surprising は目的語をとらない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"こんなに小さな町が長年にわたって多くの有名な運動選手を生み出してきたのは驚くべきことだ。","en":"It is surprising that such a small town has produced so many famous athletes over the years.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"Anyone who wants to borrow the books kept in the teachers' room needs to fill out a form.","c":["needs","wants","kept","borrow"],"a":0,"e":"[Anyone (who wants to borrow the books (kept in the teachers' room))] S / needs V / [to fill out a form] O。wants は関係詞節の動詞、kept は books を修飾する過去分詞、borrow は不定詞。Anyone に対応する述語動詞は needs。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"職員室に保管されている本を借りたい人は、だれでも用紙に記入する必要がある。","en":"Anyone who wants to borrow the books kept in the teachers' room needs to fill out a form.","m":"難易度 ★★☆ 標準"},{"g":"long-subject","q":"The way people in different parts of the world greet each other when they first meet varies greatly.","c":["meet","people","world","other"],"a":0,"e":"[The way (people (in different parts of the world) greet each other <when they first meet>)] S / varies V / greatly。the way の後の節は way を修飾し、when 節も greet にかかるのでその中に入る。varies の前の meet までが主語。","p":"この文の主語はどこまでか。主語の最後の語を選びなさい。","t":"世界のさまざまな地域の人々が初対面であいさつをする仕方は、大きく異なる。","en":"The way people in different parts of the world greet each other when they first meet varies greatly.","m":"難易度 ★★★ 発展"},{"g":"long-subject","q":"My grandfather, who is over eighty, makes it a rule to walk for an hour along the river every morning.","c":["80歳を超えている祖父は、毎朝1時間川沿いを歩くことにしている。","80歳を超えている祖父は、毎朝1時間川沿いを歩くための規則を作っている。","毎朝1時間川沿いを歩くことが、80歳を超えている祖父を規則正しくしている。","80歳を超えている祖父は、それを毎朝1時間川沿いを歩くときの決まりにしている。"],"a":0,"e":"My grandfather S (, who is over eighty,) / makes V / it O / a rule C / [to walk for an hour along the river every morning] 真の目的語。make it a rule to do「〜することにしている」。it は to walk 以下を指し、「それ」とは訳さない。","p":"この文の最も適切な和訳を選びなさい。","t":"80歳を超えている祖父は、毎朝1時間川沿いを歩くことにしている。","en":"My grandfather, who is over eighty, makes it a rule to walk for an hour along the river every morning.","m":"難易度 ★★★ 発展"},{"g":"long-subject","q":"Those who have never experienced a serious earthquake often find 《it》 hard to imagine how frightening it can be.","c":["to imagine 以下の内容","a serious earthquake","how frightening 以下の内容","Those who 以下の人々"],"a":0,"e":"[Those (who have never experienced a serious earthquake)] S / often find V / it O / hard C / [to imagine [how frightening it can be]] 真の目的語。《it》は to imagine 以下を指す形式目的語。文末の it が地震を指す。","p":"《it》が指す内容として適切なものを選びなさい。","t":"大きな地震を経験したことのない人は、それがどれほど恐ろしいものになりうるかを想像しにくいことが多い。","en":"Those who have never experienced a serious earthquake often find it hard to imagine how frightening it can be.","m":"難易度 ★★★ 発展"},{"g":"long-subject","q":"Being able to explain your ideas clearly in front of people you do not know well is a skill that takes time to develop.","c":["is","explain","know","takes"],"a":0,"e":"[Being able to explain your ideas clearly <in front of people (you do not know well)>] S / is V / [a skill (that takes time to develop)] C。explain は主語の中、know は people を修飾する節の動詞、takes は skill を修飾する節の中。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"よく知らない人の前で自分の考えをはっきり説明できることは、身につけるのに時間がかかる技能だ。","en":"Being able to explain your ideas clearly in front of people you do not know well is a skill that takes time to develop.","m":"難易度 ★★★ 発展"},{"g":"noun-clause","q":"I really think 《that learning a foreign language helps us understand our own culture much better》.","c":["名詞のはたらき（目的語）","名詞のはたらき（主語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（理由を表す）"],"a":0,"e":"I S / really think V / [that learning a foreign language helps us understand our own culture much better] O。that 節は think の目的語になる名詞のカタマリで「〜ということ」。名詞を修飾したり理由を表したりはしていない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"外国語を学ぶことは自分の文化をもっとよく理解する助けになると、私は本当に思う。","en":"I really think that learning a foreign language helps us understand our own culture much better.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"My dream is 《to work as a nurse at a hospital in my hometown》 someday.","c":["名詞のはたらき（補語）","名詞のはたらき（目的語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（目的を表す）"],"a":0,"e":"My dream S / is V / [to work as a nurse <at a hospital in my hometown> <someday>] C。be 動詞の後で「夢＝看護師として働くこと」の関係になるので、名詞用法の補語。「働くために」という目的の意味ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"私の夢は、いつか地元の病院で看護師として働くことだ。","en":"My dream is to work as a nurse at a hospital in my hometown someday.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"Excuse me, could you tell me 《when the next bus for the airport leaves this station》?","c":["名詞のはたらき（目的語）","名詞のはたらき（主語）","形容詞のはたらき（me を修飾）","副詞のはたらき（時を表す）"],"a":0,"e":"you S / tell V / me O / [when the next bus (for the airport) leaves this station] O。tell O O の2つ目の目的語になる間接疑問で「いつ出発するか」。教えてほしいのは出発時刻そのものなので、「出発するときに」という時の副詞節ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"すみません、空港行きの次のバスがいつここを出発するか教えていただけますか。","en":"Excuse me, could you tell me when the next bus for the airport leaves this station?","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"I am not sure if my grandparents will be able to come to the concert next Sunday.","c":["祖父母が次の日曜日の演奏会に来られるかどうか、私にはよくわからない。","もし祖父母が次の日曜日の演奏会に来られるなら、私には自信がない。","祖父母が次の日曜日の演奏会に来られないことは、私にはわかっている。","祖父母が次の日曜日の演奏会に来られれば、私は確信がもてるだろう。"],"a":0,"e":"I S / am not V / sure C / [if my grandparents will be able to come to the concert next Sunday]（sure の内容）。この if 節は「〜かどうか」の名詞のカタマリ。条件の if 節なら未来でも will を使わないので、「もし〜なら」ではない。","p":"この文の最も適切な和訳を選びなさい。","t":"祖父母が次の日曜日の演奏会に来られるかどうか、私にはよくわからない。","en":"I am not sure if my grandparents will be able to come to the concert next Sunday.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"Our plan for the weekend is 《to clean》 the park near the river with our neighbors.","c":["My goal this year is to read twenty English books.","I went to the library to borrow some books about space.","She has a lot of homework to finish by tomorrow.","We were very happy to hear the good news from Tom."],"a":0,"e":"[Our plan (for the weekend)] S / is V / [to clean the park (near the river) <with our neighbors>] C。「計画＝掃除すること」で名詞用法の補語。同じなのは My goal is to read。to borrow は目的、to finish は homework を修飾、to hear は感情の原因。","p":"《》の to 不定詞と同じ用法のものを含む文を選びなさい。","t":"私たちの週末の計画は、近所の人たちと川の近くの公園を掃除することだ。","en":"Our plan for the weekend is to clean the park near the river with our neighbors.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"Do you know 《who》 painted the large picture hanging on the wall of our school library?","c":["library","painted","picture","wall"],"a":0,"e":"you S / know V / [who painted the large picture (hanging on the wall (of our school library))] O。who は間接疑問の主語で、painted の目的語 picture を hanging 以下が修飾する。文末の library までが know の目的語。","p":"《who》で始まる名詞のカタマリはどこまでか。最後の語を選びなさい。","t":"学校の図書館の壁にかかっている大きな絵をだれが描いたか知っていますか。","en":"Do you know who painted the large picture hanging on the wall of our school library?","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"Thank you very much for 《inviting my sister and me to your wonderful birthday party last Saturday》.","c":["名詞のはたらき（前置詞の目的語）","名詞のはたらき（主語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（感謝の理由を表す）"],"a":0,"e":"Thank you very much <for [inviting my sister and me to your wonderful birthday party last Saturday]>。《》は前置詞 for の後ろに置かれた動名詞のカタマリで、for の目的語になる。「〜してくれて」という理由の意味は for が表し、《》自体は名詞。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"先週の土曜日のすてきな誕生日パーティーに妹と私を招待してくれて、本当にありがとう。","en":"Thank you very much for inviting my sister and me to your wonderful birthday party last Saturday.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"Keeping a diary in English every day is a good way to improve your writing.","c":["毎日英語で日記をつけることは、書く力を伸ばすよい方法だ。","毎日英語で日記をつけている人は、書く力を伸ばすよい方法を知っている。","毎日英語で日記をつけながら、書く力を伸ばすよい方法を考えている。","毎日英語でつけている日記は、書く力を伸ばすためのよい手段になる。"],"a":0,"e":"[Keeping a diary in English every day] S / is V / [a good way (to improve your writing)] C。文頭の Keeping は動名詞で「日記をつけること」。is の前にほかの主語がないので、「〜している人」「〜しながら」と読む訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"毎日英語で日記をつけることは、書く力を伸ばすよい方法だ。","en":"Keeping a diary in English every day is a good way to improve your writing.","m":"難易度 ★☆☆ 基礎"},{"g":"noun-clause","q":"《What I want to know》 is whether the school festival will be held as planned this year.","c":["名詞のはたらき（主語）","名詞のはたらき（目的語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（文全体を修飾）"],"a":0,"e":"[What I want to know] S / is V / [whether the school festival will be held as planned this year] C。What 節は is の主語になる名詞のカタマリで「私が知りたいこと」。know の目的語が what になって前に出た形。whether 節は補語。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"私が知りたいのは、今年の文化祭が予定どおり開かれるかどうかだ。","en":"What I want to know is whether the school festival will be held as planned this year.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"Whether we go camping by the lake this weekend depends on the weather forecast for Saturday.","c":["depends","go","camping","forecast"],"a":0,"e":"[Whether we go camping by the lake this weekend] S / depends V / <on the weather forecast (for Saturday)>。文頭の Whether 節は「〜かどうか」の意味で主語になる。go はその中の動詞、camping は go -ing の一部。forecast は名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"今週末に湖のそばへキャンプに行くかどうかは、土曜日の天気予報しだいだ。","en":"Whether we go camping by the lake this weekend depends on the weather forecast for Saturday.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"I wonder 《if》 the city library near the station will be open during the winter holidays.","c":["Please ask Ken if he can join us for dinner tonight.","If it rains tomorrow, the soccer game will be canceled.","You can borrow my bike if you need it this afternoon.","Even if you are busy, please call your mother tonight."],"a":0,"e":"I S / wonder V / [if the city library (near the station) will be open during the winter holidays] O。wonder の目的語で「〜かどうか」の名詞節。同じなのは ask Ken if 〜（〜かどうか尋ねる）。ほかは「もし〜なら」「たとえ〜でも」の副詞節。","p":"《if》と同じ用法の if を含む文を選びなさい。","t":"駅の近くの市立図書館は冬休みの間も開いているのだろうか。","en":"I wonder if the city library near the station will be open during the winter holidays.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"Nobody in our class knows why the new teacher decided to move to such a small town.","c":["新しい先生がなぜこんな小さな町に移ろうと決めたのか、クラスのだれも知らない。","なぜ新しい先生は、クラスのだれも知らないこんな小さな町に移ろうと決めたのか。","クラスのだれも知らないうちに、新しい先生はこんな小さな町に移ることを決めた。","クラスのだれも知らない理由で、新しい先生はこんな小さな町に移ることに決めた。"],"a":0,"e":"[Nobody (in our class)] S / knows V / [why the new teacher decided to move to such a small town] O。why 節は knows の目的語になる間接疑問で「なぜ〜したのか」。文全体を疑問文と読む訳や、時・理由を表す修飾語と読む訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"新しい先生がなぜこんな小さな町に移ろうと決めたのか、クラスのだれも知らない。","en":"Nobody in our class knows why the new teacher decided to move to such a small town.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"The problem is 《that we do not have enough time to prepare for the speech contest》.","c":["名詞のはたらき（補語）","名詞のはたらき（目的語）","形容詞のはたらき（problem を修飾）","副詞のはたらき（理由を表す）"],"a":0,"e":"The problem S / is V / [that we do not have enough time (to prepare for the speech contest)] C。「問題＝時間が足りないこと」の関係なので名詞のカタマリの補語。is をはさんでいるので problem を直接修飾してはいない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"問題は、スピーチコンテストの準備をする時間が十分にないことだ。","en":"The problem is that we do not have enough time to prepare for the speech contest.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"I still remember 《what》 my grandfather told me about his childhood, and I often think about it.","c":["childhood","told","me","it"],"a":0,"e":"I S / still remember V / [what my grandfather told me about his childhood] O, and I S / often think V …。what 節は remember の目的語で、told の目的語が欠けた形。and の後は新しい文なので、childhood までが名詞のカタマリ。","p":"《what》で始まる名詞のカタマリはどこまでか。最後の語を選びなさい。","t":"祖父が自分の子ども時代について話してくれたことを私は今でも覚えていて、よくそのことを考える。","en":"I still remember what my grandfather told me about his childhood, and I often think about it.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"Most students were surprised at how quickly the new library became popular among people in the town.","c":["新しい図書館が町の人々の間でいかに早く人気になったかに、ほとんどの生徒が驚いた。","新しい図書館が町の人々の間で人気になると、ほとんどの生徒はすぐにそれにとても驚いた。","ほとんどの生徒は、町の人々の間で人気のある新しい図書館の建設の速さに驚いた。","ほとんどの生徒が驚いたのは、町の人々が新しい図書館をどのように人気にしたかだ。"],"a":0,"e":"Most students S / were surprised V / <at [how quickly the new library became popular among people in the town]>。how 以下は前置詞 at の目的語になる名詞のカタマリで「どれほど早く人気になったか」。how quickly がひとまとまり。","p":"この文の最も適切な和訳を選びなさい。","t":"新しい図書館が町の人々の間でいかに早く人気になったかに、ほとんどの生徒が驚いた。","en":"Most students were surprised at how quickly the new library became popular among people in the town.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"We decided 《to put off our trip to the mountains》 because of the coming typhoon.","c":["名詞のはたらき（目的語）","名詞のはたらき（補語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（目的を表す）"],"a":0,"e":"We S / decided V / [to put off our trip (to the mountains)] O / <because of the coming typhoon>。decide は to 不定詞を目的語にとり「延期することを決めた」。「延期するために決めた」という目的の副詞用法ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"台風が近づいているので、私たちは山への旅行を延期することにした。","en":"We decided to put off our trip to the mountains because of the coming typhoon.","m":"難易度 ★★☆ 標準"},{"g":"noun-clause","q":"What the people in the village needed most after the storm was not money but clean water.","c":["was","needed","storm","water"],"a":0,"e":"[What the people (in the village) needed most <after the storm>] S / was V / not money but clean water C。needed は What 節の中の動詞。storm や water は動詞にもなるが、ここは the や形容詞がつく名詞。what 節全体を受ける述語動詞は was。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"嵐のあと村の人々が最も必要としたのは、お金ではなくきれいな水だった。","en":"What the people in the village needed most after the storm was not money but clean water.","m":"難易度 ★★★ 発展"},{"g":"noun-clause","q":"The success of the project will depend largely on 《whether the local people are willing to take part in it》.","c":["名詞のはたらき（前置詞の目的語）","名詞のはたらき（主語）","形容詞のはたらき（名詞を修飾）","副詞のはたらき（depend の条件を表す）"],"a":0,"e":"[The success (of the project)] S / will depend V / <largely on [whether the local people are willing to take part in it]>。whether 節は前置詞 on の目的語になる名詞のカタマリで「〜かどうか」。前置詞の後なので条件の副詞節ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"その計画が成功するかどうかは、地元の人々が進んで参加してくれるかどうかに大きくかかっている。","en":"The success of the project will depend largely on whether the local people are willing to take part in it.","m":"難易度 ★★★ 発展"},{"g":"noun-clause","q":"How we spend our free time says a lot about what we really value in life.","c":["自由な時間をどう過ごすかで、私たちが人生で本当に何を大切にしているかがよくわかる。","自由な時間の過ごし方について、私たちは人生で本当に大切なことを多く語り合っている。","人生で本当に大切にしているものについて話すとき、私たちは自由な時間を多く使う。","どうすれば自由な時間を過ごせるかは、人生で本当に大切なものが多く教えてくれる。"],"a":0,"e":"[How we spend our free time] S / says V / a lot O / <about [what we really value in life]>。how 節は主語「どう過ごすか」、what 節は about の目的語「何を大切にしているか」。say a lot about 〜「〜をよく物語る」。we を主語とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"自由な時間をどう過ごすかで、私たちが人生で本当に何を大切にしているかがよくわかる。","en":"How we spend our free time says a lot about what we really value in life.","m":"難易度 ★★★ 発展"},{"g":"noun-clause","q":"《Taking》 care of small children every day requires a lot of patience and a good sense of humor.","c":["My uncle's job is repairing old clocks in his small shop.","Walking to school this morning, I saw a rainbow over the hill.","The boy talking with our teacher is a new student from Canada.","We watched the sun rising slowly over the quiet lake."],"a":0,"e":"[Taking care of small children every day] S / requires V / …。《Taking》は主語になる動名詞。同じなのは My uncle's job is repairing …（「仕事＝修理すること」の補語で、進行形ではない）。Walking は分詞構文、talking は boy を修飾、rising は補語の分詞。","p":"《》の -ing 形と同じく名詞のはたらきをする -ing 形を含む文を選びなさい。","t":"小さな子どもの世話を毎日するには、多くの忍耐と豊かなユーモアの感覚が必要だ。","en":"Taking care of small children every day requires a lot of patience and a good sense of humor.","m":"難易度 ★★★ 発展"},{"g":"adj-modifier","q":"The girl 《playing the piano on the stage》 is my classmate from junior high school.","c":["girl","stage","classmate","school"],"a":0,"e":"[The girl (playing the piano on the stage)] S / is V / [my classmate (from junior high school)] C。playing 以下は直前の girl を後ろから修飾する現在分詞のカタマリで「ピアノを弾いている女の子」。stage は on の目的語で、修飾される語ではない。","p":"《》が修飾している語を選びなさい。","t":"ステージでピアノを弾いている女の子は、中学時代からの同級生だ。","en":"The girl playing the piano on the stage is my classmate from junior high school.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"I bought a book 《written in easy English》 for my little brother who is learning to read.","c":["book","bought","brother","English"],"a":0,"e":"I S / bought V / [a book (written in easy English)] O / <for my little brother (who is learning to read)>。written 以下は book を修飾する過去分詞で「やさしい英語で書かれた本」。書かれるのは本なので book にかかる。","p":"《》が修飾している語を選びなさい。","t":"私は、字を習っている弟のために、やさしい英語で書かれた本を買った。","en":"I bought a book written in easy English for my little brother who is learning to read.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"The man 《who lives next door》 grows tomatoes and cucumbers in his small garden every summer.","c":["形容詞のはたらき（名詞を修飾）","名詞のはたらき（主語）","名詞のはたらき（目的語）","副詞のはたらき（grows の場所）"],"a":0,"e":"[The man (who lives next door)] S / grows V / [tomatoes and cucumbers] O / <in his small garden> <every summer>。who 以下は man を修飾する関係詞節で形容詞のはたらき。主語は The man で、関係詞節はその説明。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"隣に住んでいる男性は、毎年夏に小さな庭でトマトとキュウリを育てている。","en":"The man who lives next door grows tomatoes and cucumbers in his small garden every summer.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"The boy talking with the teacher in the hallway is the new captain of our soccer team.","c":["廊下で先生と話している男の子は、私たちのサッカー部の新しいキャプテンだ。","廊下で男の子と話している先生は、私たちのサッカー部の新しいキャプテンだ。","その男の子は、廊下で先生とサッカー部の新しいキャプテンについて話している。","廊下で話している先生によると、その男の子はサッカー部の新しいキャプテンだ。"],"a":0,"e":"[The boy (talking with the teacher in the hallway)] S / is V / [the new captain (of our soccer team)] C。talking 以下は boy を修飾する分詞。話しているのもキャプテンなのも男の子。talking を述語動詞と読む訳や、teacher を主語とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"廊下で先生と話している男の子は、私たちのサッカー部の新しいキャプテンだ。","en":"The boy talking with the teacher in the hallway is the new captain of our soccer team.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"The woman 《with a big blue umbrella》 is waiting for someone in front of the station.","c":["woman","waiting","someone","station"],"a":0,"e":"[The woman (with a big blue umbrella)] S / is waiting V / <for someone> <in front of the station>。主語と動詞の間にある前置詞句は直前の woman を修飾し、「大きな青い傘を持った女性」となる。動詞より前にあるので waiting にはかからない。","p":"《》が修飾している語を選びなさい。","t":"大きな青い傘を持った女性が、駅前でだれかを待っている。","en":"The woman with a big blue umbrella is waiting for someone in front of the station.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"The umbrella you lost at the station yesterday turned up in the lost and found office this morning.","c":["turned","lost","found","station"],"a":0,"e":"[The umbrella ((that) you lost at the station yesterday)] S / turned up V / <in the lost and found office> <this morning>。関係代名詞の省略で、最初の lost はその中の動詞。lost and found は「遺失物」の名詞。turn up は「見つかる」。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"あなたが昨日駅でなくした傘が、今朝、遺失物取扱所で見つかった。","en":"The umbrella you lost at the station yesterday turned up in the lost and found office this morning.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"The sweater my grandmother knitted for me keeps me warm even on the coldest days.","c":["祖母が編んでくれたセーターのおかげで、いちばん寒い日でも私は暖かい。","祖母は私にセーターを編み、いちばん寒い日でも私を暖かくしてくれる。","セーターを編んでくれた祖母は、いちばん寒い日でも私を暖かく見守る。","いちばん寒い日でも、祖母は私のためにセーターを暖かく保ってくれる。"],"a":0,"e":"[The sweater ((that) my grandmother knitted for me)] S / keeps V / me O / warm C / <even on the coldest days>。関係代名詞の省略で、knitted は sweater を修飾する節の中の動詞。主語はセーター、述語動詞は keeps。祖母を主語とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"祖母が編んでくれたセーターのおかげで、いちばん寒い日でも私は暖かい。","en":"The sweater my grandmother knitted for me keeps me warm even on the coldest days.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"There are many places 《to visit》 in Kyoto, so you should stay there for at least three days.","c":["形容詞のはたらき（places を修飾）","副詞のはたらき（are の目的を表す）","名詞のはたらき（主語）","名詞のはたらき（補語）"],"a":0,"e":"There are V / [many places (to visit)] S / <in Kyoto>, so …。to visit は places を修飾する形容詞用法で「訪れるべき場所」。places は visit の目的語にあたる。「訪れるために」という目的の意味ではない。主語は many places。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"京都には訪れるべき場所がたくさんあるので、少なくとも3日は滞在したほうがいい。","en":"There are many places to visit in Kyoto, so you should stay there for at least three days.","m":"難易度 ★☆☆ 基礎"},{"g":"adj-modifier","q":"This is the park 《where my father used to play baseball with his friends when he was a boy》.","c":["park","This","baseball","friends"],"a":0,"e":"This S / is V / [the park (where my father used to play baseball with his friends <when he was a boy>)] C。where は場所を表す関係副詞で、直前の park を修飾する。when 節も play にかかり、関係詞節の中にある。","p":"《》が修飾している語を選びなさい。","t":"ここは、父が子どものころによく友達と野球をした公園だ。","en":"This is the park where my father used to play baseball with his friends when he was a boy.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"Last month I met a woman at the party who had lived in Brazil for more than ten years.","c":["先月、私はパーティーで、ブラジルに10年以上住んでいたことのある女性に会った。","先月、私はブラジルで10年以上続いているパーティーで、ある女性に会った。","ブラジルに10年以上住んでいた私は、先月パーティーである女性に会った。","先月、私はブラジルに10年以上住んだあと、パーティーである女性に会った。"],"a":0,"e":"<Last month> I S / met V / [a woman] O / <at the party> / (who had lived in Brazil for more than ten years)。who 節は離れた woman を修飾する。party は人ではないので who の先行詞にならない。住んでいたのは女性で、「私」ではない。","p":"この文の最も適切な和訳を選びなさい。","t":"先月、私はパーティーで、ブラジルに10年以上住んでいたことのある女性に会った。","en":"Last month I met a woman at the party who had lived in Brazil for more than ten years.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"A package arrived this morning from my aunt, 《which》 contained a lot of homemade cookies.","c":["package","morning","aunt","cookies"],"a":0,"e":"[A package] S / arrived V / <this morning> <from my aunt>, (which contained a lot of homemade cookies)。which は物を受けるので人の aunt ではない。クッキーが入っていたのは小包なので、離れた package が先行詞。","p":"《which》の先行詞として適切なものを選びなさい。","t":"今朝おばから小包が届き、その中には手作りのクッキーがたくさん入っていた。","en":"A package arrived this morning from my aunt, which contained a lot of homemade cookies.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"The student 《whose essay won the first prize》 will read it aloud at the school assembly next week.","c":["student","essay","prize","assembly"],"a":0,"e":"[The student (whose essay won the first prize)] S / will read V / it O / aloud <at the school assembly next week>。whose essay は「その生徒の作文」で、節全体が student を修飾する。essay は節の中の主語。it は essay を指す。","p":"《》が修飾している語を選びなさい。","t":"作文で1位になった生徒は、来週の全校集会でその作文を読み上げる。","en":"The student whose essay won the first prize will read it aloud at the school assembly next week.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"The houses built along the coast after the big earthquake stand on much higher ground than before.","c":["stand","built","coast","ground"],"a":0,"e":"[The houses (built along the coast after the big earthquake)] S / stand V / <on much higher ground than before>。built は houses を修飾する過去分詞で述語動詞ではない。coast や ground は動詞にもなるが、ここは名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"大地震のあとに海岸沿いに建てられた家々は、以前よりずっと高い土地に建っている。","en":"The houses built along the coast after the big earthquake stand on much higher ground than before.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"The town 《in which I grew up》 has changed a lot since the new shopping mall opened.","c":["town","changed","mall","opened"],"a":0,"e":"[The town (in which I grew up)] S / has changed V / a lot / <since the new shopping mall opened>。in which 以下は town を修飾する関係詞節で「私が育った町」。I grew up in the town の in が which とともに前に出た形。","p":"《》が修飾している語を選びなさい。","t":"私が育った町は、新しいショッピングモールができてから大きく変わった。","en":"The town in which I grew up has changed a lot since the new shopping mall opened.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"There were a lot of people waiting in line for the new ramen shop that opened near the station.","c":["駅の近くに開店した新しいラーメン店には、列に並んで待っている人がたくさんいた。","駅の近くに開店するのを待って、新しいラーメン店に多くの人が列を作っていた。","多くの人が列に並んで待っていたので、新しいラーメン店は駅の近くに開店した。","列に並んでいる多くの人のために、新しいラーメン店が駅の近くに開店していた。"],"a":0,"e":"There were V / [a lot of people (waiting in line for the new ramen shop (that opened near the station))] S。waiting 以下は people を修飾し、that 節は直前の shop を修飾する。that opened を「開店を待つ」や理由・目的と読む訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"駅の近くに開店した新しいラーメン店には、列に並んで待っている人がたくさんいた。","en":"There were a lot of people waiting in line for the new ramen shop that opened near the station.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"Anyone 《interested in joining the volunteer group》 should come to the meeting in Room 3 after school.","c":["Anyone","joining","group","meeting"],"a":0,"e":"[Anyone (interested in joining the volunteer group)] S / should come V / <to the meeting in Room 3> <after school>。interested 以下は Anyone を後ろから修飾する形容詞のカタマリで「〜に関心のある人はだれでも」。関心をもつのは人。","p":"《》が修飾している語を選びなさい。","t":"ボランティアグループへの参加に関心のある人はだれでも、放課後に3番教室での会合に来てください。","en":"Anyone interested in joining the volunteer group should come to the meeting in Room 3 after school.","m":"難易度 ★★☆ 標準"},{"g":"adj-modifier","q":"Scientists have developed rice in their laboratory 《that》 can grow well even in areas with very little rain.","c":["rice","Scientists","laboratory","areas"],"a":0,"e":"Scientists S / have developed V / rice O / <in their laboratory> / (that can grow well even in areas with very little rain)。that 節は離れた rice を修飾する。「雨の少ない地域でも育つ」のは米で、研究室や科学者ではない。","p":"《that》の先行詞として適切なものを選びなさい。","t":"科学者たちは研究室で、雨がとても少ない地域でもよく育つ米を開発した。","en":"Scientists have developed rice in their laboratory that can grow well even in areas with very little rain.","m":"難易度 ★★★ 発展"},{"g":"adj-modifier","q":"The report on climate change that the students presented at the conference was praised by many experts.","c":["生徒たちが学会で発表した気候変動に関する報告は、多くの専門家に称賛された。","生徒たちが学会で発表した気候変動について、多くの専門家の報告が称賛された。","気候変動に関する報告によると、学会で発表した生徒たちは専門家に称賛された。","生徒たちが学会で示した気候変動は、多くの専門家による報告の中で称賛された。"],"a":0,"e":"[The report (on climate change) (that the students presented at the conference)] S / was praised V / <by many experts>。that 節は presented の目的語が欠けた形。発表したのは報告なので、直前の climate change ではなく report を修飾する。","p":"この文の最も適切な和訳を選びなさい。","t":"生徒たちが学会で発表した気候変動に関する報告は、多くの専門家に称賛された。","en":"The report on climate change that the students presented at the conference was praised by many experts.","m":"難易度 ★★★ 発展"},{"g":"adj-modifier","q":"The few trees that survived the fire that destroyed most of the forest last summer now show new green leaves.","c":["show","survived","destroyed","leaves"],"a":0,"e":"[The few trees (that survived the fire (that destroyed most of the forest last summer))] S / now show V / [new green leaves] O。survived と destroyed は関係詞節の中の動詞。leaves は動詞にもなるが、ここは形容詞がつく名詞。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"昨年の夏に森の大部分を焼いた火事を生き延びた数本の木が、今は新しい緑の葉をつけている。","en":"The few trees that survived the fire that destroyed most of the forest last summer now show new green leaves.","m":"難易度 ★★★ 発展"},{"g":"adj-modifier","q":"The children had no toys 《to play with》, so they made their own from old boxes and bottles.","c":["Please give me something to write with, like a pen.","We got up early to catch the first train to the city.","It is dangerous to swim in this river after heavy rain.","My little sister grew up to be a science teacher."],"a":0,"e":"The children S / had V / [no toys (to play with)] O, so …。to play with は toys を修飾する形容詞用法（play with toys の関係）。同じなのは something to write with。to catch は目的、to swim は形式主語の内容、to be は結果。","p":"《》の to 不定詞と同じ用法のものを含む文を選びなさい。","t":"子どもたちには遊ぶおもちゃがなかったので、古い箱やびんを使って自分たちで作った。","en":"The children had no toys to play with, so they made their own from old boxes and bottles.","m":"難易度 ★★★ 発展"},{"g":"adv-modifier","q":"《When I got home from school yesterday》, my little sister was already doing her homework in the living room.","c":["副詞のはたらき（時を表す）","名詞のはたらき（主語）","名詞のはたらき（目的語）","形容詞のはたらき（名詞を修飾）"],"a":0,"e":"<When I got home from school yesterday>, [my little sister] S / was already doing V / [her homework] O / <in the living room>。When 節は「〜したとき」と時を表し、主節を修飾する副詞のカタマリ。コンマの後に主節の主語がある。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"昨日私が学校から帰ったとき、妹はもう居間で宿題をしていた。","en":"When I got home from school yesterday, my little sister was already doing her homework in the living room.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"My brother went to the library early on Sunday morning 《to study for his math test》.","c":["副詞のはたらき（目的を表す）","形容詞のはたらき（morning を修飾）","名詞のはたらき（目的語）","名詞のはたらき（補語）"],"a":0,"e":"My brother S / went V / <to the library> <early on Sunday morning> <to study for his math test>。to study は went を修飾し「勉強するために」と目的を表す副詞用法。went は目的語や補語をとらず、morning の説明でもない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"兄は数学のテストの勉強をするために、日曜の朝早く図書館へ行った。","en":"My brother went to the library early on Sunday morning to study for his math test.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"We were very glad 《to hear》 that our team had won the final game of the tournament.","c":["glad","We","team","game"],"a":0,"e":"We S / were V / very glad C / <to hear [that our team had won the final game of the tournament]>。to hear は glad を修飾し「聞いてうれしい」と感情の原因を表す副詞用法。that 節は hear の目的語。","p":"《to hear》が修飾している語を選びなさい。","t":"私たちは、自分たちのチームがトーナメントの決勝戦に勝ったと聞いてとてもうれしかった。","en":"We were very glad to hear that our team had won the final game of the tournament.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"Although it was raining heavily all morning, the students continued cleaning the beach until noon.","c":["午前中ずっと激しく雨が降っていたが、生徒たちは正午まで浜辺の掃除を続けた。","午前中ずっと激しく雨が降っていたので、生徒たちは正午まで浜辺の掃除を続けた。","午前中に激しい雨が降り始めるまで、生徒たちは正午前に浜辺の掃除を続けた。","午前中ずっと激しく雨が降っていても、生徒たちは正午には浜辺の掃除をやめた。"],"a":0,"e":"<Although it was raining heavily all morning>, [the students] S / continued V / [cleaning the beach] O / <until noon>。Although は「〜だけれども」と譲歩を表す。「〜ので」（理由）や「〜まで」（時）と読む訳、continued を「やめた」とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"午前中ずっと激しく雨が降っていたが、生徒たちは正午まで浜辺の掃除を続けた。","en":"Although it was raining heavily all morning, the students continued cleaning the beach until noon.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"《Looking out of the window》, I saw a beautiful rainbow over the mountains behind our school.","c":["副詞のはたらき（分詞構文）","名詞のはたらき（主語）","形容詞のはたらき（I を修飾）","名詞のはたらき（目的語）"],"a":0,"e":"<Looking out of the window>, I S / saw V / [a beautiful rainbow (over the mountains (behind our school))] O。コンマの後に主語 I があるので、Looking 以下は主節を修飾する分詞構文。動名詞の主語なら直後に述語動詞が来る。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"窓の外を見ると、学校の裏の山々の上に美しい虹が見えた。","en":"Looking out of the window, I saw a beautiful rainbow over the mountains behind our school.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"《If you have any questions about the homework》, please send an email to Mr. Suzuki by Friday.","c":["副詞のはたらき（条件を表す）","名詞のはたらき（「〜かどうか」）","形容詞のはたらき（名詞を修飾）","名詞のはたらき（主語）"],"a":0,"e":"<If you have any questions about the homework>, please send V / [an email] O / <to Mr. Suzuki> <by Friday>。コンマの後に主節が続くので「もし〜なら」の条件の副詞節。「〜かどうか」の if 節は ask や know などの目的語になる。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"宿題について質問があれば、金曜日までに鈴木先生にメールを送ってください。","en":"If you have any questions about the homework, please send an email to Mr. Suzuki by Friday.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"Because the bus was late this morning, many students who live far from school missed the first class.","c":["missed","was","live","late"],"a":0,"e":"<Because the bus was late this morning>, [many students (who live far from school)] S / missed V / [the first class] O。was は Because 節の動詞、live は関係詞節の動詞、late は形容詞。主節の述語動詞は missed。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"今朝はバスが遅れたので、学校から遠くに住んでいる多くの生徒が1時間目の授業に間に合わなかった。","en":"Because the bus was late this morning, many students who live far from school missed the first class.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"I got up early this morning 《to watch》 the sunrise from the top of the hill.","c":["She saved money for a year to buy a new bicycle.","I have no time to watch TV on weekdays.","To watch birds in the forest is my hobby.","My plan is to visit my grandparents in August."],"a":0,"e":"I S / got up V / <early this morning> <to watch the sunrise from the top of the hill>。to watch は「見るために」と目的を表す副詞用法。同じなのは to buy。to watch TV は time を修飾、To watch birds と to visit は名詞用法。","p":"《》の to 不定詞と同じ用法のものを含む文を選びなさい。","t":"丘の頂上から日の出を見るために、今朝は早起きした。","en":"I got up early this morning to watch the sunrise from the top of the hill.","m":"難易度 ★☆☆ 基礎"},{"g":"adv-modifier","q":"Please speak a little more slowly 《so that everyone in the room can understand you》.","c":["副詞のはたらき（目的を表す）","副詞のはたらき（結果を表す）","名詞のはたらき（目的語）","形容詞のはたらき（名詞を修飾）"],"a":0,"e":"Please speak V / <a little more slowly> <so that everyone in the room can understand you>。so that S can 〜「〜できるように」は目的を表す副詞のカタマリ。コンマがなく can を伴う依頼の文なので、「その結果〜」の結果ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"部屋にいる全員が理解できるように、もう少しゆっくり話してください。","en":"Please speak a little more slowly so that everyone in the room can understand you.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"Not knowing what to say, the new student just smiled and looked down at his desk.","c":["何と言えばよいかわからなかったので、転校生はただほほえんで机に目を落とした。","何と言えばよいかわからない転校生を見て、みんなはただほほえんで机に目を落とした。","何も言わずにほほえむことを知らなかったので、転校生はただ机に目を落とした。","何と言えばよいかわからないまま、転校生はほほえむのをやめて机を見下ろした。"],"a":0,"e":"<Not knowing [what to say]>, [the new student] S / just smiled V and looked V <down at his desk>。Not knowing 以下は否定の分詞構文で、主語は主節と同じ転校生。smiled と looked が and で並ぶ。「みんな」を主語とする訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"何と言えばよいかわからなかったので、転校生はただほほえんで机に目を落とした。","en":"Not knowing what to say, the new student just smiled and looked down at his desk.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"《Tired after the long journey》, my parents went to bed as soon as they arrived at the hotel.","c":["副詞のはたらき（主節を修飾）","形容詞のはたらき（journey を修飾）","名詞のはたらき（主語）","名詞のはたらき（補語）"],"a":0,"e":"<Tired after the long journey>, [my parents] S / went V / <to bed> <as soon as they arrived at the hotel>。Tired 以下は Being が省略された分詞構文で、主節を修飾する。コンマの後に主語が続くので主語ではない。疲れたのは両親。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"長旅で疲れていたので、両親はホテルに着くとすぐに寝た。","en":"Tired after the long journey, my parents went to bed as soon as they arrived at the hotel.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"He hurried to the station, only to find that the last train had already left for the city.","c":["彼は駅へ急いだが、結局、都心行きの最終電車はすでに出てしまっていた。","彼は都心行きの最終電車がすでに出たことを確かめるためだけに、駅へ急いだ。","彼は都心行きの最終電車がすでに出たとわかったので、急いで駅へ向かった。","彼は駅へ急いだので、都心行きの最終電車が出る前になんとか間に合った。"],"a":0,"e":"He S / hurried V / <to the station>, <only to find [that the last train had already left for the city]>。, only to 〜「（〜したが）結局〜しただけだった」は結果を表す副詞用法。「〜するために」と目的に読む訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"彼は駅へ急いだが、結局、都心行きの最終電車はすでに出てしまっていた。","en":"He hurried to the station, only to find that the last train had already left for the city.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"《Whatever happens during the trip》, you must stay with your group and follow the guide.","c":["副詞のはたらき（譲歩を表す）","名詞のはたらき（主語）","名詞のはたらき（目的語）","形容詞のはたらき（trip を修飾）"],"a":0,"e":"<Whatever happens during the trip>, you S / must stay V <with your group> and follow V / the guide O。Whatever 節は「何が起ころうとも」と譲歩を表す副詞のカタマリ。コンマの後に主語 you が続くので、主語や目的語ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"旅行中に何が起こっても、グループから離れずにガイドの指示に従わなければならない。","en":"Whatever happens during the trip, you must stay with your group and follow the guide.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"The water in this mountain lake is clean enough 《to drink》 without boiling it first.","c":["clean","water","lake","boiling"],"a":0,"e":"[The water (in this mountain lake)] S / is V / clean C <enough to drink> / <without boiling it first>。形容詞＋enough to 〜「〜できるほど…」で、to drink は enough とともに clean を修飾する副詞用法。water や lake の説明ではない。","p":"《to drink》が修飾している語を選びなさい。","t":"この山の湖の水は、先に沸かさなくても飲めるほどきれいだ。","en":"The water in this mountain lake is clean enough to drink without boiling it first.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"My father was sleeping on the sofa with the TV still on when I came home late last night.","c":["昨夜遅く私が帰宅したとき、父はテレビをつけたままソファで寝ていた。","昨夜遅く私が帰宅したとき、父はテレビと一緒にソファの上でまだ寝ていた。","昨夜遅く私が帰宅してテレビをつけたとき、父はまだソファで寝ていた。","昨夜遅く私が帰宅したとき、父はソファで寝そべってまだテレビを見ていた。"],"a":0,"e":"My father S / was sleeping V / <on the sofa> <with the TV still on> <when I came home late last night>。with O C「OがCの状態で」は付帯状況で「テレビがついたまま」。テレビをつけたのは私ではなく、父が見ていたとも言っていない。","p":"この文の最も適切な和訳を選びなさい。","t":"昨夜遅く私が帰宅したとき、父はテレビをつけたままソファで寝ていた。","en":"My father was sleeping on the sofa with the TV still on when I came home late last night.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"《Having finished her history report》, Emma went out to play tennis with her friends in the park.","c":["歴史のレポートを書き終えてから","歴史のレポートを書き終えるために","歴史のレポートを書き終えたとしても","歴史のレポートを書き終えないまま"],"a":0,"e":"<Having finished her history report>, Emma S / went out V / <to play tennis with her friends in the park>。Having＋過去分詞の分詞構文は主節より前に終わったことを表し「書き終えてから」。目的・譲歩の意味はなく、not もないので否定でもない。","p":"《》の部分の意味として適切なものを選びなさい。","t":"歴史のレポートを書き終えると、エマは友達と公園でテニスをしに出かけた。","en":"Having finished her history report, Emma went out to play tennis with her friends in the park.","m":"難易度 ★★☆ 標準"},{"g":"adv-modifier","q":"Written in simple English, the guidebook sold for tourists at the station helps visitors find their way easily.","c":["helps","Written","sold","find"],"a":0,"e":"<Written in simple English>, [the guidebook (sold for tourists at the station)] S / helps V / visitors O / find their way easily C。Written 以下は分詞構文、sold は guidebook を修飾する過去分詞。find は help O＋原形の原形部分。","p":"この文全体の述語動詞として適切なものを選びなさい。","t":"駅で旅行者向けに売られているそのガイドブックはやさしい英語で書かれているので、訪問者は簡単に道がわかる。","en":"Written in simple English, the guidebook sold for tourists at the station helps visitors find their way easily.","m":"難易度 ★★★ 発展"},{"g":"adv-modifier","q":"As we climbed higher up the mountain, the air became thinner and it got harder to breathe.","c":["山を高く登るにつれて、空気は薄くなり、呼吸するのが難しくなった。","山を高く登り始める前から、空気は薄くなり、呼吸するのが難しくなった。","私たちが登った高い山では、空気が薄いので、呼吸するのが難しかった。","空気が薄くなり呼吸が難しくなったので、私たちは山をさらに高く登った。"],"a":0,"e":"<As we climbed higher up the mountain>, [the air] S / became V / thinner C and it got harder to breathe。as が higher, thinner, harder という変化とともに使われ「〜につれて」の意味。原因と結果を逆にした訳や、山を修飾する訳は誤り。","p":"この文の最も適切な和訳を選びなさい。","t":"山を高く登るにつれて、空気は薄くなり、呼吸するのが難しくなった。","en":"As we climbed higher up the mountain, the air became thinner and it got harder to breathe.","m":"難易度 ★★★ 発展"},{"g":"adv-modifier","q":"The old man walked slowly along the river, 《stopping now and then to look at the birds》.","c":["副詞のはたらき（付帯状況）","形容詞のはたらき（river を修飾）","名詞のはたらき（目的語）","名詞のはたらき（補語）"],"a":0,"e":"[The old man] S / walked V / <slowly> <along the river>, <stopping now and then to look at the birds>。コンマの後の stopping 以下は「ときどき立ち止まりながら」と付帯状況を表す分詞構文。立ち止まるのは老人で、川ではない。","p":"《》の部分の文中での働きとして適切なものを選びなさい。","t":"老人は、ときどき立ち止まって鳥を眺めながら、川沿いをゆっくり歩いた。","en":"The old man walked slowly along the river, stopping now and then to look at the birds.","m":"難易度 ★★★ 発展"},{"g":"adv-modifier","q":"Given that she had only studied Japanese for a year, her speech at the contest was remarkably good.","c":["日本語を1年しか学んでいないことを考えると、コンテストでの彼女のスピーチは際立ってよかった。","日本語を1年しか学んでいなかったが、コンテストで彼女に与えられたスピーチは際立ってよかった。","日本語を1年しか学ばないという条件のもとで、彼女はコンテストで際立ってよいスピーチをした。","コンテストで際立ってよいスピーチをしたので、彼女は日本語を1年学ぶ機会を与えられた。"],"a":0,"e":"<Given that she had only studied Japanese for a year>, [her speech (at the contest)] S / was V / remarkably good C。given that 〜「〜を考慮すると」は文全体を修飾する副詞のカタマリ。「与えられた」の意味の分詞や条件ではない。","p":"この文の最も適切な和訳を選びなさい。","t":"日本語を1年しか学んでいないことを考えると、コンテストでの彼女のスピーチは際立ってよかった。","en":"Given that she had only studied Japanese for a year, her speech at the contest was remarkably good.","m":"難易度 ★★★ 発展"},{"g":"that-usage","q":"Many students believe 《that》 studying late at night is the best way to prepare for an important exam.","c":["名詞節を導く接続詞","関係代名詞","同格節を導く接続詞","強調構文の that"],"a":0,"e":"[S]Many students [V]believe [O][that studying ～ exam]。that の後ろは欠けのない完全な文で、believe の目的語「～ということ」になるので名詞節の接続詞。that の前に名詞がないので、関係代名詞や同格ではない。","p":"《that》の用法として適切なものを選びなさい。","t":"多くの生徒は、夜遅くに勉強することが大事な試験に備える最善の方法だと思っている。","en":"Many students believe that studying late at night is the best way to prepare for an important exam.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"The science club needs a leader 《that》 can explain difficult ideas to younger members in a simple way.","c":["関係代名詞","名詞節を導く接続詞","同格節を導く接続詞","強調構文の that"],"a":0,"e":"[S]The science club [V]needs [O]a leader (that can explain ～ way)。that の後ろは can explain の主語が欠けた文で、a leader を説明しているので関係代名詞。後ろが完全な文でないので、接続詞（名詞節・同格）ではない。","p":"《that》の用法として適切なものを選びなさい。","t":"科学部には、難しい考えを後輩にわかりやすく説明できるリーダーが必要だ。","en":"The science club needs a leader that can explain difficult ideas to younger members in a simple way.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"The news 《that》 the old library would close next spring surprised many people in our town.","c":["I heard a rumor that our coach is leaving.","I read a story that my aunt had written for me.","It was my aunt that wrote this story.","She said that the story was true."],"a":0,"e":"[S]The news [that the old library ～ spring] [V]surprised [O]many people。news の後ろに完全な文が続き「～という知らせ」となる同格。rumor の後ろも完全な文なので同格。story の文は written の目的語が欠けた関係代名詞、my aunt の文は強調構文、said の文は名詞節。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"古い図書館が来春閉館するという知らせは、町の多くの人を驚かせた。","en":"The news that the old library would close next spring surprised many people in our town.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"The bike 《that》 my grandfather gave me ten years ago still runs well on the hills near my house.","c":["This is the song that my sister often sings.","The fact that my sister sings surprised me.","I know that my sister often sings this song.","My sister sang so loudly that I woke up."],"a":0,"e":"[S]The bike (that my grandfather gave me ～ ago) [V]runs。gave me の後ろの「何を」が欠けているので関係代名詞。the song の文も sings の目的語が欠けた関係代名詞。fact の文は同格、know の文は名詞節、so loudly の文は so～that。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"祖父が10年前にくれた自転車は、家の近くの坂道でも今なおよく走る。","en":"The bike that my grandfather gave me ten years ago still runs well on the hills near my house.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"It was not the price but the design 《that》 made the new smartphone so popular among teenagers.","c":["It was in Kyoto that I first met Ken.","It is true that Ken met me in Kyoto.","Kyoto is a city that Ken likes very much.","Ken was so tired that he slept in Kyoto."],"a":0,"e":"It was と that を外すと Not the price but the design made ～ と文が成り立つので強調構文。in Kyoto の文も外すと I first met Ken in Kyoto. となり強調構文。true の文は形式主語、city の文は関係代名詞、so tired の文は so～that。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"その新しいスマートフォンを10代にあれほど人気にしたのは、価格ではなくデザインだった。","en":"It was not the price but the design that made the new smartphone so popular among teenagers.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"It is surprising 《that》 so many young people still prefer paper books to e-books in this digital age.","c":["形式主語 it の真主語","強調構文を作る that","関係代名詞の that","同格を表す that"],"a":0,"e":"[S]It [V]is [C]surprising [真S][that so many ～ age]。It is の後が形容詞で、It is と that を外すと文にならないので強調構文ではない。It が that 節を指す形式主語で、「～ということは驚きだ」と訳す。前に名詞がないので関係代名詞・同格でもない。","p":"《that》の用法として適切なものを選びなさい。","t":"このデジタル時代に、これほど多くの若者がいまだに電子書籍より紙の本を好むのは驚きだ。","en":"It is surprising that so many young people still prefer paper books to e-books in this digital age.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"The final question on the test was so difficult 《that》 even the top students in our class could not answer it.","c":["The box was so heavy that nobody could lift it.","The box that nobody could lift was heavy.","Everyone knew that the box was very heavy.","Nobody noticed the fact that the box was heavy."],"a":0,"e":"[S]The final question [V]was [C]so difficult <that even ～ it>。so＋形容詞の後の that で「とても～なので…」の so～that。heavy の文も同じ形。The box that nobody could lift は関係代名詞、knew の後は名詞節、the fact の後は同格。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"テストの最後の問題はとても難しかったので、クラスで一番できる生徒でさえ解けなかった。","en":"The final question on the test was so difficult that even the top students in our class could not answer it.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"《The idea that our school should start later in the morning》 was supported by most of the students.","c":["学校の始業を朝もっと遅くすべきだという考えは、生徒の大半に支持された。","学校が朝にもっと遅くから取り入れてきた考えは、生徒の大半に支持された。","その考えのせいで学校の始業が遅くなったことを、生徒の大半が支持した。","学校の始業を朝もっと遅くすべきだと、その考えは生徒の大半に訴えた。"],"a":0,"e":"[S]The idea [that our school should start ～ morning] [V]was supported。that の後ろは欠けのない完全な文なので同格で「～という考え」。2番目は関係代名詞と誤読した訳。3番目・4番目は that 節までが主語で動詞が was supported だという骨格を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"学校の始業を朝もっと遅くすべきだという考えは、生徒の大半に支持された。","en":"The idea that our school should start later in the morning was supported by most of the students.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"Most of the plastic 《that》 people throw away every day ends up in the ocean instead of being recycled.","c":["関係代名詞","指示代名詞","名詞節を導く接続詞","so ～ that の that"],"a":0,"e":"[S]Most of the plastic (that people throw away every day) [V]ends up <in the ocean>。throw away の目的語が欠けているので関係代名詞。「あの」の意味の指示代名詞なら後ろに名詞が続くはず。前に so がないので so～that でもない。","p":"《that》の用法として適切なものを選びなさい。","t":"人々が毎日捨てるプラスチックの大半は、リサイクルされずに最後は海に行き着く。","en":"Most of the plastic that people throw away every day ends up in the ocean instead of being recycled.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"The problem is 《that》 many people do not know how much water they actually use in a single day.","c":["My hope is that everyone enjoys the trip.","The hope that everyone had was very small.","Our hope that we would win grew stronger.","It was hope that kept the team going."],"a":0,"e":"[S]The problem [V]is [C][that many people ～ day]。is の後の that 節は補語になる名詞節で「～ということ」。My hope is that ～ も同じ。hope that everyone had は had の目的語が欠けた関係代名詞、hope that we would win は同格、It was hope that ～ は強調構文。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"問題は、多くの人が1日に実際どれだけの水を使っているかを知らないことだ。","en":"The problem is that many people do not know how much water they actually use in a single day.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"The speaker talked 《so quietly that》 the students sitting in the back of the hall could hardly hear her.","c":["講演者の声がとても小さかったので、会場の後ろに座る生徒にはほとんど聞こえなかった。","会場の後ろに座る生徒に聞こえないように、講演者はわざととても小さな声で話した。","会場の後ろに座る生徒がほとんど聞いていないということを、講演者は小さな声で話した。","会場の後ろに座る生徒がほとんど話を聞かないほど、講演者は物静かな人だった。"],"a":0,"e":"[S]The speaker [V]talked <so quietly> <that the students ～ her>。so と that の間に quietly があるので「とても～なので…」の結果。2番目は目的の so that と取り違えた訳。3番目は that を名詞節とした訳。4番目は so quietly が talked を修飾することを無視している。","p":"この文の最も自然な和訳を選びなさい。","t":"講演者の声がとても小さかったので、会場の後ろに座る生徒にはほとんど聞こえなかった。","en":"The speaker talked so quietly that the students sitting in the back of the hall could hardly hear her.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"It was only after the heavy rain stopped 《that》 the rescue team was able to reach the small village in the mountains.","c":["強調構文の that","形式主語 it の真主語","関係代名詞の that","同格を表す that"],"a":0,"e":"It was と that を外すと Only after the heavy rain stopped, the rescue team was able to reach ～ と文が成り立つので強調構文。強調されているのは副詞のカタマリ <only after ～ stopped>。It is＋形容詞ではないので形式主語ではなく、前に名詞がないので関係代名詞・同格でもない。","p":"《that》の用法として適切なものを選びなさい。","t":"救助隊が山あいの小さな村にたどり着けたのは、大雨がやんでからのことだった。","en":"It was only after the heavy rain stopped that the rescue team was able to reach the small village in the mountains.","m":"難易度 ★★★ 発展"},{"g":"that-usage","q":"There are several simple habits in daily life 《that》 can help you sleep better and feel less tired.","c":["I met a girl from Canada that speaks Japanese.","I told the girl that I could speak Japanese.","It is Japanese that the girl speaks well.","The girl was so kind that I spoke Japanese to her."],"a":0,"e":"There [V]are [S]several simple habits (that can help ～ tired)。that は主語が欠けた関係代名詞で、離れた habits を修飾。a girl from Canada that speaks も同じ。told the girl の後は名詞節、It is Japanese は強調構文、so kind は so～that。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"日常生活には、よく眠れて疲れにくくなるのに役立つ簡単な習慣がいくつかある。","en":"There are several simple habits in daily life that can help you sleep better and feel less tired.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"The belief 《that》 many people shared at that time was that the earth was the center of the universe.","c":["関係代名詞","同格節を導く接続詞","名詞節を導く接続詞","強調構文の that"],"a":0,"e":"[S]The belief (that many people shared at that time) [V]was [C][that the earth ～ universe]。1つ目の that の後ろは shared の目的語が欠けているので関係代名詞。belief は同格の that 節をとれる名詞だが、後ろが完全な文でないので同格ではない。2つ目の that が補語の名詞節。","p":"1つ目の《that》の用法として適切なものを選びなさい。","t":"当時多くの人が共有していた考えは、地球が宇宙の中心だということだった。","en":"The belief that many people shared at that time was that the earth was the center of the universe.","m":"難易度 ★★★ 発展"},{"g":"that-usage","q":"Many people ignore the fact 《that》 sugar in soft drinks can be harmful to our teeth.","c":["同格節を導く接続詞","関係代名詞","強調構文の that","so ～ that の that"],"a":0,"e":"[S]Many people [V]ignore [O]the fact [that sugar ～ teeth]。that の後ろは主語 sugar も補語 harmful もそろった完全な文で、「～という事実」と the fact の中身を表す同格。欠けがないので関係代名詞ではない。It is ～ や so の形もない。","p":"《that》の用法として適切なものを選びなさい。","t":"清涼飲料水の砂糖が歯に悪いことがあるという事実を、多くの人は無視している。","en":"Many people ignore the fact that sugar in soft drinks can be harmful to our teeth.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"《It was Emma's kind words that》 gave me the courage to try again after I failed the audition.","c":["オーディションに落ちた後、もう一度挑戦する勇気をくれたのはエマの優しい言葉だった。","それはエマが言った優しい言葉で、落ちた後の私にオーディションを勧めてくれた。","オーディションに落ちた後、エマに優しい言葉をかける勇気が私にはまだあった。","エマが優しい言葉をかけてくれたことこそが、私がオーディションに落ちた原因だった。"],"a":0,"e":"It was と that を外すと Emma's kind words gave me the courage ～ と文が成り立つので強調構文。「…したのは～だった」と訳す。2番目は It を「それ」、that を関係代名詞と読んでいる。3番目は主語を取り違え、4番目は gave me the courage の意味を無視している。","p":"この文の最も自然な和訳を選びなさい。","t":"オーディションに落ちた後、もう一度挑戦する勇気をくれたのは《エマの優しい言葉だった》。","en":"It was Emma's kind words that gave me the courage to try again after I failed the audition.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"Our teacher told us 《that》 the school trip to Okinawa would be postponed because of the typhoon.","c":["Mika told me that she had lost her key.","This is the key that Mika had lost.","The report that Mika lost her key was false.","It was Mika that lost her key."],"a":0,"e":"[S]Our teacher [V]told [O]us [O][that the school trip ～ typhoon]。tell 人 that ～ の that は「～ということ」の名詞節。Mika told me that ～ も同じ形。the key that ～ は関係代名詞、The report that ～ は同格、It was Mika that ～ は強調構文。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"先生は、台風のため沖縄への修学旅行が延期になると私たちに伝えた。","en":"Our teacher told us that the school trip to Okinawa would be postponed because of the typhoon.","m":"難易度 ★☆☆ 基礎"},{"g":"that-usage","q":"She showed me a photo of the lake near her grandmother's house 《that》 she had taken during the summer vacation.","c":["a photo","the lake","her grandmother","her grandmother's house"],"a":0,"e":"[S]She [V]showed [O]me [O]a photo <of the lake near ～ house> (that she had taken ～)。that 節は taken の目的語が欠けた関係代名詞節。take a photo「写真を撮る」の関係から、先行詞は離れた a photo。湖・祖母・家は「撮った」の目的語として意味が通らない。","p":"《that》で始まるカタマリが修飾している語句として適切なものを選びなさい。","t":"彼女は、夏休みに自分が撮った、祖母の家の近くの湖の写真を見せてくれた。","en":"She showed me a photo of the lake near her grandmother's house that she had taken during the summer vacation.","m":"難易度 ★★☆ 標準"},{"g":"that-usage","q":"Scientists have found evidence 《that》 some birds can recognize the faces of individual humans who feed them.","c":["There is no proof that the plan will work.","There is no proof that he can show us.","It is clear that the plan will work.","The plan was so good that it worked well."],"a":0,"e":"[S]Scientists [V]have found [O]evidence [that some birds ～]。後ろが完全な文なので同格「～という証拠」。proof that the plan will work も同格。proof that he can show us は「何を」が欠けた関係代名詞。It is clear は形式主語、so good は so～that。","p":"《that》と同じ用法の that を含む文を選びなさい。","t":"科学者たちは、一部の鳥が自分にえさをくれる一人ひとりの人間の顔を見分けられるという証拠を見つけた。","en":"Scientists have found evidence that some birds can recognize the faces of individual humans who feed them.","m":"難易度 ★★★ 発展"},{"g":"that-usage","q":"Few people accepted 《the view that the scientist presented》 at the conference, because her data seemed incomplete.","c":["その科学者が学会で発表した見解を受け入れた人は、データが不十分に見えたためほとんどいなかった。","その科学者が学会で発表したという見方を、データが不十分に見えたため受け入れる人はほとんどいなかった。","その科学者は、データが不十分に見えたため、学会で見解をほとんど発表せず受け入れられなかった。","学会で見解を発表した科学者はわずかで、その科学者のデータも不十分に見えたと受け止められた。"],"a":0,"e":"[S]Few people [V]accepted [O]the view (that the scientist presented <at the conference>)。presented の目的語が欠けているので that は関係代名詞で「科学者が発表した見解」。2番目は同格と誤読。3番目は主語を科学者に、4番目は Few people を「発表した科学者が少ない」と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"その科学者が学会で発表した見解を受け入れた人は、データが不十分に見えたためほとんどいなかった。","en":"Few people accepted the view that the scientist presented at the conference, because her data seemed incomplete.","m":"難易度 ★★★ 発展"},{"g":"apposition","q":"My sister enjoys reading novels in the library 《and》 writing short stories on her computer at night.","c":["reading … と writing …","the library と writing …","novels と short stories","enjoys と writing …"],"a":0,"e":"[S]My sister [V]enjoys [O][reading ～ library] and [writing ～ night]。and の直後は -ing 形なので、前の -ing 形 reading と結び、どちらも enjoys の目的語。the library と -ing は形が違い、enjoys（三単現）と writing も形がそろわない。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"姉は図書館で小説を読むことと、夜にパソコンで短編小説を書くことを楽しんでいる。","en":"My sister enjoys reading novels in the library and writing short stories on her computer at night.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"The volunteers cleaned the beach near the station 《and》 collected more than fifty bags of plastic waste.","c":["cleaned と collected","the beach と the station","the station と fifty bags","The volunteers と plastic waste"],"a":0,"e":"[S]The volunteers [V]cleaned [O]the beach ～ and [V]collected [O]more than fifty bags ～。and の直後は過去形の動詞 collected なので、前の過去形 cleaned と結ぶ。直前の名詞 the station と動詞は形が違うので結べない。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"ボランティアの人たちは駅の近くの浜辺を掃除し、50袋を超えるプラスチックごみを集めた。","en":"The volunteers cleaned the beach near the station and collected more than fifty bags of plastic waste.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"《Mr. Brown》, our new English teacher from Canada, likes to play the guitar during lunch break.","c":["our new English teacher from Canada","to play the guitar during lunch break","likes to play the guitar","Canada"],"a":0,"e":"[S]Mr. Brown, [our new English teacher from Canada], [V]likes [O][to play the guitar] <during lunch break>。カンマに挟まれた our new English teacher from Canada が Mr. Brown を言いかえる同格。Canada は from Canada として teacher を修飾する一部にすぎない。","p":"《Mr. Brown》と同格の語句を選びなさい。","t":"カナダ出身の新しい英語の先生であるブラウン先生は、昼休みにギターを弾くのが好きだ。","en":"Mr. Brown, our new English teacher from Canada, likes to play the guitar during lunch break.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"The museum, 《as far as I know》, is the oldest building in this city and attracts many tourists.","c":["挿入された副詞のカタマリ","The museum を説明する形容詞のカタマリ","文の主語になる名詞のカタマリ","The museum と同格の名詞のカタマリ"],"a":0,"e":"[S]The museum, <as far as I know>, [V]is [C]the oldest building ～ and [V]attracts ～。カンマの間は「私の知るかぎり」と文全体に説明を加える挿入の副詞のカタマリ。外しても The museum is ～ が成り立つ。主語は The museum で、名詞ではないので同格でもない。","p":"《as far as I know》の働きとして適切なものを選びなさい。","t":"私の知るかぎり、その博物館はこの市で最も古い建物で、多くの観光客を集めている。","en":"The museum, as far as I know, is the oldest building in this city and attracts many tourists.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"The girl who lives next door 《and》 plays the piano every evening wants to become a music teacher in the future.","c":["lives と plays","next door と the piano","plays と wants","The girl と the piano"],"a":0,"e":"[S]The girl (who lives next door and plays ～ evening) [V]wants [O][to become ～]。and は who に続く動詞 lives と plays を結び、どちらも The girl を説明する。文全体の動詞は wants。plays と wants を結ぶなら wants の前にも and が必要。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"隣に住んでいて毎晩ピアノを弾いている女の子は、将来音楽の先生になりたいと思っている。","en":"The girl who lives next door and plays the piano every evening wants to become a music teacher in the future.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"Only one thing ― 《the lack of clean water》 ― prevented the village from growing enough food for its people.","c":["Only one thing","the village","enough food for its people","its people"],"a":0,"e":"[S]Only one thing ― [the lack of clean water] ― [V]prevented [O]the village <from growing ～>。ダッシュ内の名詞は Only one thing の中身を言いかえる同格。the village は prevented の目的語、food や people は growing の後ろの語でダッシュ部分と無関係。","p":"《the lack of clean water》と同格の語句を選びなさい。","t":"ただ一つのこと、つまりきれいな水の不足のせいで、その村は住民に十分な食料を育てられなかった。","en":"Only one thing ― the lack of clean water ― prevented the village from growing enough food for its people.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"Many students at our school are interested in robotics, 《or》 the study of designing and building robots.","c":["つまり（言いかえ）","または（選択）","さもないと（警告）","それとも（疑問）"],"a":0,"e":"[S]Many students ～ [V]are [C]interested <in robotics, or the study of ～ robots>。カンマ＋or の後の the study of ～ は robotics の説明そのものなので、「つまり」の言いかえ。別の選択肢を示していないので「または」ではない。命令文の後でも疑問文でもない。","p":"《or》の意味として適切なものを選びなさい。","t":"うちの学校の多くの生徒は、ロボット工学、つまりロボットを設計し作る学問に興味がある。","en":"Many students at our school are interested in robotics, or the study of designing and building robots.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"The results of the survey, which was carried out by the student council last month, 《show》 that most students want longer lunch breaks.","c":["The results","the survey","the student council","most students"],"a":0,"e":"[S]The results (of the survey), (which was carried out ～ month), [V]show [O][that most ～]。カンマの間は挿入的な説明なので外す。show に s がないので主語は複数の The results。the survey は単数で was と対応している。most students は want の主語。","p":"《show》の主語として適切なものを選びなさい。","t":"先月生徒会が行った調査の結果は、ほとんどの生徒が昼休みを長くしてほしいと思っていることを示している。","en":"The results of the survey, which was carried out by the student council last month, show that most students want longer lunch breaks.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"Experts say that eating breakfast gives us energy 《and》 helps us focus better during morning classes.","c":["gives と helps","say と helps","energy と helps","eating と focus"],"a":0,"e":"[S]Experts [V]say [O][that [S]eating breakfast [V]gives us energy and [V]helps us focus ～]。helps は三単現の s がつくので、単数扱いの eating breakfast の動詞。同じ形の gives と結ぶ。複数の Experts の動詞 say とは形がそろわない。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"専門家によると、朝食を食べることは私たちに活力を与え、午前中の授業に集中しやすくしてくれる。","en":"Experts say that eating breakfast gives us energy and helps us focus better during morning classes.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"Tanaka Aoi, 《a student who won the speech contest》, will give a talk about her experience in Australia next week.","c":["弁論大会で優勝した生徒である田中葵さんが、来週オーストラリアでの経験について話をする。","田中葵さんは来週、弁論大会で優勝した生徒に、オーストラリアでの経験について話をする。","田中葵さんと弁論大会で優勝した生徒の2人が、来週オーストラリアでの経験について話をする。","弁論大会で優勝した田中葵さんの教え子が、来週オーストラリアでの経験について話をする。"],"a":0,"e":"[S]Tanaka Aoi, [a student (who won the speech contest)], [V]will give [O]a talk ～。カンマに挟まれた部分は Tanaka Aoi を言いかえる同格で、同じ一人の人物。2番目は話す相手、3番目は別の人物、4番目は所有の関係と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"弁論大会で優勝した生徒である田中葵さんが、来週オーストラリアでの経験について話をする。","en":"Tanaka Aoi, a student who won the speech contest, will give a talk about her experience in Australia next week.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"You can go to the museum by bus 《or》 walk there along the river in about thirty minutes.","c":["go と walk","bus と walk","the museum と the river","can と walk"],"a":0,"e":"[S]You [V]can go <to the museum> <by bus> or [V](can) walk <there> ～。or の直後は動詞の原形 walk なので、can の後の原形 go と結ぶ。直前の bus は名詞で形が違う。can は助動詞なので walk とは形がそろわない。","p":"《or》が結んでいるものとして適切なものを選びなさい。","t":"博物館へはバスで行くこともできるし、川沿いを30分ほど歩いて行くこともできる。","en":"You can go to the museum by bus or walk there along the river in about thirty minutes.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"The report points out that plastic bags are cheap and easy to carry 《but》 take hundreds of years to break down.","c":["are と take","carry と take","points と take","cheap と hundreds of years"],"a":0,"e":"that 節の中は [S]plastic bags [V]are [C]cheap and easy to carry but [V]take ～。but の後の take は plastic bags を主語とする動詞で、are と結ぶ。carry と結ぶと「持ち運ぶのが簡単で何百年もかかる」となり意味が通らない。points は三単現で形が違う。","p":"《but》が結んでいるものとして適切なものを選びなさい。","t":"その報告書は、レジ袋は安くて持ち運びやすいが、分解されるのに何百年もかかると指摘している。","en":"The report points out that plastic bags are cheap and easy to carry but take hundreds of years to break down.","m":"難易度 ★★★ 発展"},{"g":"apposition","q":"Ken is the only member of our team who 《I believe》 can run a full marathon in under three hours.","c":["ケンは、フルマラソンを3時間以内で走れると私が思う、チームでただ一人の部員だ。","ケンは、私がフルマラソンを3時間以内で走れると信じてくれる、チームでただ一人の部員だ。","ケンは私が信頼するチームでただ一人の部員で、フルマラソンを3時間以内で走れるそうだ。","フルマラソンを3時間以内で走れると信じているのは、チームの中でケンただ一人だ。"],"a":0,"e":"[S]Ken [V]is [C]the only member ～ (who <I believe> can run ～)。I believe は挿入で、外すと who can run ～ となり who が can run の主語。「走れると私が思う部員」。2番目は I を走る人、3番目は who を believe の目的語と読んだ訳。4番目は信じる人をケンにしている。","p":"この文の最も自然な和訳を選びなさい。","t":"ケンは、フルマラソンを3時間以内で走れると私が思う、チームでただ一人の部員だ。","en":"Ken is the only member of our team who I believe can run a full marathon in under three hours.","m":"難易度 ★★★ 発展"},{"g":"apposition","q":"Kaito gave up the dream 《of》 becoming a professional soccer player after he hurt his knee in high school.","c":["the idea of living abroad","the top of the tall mountain","a cup of hot green tea","the love of my parents"],"a":0,"e":"[S]Kaito [V]gave up [O]the dream [of becoming ～ player] <after ～>。dream の中身が「プロ選手になること」で、「～という夢」の同格の of。the idea of living abroad も「海外で暮らすという考え」。top of は部分、cup of は量、love of my parents は「両親が愛すること」。","p":"《of》と同じ働きの of を含むものを選びなさい。","t":"海斗は高校でひざをけがした後、プロサッカー選手になるという夢をあきらめた。","en":"Kaito gave up the dream of becoming a professional soccer player after he hurt his knee in high school.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"The new park has a large pond full of fish 《and》 a playground for small children.","c":["a large pond … と a playground …","fish と a playground …","has と a playground …","The new park と small children"],"a":0,"e":"[S]The new park [V]has [O]a large pond (full of fish) and [O]a playground (for small children)。and の後は a＋名詞で、has の目的語 a large pond と結ぶ。fish と結ぶと「魚と遊び場でいっぱいの池」となり不自然。has は動詞なので名詞と形がそろわない。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"新しい公園には、魚のたくさんいる大きな池と、小さな子ども向けの遊び場がある。","en":"The new park has a large pond full of fish and a playground for small children.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"Social media, when it is used wisely, can help students share ideas with classmates 《and》 learn from people living in other countries.","c":["share と learn","help と learn","is used と learn","classmates と people"],"a":0,"e":"[S]Social media, <when it is used wisely>, [V]can help [O]students [C]share ～ and learn ～。挿入を外すと help 人 原形 の形で、learn は share と並び、学ぶのは生徒。help と結ぶと SNS が学ぶことになり不自然。is used は挿入の中の受け身で形も違う。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"SNS は、賢く使えば、生徒がクラスメートと考えを共有したり、外国に住む人から学んだりするのに役立つ。","en":"Social media, when it is used wisely, can help students share ideas with classmates and learn from people living in other countries.","m":"難易度 ★★★ 発展"},{"g":"apposition","q":"Some fruits, for example 《bananas and apples》, can be kept at room temperature for several days.","c":["Some fruits","room temperature","several days","can be kept"],"a":0,"e":"[S]Some fruits, <for example bananas and apples>, [V]can be kept <at room temperature> <for several days>。カンマの間は挿入で、直前の Some fruits の具体例。外すと Some fruits can be kept ～ という骨格が残る。","p":"《bananas and apples》が具体的に示しているものとして適切なものを選びなさい。","t":"果物の中には、たとえばバナナやリンゴのように、常温で数日間保存できるものがある。","en":"Some fruits, for example bananas and apples, can be kept at room temperature for several days.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"Whether you study early in the morning 《or》 late at night, the most important thing is to keep a regular schedule.","c":["early in the morning と late at night","you study と the most important thing","study と keep","the morning と a regular schedule"],"a":0,"e":"<Whether you study ～ or late at night>, [S]the most important thing [V]is [C][to keep ～]。whether A or B「A でも B でも」で、or は early in the morning と late at night（時を表す語句）を結ぶ。keep は主節にあり or の範囲外。","p":"《or》が結んでいるものとして適切なものを選びなさい。","t":"朝早く勉強するにしても夜遅くに勉強するにしても、いちばん大切なのは規則正しい予定を守ることだ。","en":"Whether you study early in the morning or late at night, the most important thing is to keep a regular schedule.","m":"難易度 ★☆☆ 基礎"},{"g":"apposition","q":"The festival, 《an event that brings together local farmers, artists, and musicians》, is held every autumn in the park beside the river.","c":["地元の農家や芸術家、音楽家が集まる行事であるその祭りは、毎年秋に川沿いの公園で開かれる。","その祭りと、地元の農家や芸術家、音楽家が集まる行事の2つが、毎年秋に川沿いの公園で開かれる。","その祭りは地元の農家を集める行事で、毎年秋に芸術家と音楽家が川沿いの公園で開いている。","地元の農家や芸術家が音楽家を集めて開く祭りの行事は、毎年秋に川沿いの公園で開かれる。"],"a":0,"e":"[S]The festival, [an event (that brings together ～ musicians)], [V]is held ～。カンマの間は The festival の同格で、同じ一つのもの。and は farmers, artists, musicians の3つを結ぶ。2番目は2つの行事、3番目は and の範囲、4番目は集める側を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"地元の農家や芸術家、音楽家が集まる行事であるその祭りは、毎年秋に川沿いの公園で開かれる。","en":"The festival, an event that brings together local farmers, artists, and musicians, is held every autumn in the park beside the river.","m":"難易度 ★★☆ 標準"},{"g":"apposition","q":"The government plans to reduce the number of cars in the city center 《and》 the amount of energy used by public buildings.","c":["the number … と the amount …","the city center と the amount …","cars と energy","plans と used"],"a":0,"e":"reduce の目的語は the number (of cars in the city center) と the amount (of energy used by ～)。and の後の the amount は、同じ目的語の the number と結ぶ。city center と結ぶと意味が通らない。cars と energy の間には the amount があり直接は結べない。","p":"《and》が結んでいるものとして適切なものを選びなさい。","t":"政府は、都心の車の台数と、公共の建物が使うエネルギーの量を減らす計画だ。","en":"The government plans to reduce the number of cars in the city center and the amount of energy used by public buildings.","m":"難易度 ★★★ 発展"},{"g":"inversion","q":"《Never have I seen》 so many stars in the sky as I did during the camping trip in Nagano.","c":["長野でのキャンプ旅行のときほど多くの星を空に見たことは、一度もない。","長野でのキャンプ旅行では、空に星をただの一つも見ることがなかった。","長野でのキャンプ旅行で見たほど多くの星を、この先はもう見ないだろう。","長野でのキャンプ旅行のとき、私はこれほど多くの星をぜひ見たかった。"],"a":0,"e":"Never [助]have [S]I [V]seen [O]so many stars ～ <as I did ～>。否定語 Never が文頭に出て、have I seen と疑問文の語順になった倒置。I have never seen ～ と同じで、「キャンプ旅行のときほど多くの星を見たことはない」。2番目は星を見なかった、3番目は未来、4番目は願望と誤読している。","p":"この文の最も自然な和訳を選びなさい。","t":"長野でのキャンプ旅行のときほど多くの星を空に見たことは、一度もない。","en":"Never have I seen so many stars in the sky as I did during the camping trip in Nagano.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"On the top of the hill 《stood》 an old wooden church that was built more than two hundred years ago.","c":["an old wooden church","the top","the hill","more than two hundred years"],"a":0,"e":"<On the top of the hill> [V]stood [S]an old wooden church (that was built ～ ago)。場所を表す副詞のカタマリが文頭に出て、V＋S の語順になった倒置。the top や the hill は前置詞 on / of の後ろの名詞なので主語になれない。","p":"この文の主語として適切なものを選びなさい。","t":"丘の上には、200年以上前に建てられた古い木造の教会が建っていた。","en":"On the top of the hill stood an old wooden church that was built more than two hundred years ago.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"My brother loves spicy food from Thailand, and 《so does my father》, but my mother cannot eat it at all.","c":["父もタイの辛い料理が大好きだ","父もタイの料理をよく作っている","父もそのことをよく知っている","父はタイの辛い料理が苦手だ"],"a":0,"e":"so＋助動詞＋S は「S もそうだ」で、前の文の動詞をくり返す。so [助]does [S]my father ＝ my father loves spicy food from Thailand, too。「作る」「知っている」は前の文にない動詞。苦手なのは but の後の母で、否定の「～もそうではない」なら neither を使う。","p":"《so does my father》の意味として適切なものを選びなさい。","t":"兄はタイの辛い料理が大好きで、父もそうだが、母はまったく食べられない。","en":"My brother loves spicy food from Thailand, and so does my father, but my mother cannot eat it at all.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《When young》, my grandmother lived in a small fishing village and swam in the sea almost every day.","c":["she was","I was","it was","they were"],"a":0,"e":"<When (she was) young>, [S]my grandmother [V]lived ～ and [V]swam ～。時の副詞節では、主節と同じ主語＋be 動詞が省略できる。主節の主語は my grandmother なので she was を補う。I や they、it は主節の主語と一致しない。","p":"《When young》で、When の直後に省略されている語句として適切なものを選びなさい。","t":"若いころ、祖母は小さな漁村に住んでいて、ほとんど毎日海で泳いでいた。","en":"When young, my grandmother lived in a small fishing village and swam in the sea almost every day.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《It was》 in the summer of her second year 《that》 my cousin finally decided to study in New Zealand.","c":["in the summer of her second year","my cousin","to study","in New Zealand"],"a":0,"e":"It was と that にはさまれた部分が強調されている。外すと [S]My cousin [V]finally decided [O][to study in New Zealand] <in the summer of her second year>. が成り立つ。my cousin や in New Zealand は that の後ろの残りの部分にある。","p":"強調構文で強調されている語句として適切なものを選びなさい。","t":"いとこがついにニュージーランドで学ぶと決めたのは、2年生の夏のことだった。","en":"It was in the summer of her second year that my cousin finally decided to study in New Zealand.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《Only when she moved to Tokyo did she realize》 how much her parents had done for her every day.","c":["東京に引っ越して初めて、彼女は両親が毎日どれほど自分に尽くしてくれていたかに気づいた。","彼女が東京に引っ越したのは、両親が毎日どれほど自分に尽くしてくれていたかに気づいたからだ。","東京に引っ越したとき、両親のほうが、毎日どれほど彼女に尽くしていたかに初めて気づいた。","東京に引っ越したときだけは、彼女も両親に毎日どれほど尽くしていたかを忘れずにいられた。"],"a":0,"e":"<Only when she moved to Tokyo> [助]did [S]she [V]realize [O][how much ～]。Only＋副詞のカタマリが文頭に出て did she realize と倒置。「～して初めて…した」と訳す。2番目は因果が逆、3番目は主語を両親に、4番目は realize と尽くした人を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"東京に引っ越して初めて、彼女は両親が毎日どれほど自分に尽くしてくれていたかに気づいた。","en":"Only when she moved to Tokyo did she realize how much her parents had done for her every day.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《Had I known》 that the museum was closed on Mondays, I would have visited it on a different day.","c":["博物館が月曜休館だと知っていたら、別の日に行っていただろう。","博物館が月曜休館だと知っていたので、別の日に行くことにした。","博物館が月曜休館だと知っていたが、別の日には行かなかった。","博物館が月曜休館だと知っていても、別の日には行かなかっただろう。"],"a":0,"e":"<Had I known that ～> ＝ <If I had known that ～>。if を省略すると had が主語の前に出る。主節は would have visited の仮定法過去完了で「（実際は知らなかったが）知っていたら行っていただろう」。2番目・3番目は事実として知っていた訳、4番目は「～しても」の譲歩と誤読している。","p":"この文の最も自然な和訳を選びなさい。","t":"博物館が月曜休館だと知っていたら、別の日に行っていただろう。","en":"Had I known that the museum was closed on Mondays, I would have visited it on a different day.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《So important》 was the final match that almost all the students in our school came to the stadium to watch it.","c":["the final match","almost all the students","our school","the stadium"],"a":0,"e":"[C]So important [V]was [S]the final match <that almost all ～ it>。so～that の補語 So important が文頭に出て、V＋S の倒置になった。もとは The final match was so important that ～。almost all the students は that 節の中の came の主語。","p":"この文の主語として適切なものを選びなさい。","t":"決勝戦はとても重要だったので、うちの学校のほぼ全員の生徒がスタジアムに見に来た。","en":"So important was the final match that almost all the students in our school came to the stadium to watch it.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《If necessary》, the teacher will give the students more time to finish the science report next week.","c":["If it is necessary","If the teacher is necessary","If the students are necessary","If she was necessary"],"a":0,"e":"<If (it is) necessary>, [S]the teacher [V]will give [O]the students [O]more time ～。If necessary は it is が省略された決まった形で、「（それが）必要ならば」。先生や生徒が「必要だ」という意味ではない。条件の副詞節なので未来のことでも現在形 is を使い、was にはしない。","p":"《If necessary》を省略のない形にしたものとして適切なものを選びなさい。","t":"必要なら、先生は来週、生徒に理科のレポートを仕上げる時間をもっと与えるだろう。","en":"If necessary, the teacher will give the students more time to finish the science report next week.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《Not until the last runner crossed the finish line did the audience》 stop cheering and leave their seats.","c":["最後の走者がゴールして初めて、観客は声援をやめて席を立った。","最後の走者がゴールするまで、観客は声援を送らず席を立っていた。","最後の走者がゴールしないうちに、観客は声援をやめて席を立った。","観客が声援をやめて席を立つまで、最後の走者はゴールしなかった。"],"a":0,"e":"<Not until the last runner crossed ～> [助]did [S]the audience [V]stop ～ and [V]leave ～。否定の語句が文頭に出た倒置。「ゴールするまでは声援をやめなかった」、つまり「ゴールして初めてやめた」。2番目は stop cheering の意味、3番目は順序、4番目は主語を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"最後の走者がゴールして初めて、観客は声援をやめて席を立った。","en":"Not until the last runner crossed the finish line did the audience stop cheering and leave their seats.","m":"難易度 ★★★ 発展"},{"g":"inversion","q":"《Little did we imagine》 that the small shop we opened in our garage would one day become a famous company.","c":["Rarely does my father cook dinner at home.","Here comes our bus at last.","Had we left earlier, we could have seen it.","So tired was he that he fell asleep."],"a":0,"e":"Little [助]did [S]we [V]imagine [O][that ～]。否定の意味の Little「少しも～ない」が文頭に出た倒置。Rarely「めったに～ない」も否定語の前置で同じ。Here comes は場所の副詞、Had we left は if の省略、So tired was he は補語の前置による倒置。","p":"《Little did we imagine》と同じ理由で語順が入れかわっている文を選びなさい。","t":"ガレージで開いた小さな店がいつか有名な会社になるとは、私たちは思いもしなかった。","en":"Little did we imagine that the small shop we opened in our garage would one day become a famous company.","m":"難易度 ★★★ 発展"},{"g":"inversion","q":"At the shop, my brother chose the red cap for the trip, and my sister 《the blue one》.","c":["chose","wore","wanted","bought"],"a":0,"e":"[S]my brother [V]chose [O]the red cap ～, and [S]my sister [V](chose) [O]the blue one。and の後ろで前と同じ動詞がくり返しを避けて省略されている。省略は前に出た語をそのまま補うのが原則なので chose。wore や bought は前に出てこない語なので補えない。","p":"《the blue one》の前に省略されている語として適切なものを選びなさい。","t":"店で、兄は旅行用に赤い帽子を選び、妹は青い帽子を選んだ。","en":"At the shop, my brother chose the red cap for the trip, and my sister the blue one.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"My friend says she cannot understand the last part of the movie, and 《neither can I》, even after watching it twice.","c":["私もその部分が理解できない","私にはその部分が理解できる","私もその映画をまだ見ていない","私には友達の話が理解できない"],"a":0,"e":"neither＋助動詞＋S は、否定の文を受けて「S も～ない」。neither [助]can [S]I ＝ I cannot understand the last part of the movie, either。「理解できる」は肯定なので逆。2回見ているので「見ていない」は誤り。理解できないのは友達の話ではなく映画の最後の部分。","p":"《neither can I》の意味として適切なものを選びなさい。","t":"友達はその映画の最後の部分がわからないと言っているが、私も2回見てもわからない。","en":"My friend says she cannot understand the last part of the movie, and neither can I, even after watching it twice.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《Hardly had we arrived at the campsite when》 it started to rain heavily, so we put up our tents in a hurry.","c":["キャンプ場に着くとすぐに激しい雨が降り出したので、私たちは急いでテントを張った。","キャンプ場にまだ着かないうちに雨がやんだので、私たちはのんびりとテントを張った。","激しい雨が降り出してから、私たちはやっとキャンプ場に着き、急いでテントを張った。","キャンプ場に着くのに苦労したので、雨が降り出す前に私たちは急いでテントを張った。"],"a":0,"e":"Hardly [助]had [S]we [V]arrived ～ <when it started to rain heavily>。Hardly had S 過去分詞 when ～ は「S が…するとすぐに～した」。否定語 Hardly が文頭に出て倒置。3番目は到着と雨の順序が逆、4番目は hardly を hard「苦労して」と誤読、2番目は started to rain と矛盾する。","p":"この文の最も自然な和訳を選びなさい。","t":"キャンプ場に着くとすぐに激しい雨が降り出したので、私たちは急いでテントを張った。","en":"Hardly had we arrived at the campsite when it started to rain heavily, so we put up our tents in a hurry.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"You do not have to join the volunteer club this year if you do not really want 《to》.","c":["join the volunteer club","have to join the club","do not have to","the volunteer club"],"a":0,"e":"<if you do not really want to (join the volunteer club)>。くり返しを避けて to の後ろの動詞以下が省略された代不定詞。to の後ろには動詞の原形が来るので、名詞の the volunteer club だけでは入らない。want to have to ～ や want to do not ～ は意味・形とも成り立たない。","p":"《to》の後に省略されている語句として適切なものを選びなさい。","t":"本当に入りたくないのなら、今年ボランティア部に入る必要はない。","en":"You do not have to join the volunteer club this year if you do not really want to.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《What was it that》 made the old bookstore so popular among young people who usually buy books online?","c":["ふだんネットで本を買う若者の間で、その古い書店をあれほど人気にしたのは一体何だったのか。","その古い書店は、ふだんネットで本を買う若者に人気になるために、一体何を作ったのか。","その古い書店をあれほど人気にしたのは、ふだんネットで本を買う若者たちだったのだろうか。","ふだんネットで本を買う若者たちは、その古い書店のどこを人気の理由だと考えたのか。"],"a":0,"e":"強調構文 It was X that made ～ の X を疑問詞 What にして前に出した形。[S]What が made [O]the old bookstore [C]so popular の主語で、「～を人気にしたのは一体何か」。2番目は主語を書店に、3番目は若者を答えと、4番目は若者を考える主体と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"ふだんネットで本を買う若者の間で、その古い書店をあれほど人気にしたのは一体何だったのか。","en":"What was it that made the old bookstore so popular among young people who usually buy books online?","m":"難易度 ★★★ 発展"},{"g":"inversion","q":"《Seldom does my father》 watch television on weekdays because he is usually busy working until late at night.","c":["父は平日にめったにテレビを見ない","父は平日にいつもテレビを見ている","父は平日に夜遅くテレビを見る","父は平日にテレビを見るのが好きだ"],"a":0,"e":"Seldom [助]does [S]my father [V]watch [O]television ～。否定語 Seldom「めったに～ない」が文頭に出て、疑問文の語順になった倒置。My father seldom watches ～ と同じ。because 以下の「夜遅くまで忙しい」とも合う。「いつも」「夜遅く見る」「好きだ」は seldom の意味と合わない。","p":"《Seldom does my father》の意味として適切なものを選びなさい。","t":"父はたいてい夜遅くまで仕事で忙しいので、平日はめったにテレビを見ない。","en":"Seldom does my father watch television on weekdays because he is usually busy working until late at night.","m":"難易度 ★☆☆ 基礎"},{"g":"inversion","q":"《Gone are》 the days when students had to visit the library to find information for their reports.","c":["the days","students","the library","information"],"a":0,"e":"[C]Gone [V]are [S]the days (when students had to visit ～)。補語 Gone が文頭に出た倒置で、もとは The days when ～ are gone.「～の日々は過ぎ去った」。are が複数形なので主語は複数の名詞。students は when 節の中の had to visit の主語。","p":"この文の主語として適切なものを選びなさい。","t":"レポートのための情報を探すのに、生徒が図書館に行かなければならなかった時代は過ぎ去った。","en":"Gone are the days when students had to visit the library to find information for their reports.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《Not only did the new bridge shorten》 the travel time to the city, but it also brought more visitors to the island.","c":["新しい橋は市までの移動時間を短くしただけでなく、島を訪れる人も増やした。","新しい橋は市までの移動時間を短くしなかったが、島を訪れる人は増やした。","新しい橋が市までの移動時間を短くしたのは、島を訪れる人が増えたからだ。","新しい橋は市までの移動時間を短くしただけで、島を訪れる人は増えなかった。"],"a":0,"e":"Not only [助]did [S]the new bridge [V]shorten ～, but [S]it also [V]brought ～。not only A but also B の Not only が文頭に出た倒置で「A だけでなく B も」。2番目は not を否定文と誤読、3番目は因果を加え、4番目は but also の内容を否定している。","p":"この文の最も自然な和訳を選びなさい。","t":"新しい橋は市までの移動時間を短くしただけでなく、島を訪れる人も増やした。","en":"Not only did the new bridge shorten the travel time to the city, but it also brought more visitors to the island.","m":"難易度 ★★☆ 標準"},{"g":"inversion","q":"《Should you need》 any help with your application, please contact the office by email before the end of this month.","c":["万一申し込みで手助けが必要なら、今月末までに事務室にメールで連絡してください。","申し込みには手助けが必要なはずなので、今月末までに事務室にメールで連絡してください。","申し込みで手助けが必要かどうかを、今月末までに事務室へメールで知らせるべきです。","申し込みで手助けが必要だったとしても、今月末までは事務室にメールしないでください。"],"a":0,"e":"<Should you need any help ～> ＝ <If you should need any help ～>。if を省略して should が主語の前に出た倒置で、「万一～なら」。please contact ～ が命令文の主節。2番目は should を「はず」、3番目は「かどうか」「べき」、4番目は譲歩と否定の命令と誤読している。","p":"この文の最も自然な和訳を選びなさい。","t":"万一申し込みで手助けが必要なら、今月末までに事務室にメールで連絡してください。","en":"Should you need any help with your application, please contact the office by email before the end of this month.","m":"難易度 ★★★ 発展"},{"g":"inanimate","q":"《A ten-minute walk along the river will take you》 to the new aquarium near the port.","c":["川沿いを10分歩けば、港の近くの新しい水族館に着きます。","川沿いを10分歩いて、港の近くの水族館から帰ってきます。","港の近くの水族館までは、川沿いを歩くと10分以上かかります。","川沿いを10分歩いた人だけが、港の近くの水族館に入れます。"],"a":0,"e":"[S]A ten-minute walk (along the river) [V]will take [O]you <to the new aquarium ～>。「10分の散歩があなたを連れて行く」は、主語を条件にして「10分歩けば～に着く」と訳す。to は行き先なので「から帰る」は逆。「10分以上」「～だけ」は英文にない。","p":"この文の最も自然な和訳を選びなさい。","t":"川沿いを10分歩けば、港の近くの新しい水族館に着きます。","en":"A ten-minute walk along the river will take you to the new aquarium near the port.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《The strong wind prevented the ferry from leaving the port》, so we had to stay on the island one more night.","c":["強風のためにフェリーが出港できず、私たちは島にもう一晩泊まらなければならなかった。","強風の中でもフェリーは出港したが、私たちは島にもう一晩泊まらなければならなかった。","フェリーが出港したせいで強風に遭い、私たちは島にもう一晩泊まらなければならなかった。","強風からフェリーを守るために、私たちは島にもう一晩泊まらなければならなかった。"],"a":0,"e":"[S]The strong wind [V]prevented [O]the ferry <from leaving the port>。prevent O from -ing は「O が～するのを妨げる」で、主語を原因にして「強風のためにフェリーが出港できなかった」と訳す。2番目・3番目は出港したと誤読、4番目は from を「～から守る」と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"強風のためにフェリーが出港できず、私たちは島にもう一晩泊まらなければならなかった。","en":"The strong wind prevented the ferry from leaving the port, so we had to stay on the island one more night.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《Her kind smile made everyone in the waiting room feel relaxed》 before the difficult interview.","c":["彼女の優しい笑顔のおかげで、難しい面接の前に待合室の全員の気持ちがほぐれた。","待合室の全員がくつろいでいたので、難しい面接の前に彼女も優しくほほえんだ。","難しい面接の前に、待合室の全員が彼女に優しくほほえむよう気を配っていた。","彼女は難しい面接の前に、待合室の全員に優しい笑顔を作るよう指示していた。"],"a":0,"e":"[S]Her kind smile [V]made [O]everyone (in the waiting room) [C]feel relaxed。make O do「O に～させる」の主語を原因にして「笑顔のおかげで全員がくつろいだ」と訳す。2番目は因果が逆、3番目は全員がほほえむ側、4番目は made を「指示した」と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"彼女の優しい笑顔のおかげで、難しい面接の前に待合室の全員の気持ちがほぐれた。","en":"Her kind smile made everyone in the waiting room feel relaxed before the difficult interview.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《The new app》 enables students to check their homework and test schedules on their smartphones at any time.","c":["新しいアプリのおかげで","新しいアプリがないので","新しいアプリを使う前に","新しいアプリがあっても"],"a":0,"e":"[S]The new app [V]enables [O]students [C]to check ～。enable O to do は「O が～できるようにする」。主語が確認を可能にしている「手段・原因」なので「新しいアプリのおかげで、生徒は～できる」と訳す。「ないので」「使う前に」「あっても」は enable の意味と合わない。","p":"《The new app》を副詞のように訳すとき、最も適切なものを選びなさい。","t":"新しいアプリのおかげで、生徒はいつでもスマートフォンで宿題やテストの予定を確認できる。","en":"The new app enables students to check their homework and test schedules on their smartphones at any time.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《The rapid growth of the town》 has caused serious traffic problems during the morning and evening rush hours.","c":["町が急速に大きくなったので","町が急に成長をやめたので","町の成長を急がせたので","急速に大きくなる町を作るために"],"a":0,"e":"[S]The rapid growth (of the town) [V]has caused [O]serious traffic problems。growth は grow の名詞形で、of の後ろの the town が「成長する」主語。rapid は副詞 rapidly に戻して「町が急速に大きくなった」。これが交通問題の原因なので「～ので」と訳す。","p":"《》を文の形に直して訳すとき、最も適切なものを選びなさい。","t":"町が急速に大きくなったので、朝夕のラッシュ時にひどい交通問題が起きている。","en":"The rapid growth of the town has caused serious traffic problems during the morning and evening rush hours.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《What made you decide》 to study marine biology instead of medicine when you entered the university?","c":["大学に入るとき、なぜ医学ではなく海洋生物学を学ぶことに決めたのですか。","大学に入るとき、医学ではなく海洋生物学を学ぶために何を作ったのですか。","大学に入るとき、医学の代わりに何を学ぼうと決めていたのですか。","大学に入ったら、医学ではなく海洋生物学を学ぶよう誰に言われたのですか。"],"a":0,"e":"[S]What [V]made [O]you [C]decide [to study ～]。make O do「O に～させる」の主語が疑問詞 What で、「何があなたに決めさせたのか」＝「なぜ決めたのか」と理由をたずねる文。2番目は make を「作る」、3番目は What を study の目的語、4番目は「誰に」と取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"大学に入るとき、なぜ医学ではなく海洋生物学を学ぶことに決めたのですか。","en":"What made you decide to study marine biology instead of medicine when you entered the university?","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《The discovery of the ancient coins by a local farmer》 attracted the attention of historians from all over the country.","c":["地元の農家が古代の硬貨を発見したこと","古代の硬貨が地元の農家を発見したこと","地元の農家の近くで古代の硬貨が見つかったこと","地元の農家に古代の硬貨を届けたこと"],"a":0,"e":"[S]The discovery (of the ancient coins) (by a local farmer) [V]attracted ～。discovery は discover の名詞形。of の後ろが発見されたもの、by の後ろが発見した人で、A local farmer discovered the ancient coins. に戻せる。by は「近く」の意味ではない。","p":"《》を文の形に直した意味として適切なものを選びなさい。","t":"地元の農家が古代の硬貨を発見したことが、全国の歴史学者の注目を集めた。","en":"The discovery of the ancient coins by a local farmer attracted the attention of historians from all over the country.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"Every time I look at this old photo, 《it reminds me of》 the summer I spent with my grandparents in Hokkaido.","c":["この古い写真を見るたびに、北海道で祖父母と過ごした夏のことを思い出す。","この古い写真を見るたびに、北海道で祖父母と夏を過ごそうと心に決める。","この古い写真を見るたびに、祖父母が北海道で過ごした夏の話を私にする。","この古い写真を見るたびに、北海道の祖父母に夏の予定を知らせたくなる。"],"a":0,"e":"[S]it [V]reminds [O]me <of the summer (I spent ～)>。it は this old photo。remind 人 of ～「人に～を思い出させる」は「（写真を見ると）私は～を思い出す」と訳す。I spent は過去のことで、「これから過ごす」ではない。話をするのは祖父母ではなく、知らせたくなる意味もない。","p":"この文の最も自然な和訳を選びなさい。","t":"この古い写真を見るたびに、北海道で祖父母と過ごした夏のことを思い出す。","en":"Every time I look at this old photo, it reminds me of the summer I spent with my grandparents in Hokkaido.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《A closer look at the data shows》 that students who sleep well tend to get better grades in math.","c":["データをよく見ると、よく眠る生徒ほど数学の成績がよい傾向があるとわかる。","よく眠る生徒は、数学の成績を上げるためにデータをよく見る傾向があるとわかる。","データをよく見る生徒は、よく眠り数学の成績もよい傾向があることがわかる。","数学の成績がよい生徒ほど、データをよく見てからよく眠る傾向があるとわかる。"],"a":0,"e":"[S]A closer look (at the data) [V]shows [O][that [S]students (who sleep well) [V]tend ～]。「データをより詳しく見ることが示す」は「データをよく見ると～とわかる」と訳す。データを見るのは筆者や読者で、生徒ではない。that 節の主語は students who sleep well。","p":"この文の最も自然な和訳を選びなさい。","t":"データをよく見ると、よく眠る生徒ほど数学の成績がよい傾向があるとわかる。","en":"A closer look at the data shows that students who sleep well tend to get better grades in math.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《A single careless mistake cost our team》 the chance to play in the national tournament last year.","c":["たった一つの不注意なミスのせいで、昨年私たちのチームは全国大会に出る機会を逃した。","たった一つの不注意なミスはあったが、昨年私たちのチームは全国大会に出る機会を得た。","昨年私たちのチームは全国大会に出るために、たった一つのミスに多くの費用をかけた。","たった一つの不注意なミスをしたのは、昨年全国大会に出る機会を得た私たちのチームだ。"],"a":0,"e":"[S]A single careless mistake [V]cost [O]our team [O]the chance (to play ～)。cost 人 物 は「人に物を失わせる」。主語を原因にして「ミスのせいで機会を逃した」と訳す。2番目・4番目は機会を得たと、3番目は cost を「費用をかけた」と誤読している。","p":"この文の最も自然な和訳を選びなさい。","t":"たった一つの不注意なミスのせいで、昨年私たちのチームは全国大会に出る機会を逃した。","en":"A single careless mistake cost our team the chance to play in the national tournament last year.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《The news of her cousin's success in the entrance exam》 made Yui so happy that she called all her friends.","c":["いとこが入試に合格したと知って、結衣はとてもうれしくなり、友達全員に電話した。","いとこが入試に合格したので、結衣は友達全員に電話をかけてみんなを喜ばせた。","結衣がとても喜んで友達全員に電話したので、いとこは入試の合格を知った。","いとこの入試の知らせを聞いて、結衣は友達全員をとても喜ばせようと考えた。"],"a":0,"e":"[S]The news (of her cousin's success ～) [V]made [O]Yui [C]so happy <that she called ～>。make O C「O を C にする」の主語を原因にして「合格の知らせで結衣はうれしくなった」と訳す。うれしくなったのは結衣なので、2番目・4番目の「友達を喜ばせる」は誤り。3番目は因果が逆。","p":"この文の最も自然な和訳を選びなさい。","t":"いとこが入試に合格したと知って、結衣はとてもうれしくなり、友達全員に電話した。","en":"The news of her cousin's success in the entrance exam made Yui so happy that she called all her friends.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《His failure to answer the email》 made his classmates think that he was not interested in the project.","c":["彼がメールに返信しなかったので、クラスメートは彼がその企画に興味がないと思った。","彼はメールの返信に失敗したと思い込み、クラスメートの企画への興味をなくした。","クラスメートがメールに返信しなかったので、彼はその企画に興味がないと思われた。","彼がメールにすぐ返信できたので、クラスメートは彼がその企画に興味があると思った。"],"a":0,"e":"[S]His failure (to answer the email) [V]made [O]his classmates [C]think [that ～]。failure to do は「～しないこと」で、彼が返信しなかったことが原因。3番目は返信しなかった人、4番目は failure の意味、2番目は文の骨格を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"彼がメールに返信しなかったので、クラスメートは彼がその企画に興味がないと思った。","en":"His failure to answer the email made his classmates think that he was not interested in the project.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《A moment's thought will tell you》 that saving a little money every week is easier than saving a lot at once.","c":["少し考えれば、毎週少しずつ貯金するほうが一度にたくさん貯めるより簡単だとわかる。","少し考えれば、一度にたくさん貯めるほうが毎週少しずつ貯金するより簡単だとわかる。","少し考える時間を作れば、毎週少しずつ貯金しなくても一度にたくさん貯められる。","毎週少しずつ貯金すれば、一度にたくさん貯めるより考える時間が少なくてすむ。"],"a":0,"e":"[S]A moment's thought [V]will tell [O]you [O][that ～]。「少しの考えが教える」は条件にして「少し考えればわかる」と訳す。that 節の主語は saving a little money every week で、2番目は比較の向きが逆。3番目・4番目は that 節の内容を読めていない。","p":"この文の最も自然な和訳を選びなさい。","t":"少し考えれば、毎週少しずつ貯金するほうが一度にたくさん貯めるより簡単だとわかる。","en":"A moment's thought will tell you that saving a little money every week is easier than saving a lot at once.","m":"難易度 ★★★ 発展"},{"g":"inanimate","q":"《The absence of trees in the area means》 that heavy rain can easily wash the soil away into the river.","c":["その地域には木がないので、大雨が降ると土が簡単に川へ流されてしまう。","その地域から木がなくなっても、大雨で土が川へ流されることはまずない。","大雨で土が川へ流されたので、その地域には木が育たなくなってしまった。","その地域に木が少ないのは、大雨で土が簡単に川へ流されてしまうからだ。"],"a":0,"e":"[S]The absence (of trees in the area) [V]means [O][that heavy rain ～]。absence of trees は「木がないこと」。A means that B は「A ということは B だ」、つまり「A なので B」。3番目・4番目は因果が逆、2番目は can easily と逆の内容。","p":"この文の最も自然な和訳を選びなさい。","t":"その地域には木がないので、大雨が降ると土が簡単に川へ流されてしまう。","en":"The absence of trees in the area means that heavy rain can easily wash the soil away into the river.","m":"難易度 ★★★ 発展"},{"g":"inanimate","q":"《Online classes allowed》 students living far from the city to take lessons from experienced teachers.","c":["オンライン授業のおかげで、都市から遠くに住む生徒も経験豊かな先生の授業を受けられた。","オンライン授業では、都市から遠くに住む生徒が経験豊かな先生に授業をするのを認めた。","都市から遠くに住む生徒は、経験豊かな先生の許可があればオンライン授業を受けられた。","オンライン授業のせいで、都市から遠くに住む生徒は経験豊かな先生の授業を受けられなかった。"],"a":0,"e":"[S]Online classes [V]allowed [O]students (living far from the city) [C]to take lessons ～。allow O to do「O が～するのを可能にする」の主語を手段にして「オンライン授業のおかげで～できた」と訳す。take lessons は「授業を受ける」。4番目は否定、3番目は許可を先生からと誤読している。","p":"この文の最も自然な和訳を選びなさい。","t":"オンライン授業のおかげで、都市から遠くに住む生徒も経験豊かな先生の授業を受けられた。","en":"Online classes allowed students living far from the city to take lessons from experienced teachers.","m":"難易度 ★☆☆ 基礎"},{"g":"inanimate","q":"《Spending too much time on smartphones may lead to》 poor sleep and difficulty concentrating in class.","c":["スマートフォンを使いすぎると、よく眠れず授業に集中しにくくなることがある。","スマートフォンを使いすぎるのは、よく眠れず授業に集中できないせいかもしれない。","よく眠れず授業に集中できない人は、スマートフォンをあまり使わないほうがよい。","スマートフォンを長く使うことで、よく眠れなくても授業に集中できるようになる。"],"a":0,"e":"[S][Spending too much time on smartphones] [V]may lead <to poor sleep and ～>。A lead to B は「A が B につながる」＝「A すると B になる」。主語が原因、to の後ろが結果。2番目は因果が逆、3番目は助言の文、4番目は difficulty を逆に読んでいる。","p":"この文の最も自然な和訳を選びなさい。","t":"スマートフォンを使いすぎると、よく眠れず授業に集中しにくくなることがある。","en":"Spending too much time on smartphones may lead to poor sleep and difficulty concentrating in class.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《Our lack of experience in running a café》 made the school festival much harder than we had expected.","c":["私たちはカフェを運営した経験がなかったので、文化祭は予想よりずっと大変だった。","私たちはカフェを運営した経験が少しはあったので、文化祭は予想より楽に終わった。","文化祭が予想よりずっと大変だったので、私たちはカフェの経験を積めなかった。","カフェを運営する経験を積むために、私たちは予想より大がかりな文化祭を作った。"],"a":0,"e":"[S]Our lack (of experience in running a café) [V]made [O]the school festival [C]much harder ～。lack of experience は「経験がないこと」。主語を原因にして「経験がなかったので大変になった」と訳す。2番目は lack を「少しある」、3番目は因果が逆、4番目は made を「作った」と誤読。","p":"この文の最も自然な和訳を選びなさい。","t":"私たちはカフェを運営した経験がなかったので、文化祭は予想よりずっと大変だった。","en":"Our lack of experience in running a café made the school festival much harder than we had expected.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《Fear of making mistakes often keeps Japanese students from speaking up》 in their English classes.","c":["間違いを恐れるあまり、日本の生徒は英語の授業で発言できないことが多い。","英語の授業で発言すると、日本の生徒は間違いを恐れるようになることが多い。","間違いを恐れる日本の生徒でも、英語の授業では発言し続けることが多い。","間違いを恐れないように、日本の生徒は英語の授業でよく発言している。"],"a":0,"e":"[S]Fear (of making mistakes) [V]keeps [O]Japanese students <from speaking up>。keep O from -ing は「O が～するのを妨げる」。主語を原因にして「間違いを恐れて発言できない」と訳す。3番目は keep -ing「～し続ける」と混同、2番目は因果が逆、4番目は from を無視している。","p":"この文の最も自然な和訳を選びなさい。","t":"間違いを恐れるあまり、日本の生徒は英語の授業で発言できないことが多い。","en":"Fear of making mistakes often keeps Japanese students from speaking up in their English classes.","m":"難易度 ★★☆ 標準"},{"g":"inanimate","q":"《The introduction of electric buses in the city has led to》 a significant drop in air pollution over the past five years.","c":["市に電気バスが導入されたことで、この5年間で大気汚染が大きく減った。","市で大気汚染が大きく減ったので、この5年間で電気バスが導入された。","市に電気バスを導入するには、この5年間で大気汚染を大きく減らす必要がある。","市に電気バスが導入されても、この5年間で大気汚染はあまり減らなかった。"],"a":0,"e":"[S]The introduction (of electric buses ～) [V]has led <to a significant drop in air pollution>。「電気バスが導入された」結果「汚染が大きく減った」と訳す。drop in ～ は「～の減少」。2番目は因果が逆、3番目は条件、4番目は significant と逆の内容。","p":"この文の最も自然な和訳を選びなさい。","t":"市に電気バスが導入されたことで、この5年間で大気汚染が大きく減った。","en":"The introduction of electric buses in the city has led to a significant drop in air pollution over the past five years.","m":"難易度 ★★★ 発展"},{"g":"inanimate","q":"《Her refusal to accept any help from others》 surprised the members of the team, who had always worked together.","c":["彼女が他人の助けを一切受けようとしなかったので、いつも協力してきたチームの仲間は驚いた。","彼女が他人の助けを喜んで受け入れたので、いつも協力してきたチームの仲間はとても驚いた。","いつも協力してきたチームの仲間は、彼女に助けを求めるのを断って、彼女をとても驚かせた。","他人の助けを一切受けなかったチームの仲間に、いつも協力してきた彼女はとても驚いていた。"],"a":0,"e":"[S]Her refusal (to accept any help from others) [V]surprised [O]the members ～。refusal to do は refuse to do の名詞形で「彼女が～するのを拒んだこと」。主語を原因にして「拒んだのでチームの仲間は驚いた」と訳す。2番目は refusal を逆に、3番目・4番目は拒んだ人と驚いた人を取り違えている。","p":"この文の最も自然な和訳を選びなさい。","t":"彼女が他人の助けを一切受けようとしなかったので、いつも協力してきたチームの仲間は驚いた。","en":"Her refusal to accept any help from others surprised the members of the team, who had always worked together.","m":"難易度 ★★★ 発展"}];
+  var GUIDES = {"svoc":"## カッコのつけ方の約束（解釈の5単元で共通）\n\n長い英文は、語のカタマリにカッコをつけると骨格が見えてきます。この道場では次の約束で統一します。\n\n| カッコ | 表すもの | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（S・O・C になる） | [What he said] S |\n| ( ) | 形容詞のカタマリ（名詞を修飾する） | the girl (in the photo) |\n| < > | 副詞のカタマリ（動詞や文全体を修飾する） | <after school> |\n\n文の要素は S（主語）・V（述語動詞）・O（目的語）・C（補語）で示し、「/」で区切ります。カッコの中は、いったん1語とみなして読みます。\n\n## 5つの文型\n\n| 文型 | 形 | 見分けのポイント |\n|---|---|---|\n| 第1文型 | S V | 後ろは副詞（場所・時）だけ |\n| 第2文型 | S V C | S＝C の関係（become, turn, sound, prove など） |\n| 第3文型 | S V O | O は動作の対象で S≠O |\n| 第4文型 | S V O O | 「O₁に O₂を」。O₁≠O₂ |\n| 第5文型 | S V O C | 「O が C だ／C する」という関係が O と C にある |\n\n## SVOO と SVOC の見分け方\n\n動詞の後に名詞が2つ並んだら、**2つの間に「＝」が成り立つか**を確かめます。\n\n- The club members call [the new student] O [Captain] C.（新入生＝キャプテン → SVOC）\n- My uncle found [me] O [a part-time job] O.（私≠仕事 → SVOO）\n\nC に来るのは名詞だけではありません。形容詞（keep the door **open**）、分詞（heard my name **called**）、to 不定詞（believe him **to be** honest）も C になります。\n\n## 述語動詞の見つけ方\n\n1. 主語の後ろについている修飾語（前置詞句・分詞・関係詞節）を ( ) でくくる\n2. カッコの外に残った、時制をもつ動詞が述語動詞\n\n例: [The boy (standing by the gate) (who waved at us)] S / is V / my cousin C.\n\nstanding はカッコの中、waved もカッコの中。外に残った is が述語動詞です。\n\n## よくある誤り\n\n- **-ing 形や過去分詞を述語動詞と取り違える**: 分詞は単独では述語になれません\n- **名詞にも動詞にもなる語にだまされる**: rain, sound, plan, water などは、the や a がついていれば名詞\n- **C を修飾語と読む**: paint the wall **blue** は「青い壁」ではなく「壁を青く塗る」\n\n## 共通テストでの効き方\n\n共通テストの英文は1文が長く、主語の後ろに修飾語が続くことがよくあります。「どれが述語動詞か」を一瞬で決められると、内容一致問題で主語と述語の関係を取り違えなくなります。第5文型の O と C の関係（「O が C だ」）を意識すると、make や find を使った文の意味も正確に取れます。","long-subject":"## カッコのつけ方の約束（解釈の5単元で共通）\n\n長い英文は、語のカタマリにカッコをつけると骨格が見えてきます。この道場では次の約束で統一します。\n\n| カッコ | 表すもの | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（S・O・C になる） | [What he said] S |\n| ( ) | 形容詞のカタマリ（名詞を修飾する） | the girl (in the photo) |\n| < > | 副詞のカタマリ（動詞や文全体を修飾する） | <after school> |\n\n文の要素は S（主語）・V（述語動詞）・O（目的語）・C（補語）で示し、「/」で区切ります。カッコの中は、いったん1語とみなして読みます。\n\n## 主語はどこまでか\n\n英語の主語は、中心の名詞の後ろに修飾語が続いてどんどん長くなります。**述語動詞が見つかったら、その直前で主語が終わる**と考えます。\n\n[The students (who joined the club) (in April)] S / look V / happy C.\n\n主語を長くする主な要素は次の3つです。\n\n| 後ろにつくもの | 例 |\n|---|---|\n| 前置詞句 | the shop (near the station) |\n| 分詞 | the books (kept in the library) |\n| 関係詞節 | the people (who live here) |\n\n文頭の -ing 形や to 不定詞がそのまま主語になることもあります。\n\n[Reading books (in English)] S / is V / fun C.\n\n## 形式主語 it\n\n長い主語を後ろに回し、空いた主語の位置に it を置く形です。\n\nIt S / is V / important C / [to sleep well] 真主語.\n\n- it は「それ」と訳さず、後ろの to 不定詞・that 節・疑問詞節の内容を主語として訳す\n- for 人 は不定詞の意味上の主語。kind, careless など人の性質を表す形容詞では **of 人** になる\n\n## 形式目的語 it\n\n第5文型（S V O C）の O が長いとき、O の位置に it を置いて本当の目的語を後ろに回します。\n\nThe app S / makes V / it O / easy C / [to take notes] 真の目的語.\n\nfind it hard to, think it strange that, make it a rule to（〜することにしている）などがよく出ます。\n\n## よくある誤り\n\n- **関係詞節の中の動詞を述語動詞と取り違える**: The people who live here are kind. の述語は are\n- **主語の中心を見誤る**: The number of students **is** 〜（中心は number なので単数）\n- **形式主語の it を「それ」と訳す**: 後ろに to 不定詞や that 節があれば形式主語を疑う\n\n## 共通テストでの効き方\n\n共通テストの英文では、主語が10語を超えることも珍しくありません。主語の範囲を誤ると「何が」「どうした」を取り違え、内容一致問題で誤答を選びます。形式主語の文は筆者の評価（important など）を表すことが多く、主張をつかむ手がかりになります。","noun-clause":"## カッコのつけ方の約束（解釈の5単元で共通）\n\n長い英文は、語のカタマリにカッコをつけると骨格が見えてきます。この道場では次の約束で統一します。\n\n| カッコ | 表すもの | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（S・O・C になる） | [What he said] S |\n| ( ) | 形容詞のカタマリ（名詞を修飾する） | the girl (in the photo) |\n| < > | 副詞のカタマリ（動詞や文全体を修飾する） | <after school> |\n\n文の要素は S（主語）・V（述語動詞）・O（目的語）・C（補語）で示し、「/」で区切ります。カッコの中は、いったん1語とみなして読みます。\n\n## 名詞のカタマリとは\n\n語のまとまりが1つの名詞と同じ働き（主語・目的語・補語・前置詞の目的語）をするものです。**文の中で S・O・C の位置にあれば名詞のカタマリ**と判断します。\n\n| 種類 | 例 | 訳し方 |\n|---|---|---|\n| that 節 | [that he is honest] | 〜ということ |\n| whether / if 節 | [whether it will rain] | 〜かどうか |\n| 疑問詞節 | [where she lives] | どこに〜か |\n| what 節 | [what I need] | 〜なもの・こと |\n| to 不定詞 | [to travel abroad] | 〜すること |\n| 動名詞 | [playing the piano] | 〜すること |\n\n## 置かれる位置で見分ける\n\n- 主語: [Whether we win] S / doesn't matter V.\n- 目的語: I S / know V / [where he lives] O.\n- 補語: My hope S / is V / [to become a pilot] C.\n- 前置詞の目的語: He is good <at [cooking]>.\n\n## 副詞のカタマリとの区別\n\n同じ語で始まっても、位置で働きが変わります。\n\n| 語 | 名詞のカタマリ | 副詞のカタマリ |\n|---|---|---|\n| if | I wonder [if he will come]. | <If it rains>, we will stay home. |\n| when | Tell me [when he will arrive]. | <When he arrives>, call me. |\n| to 不定詞 | I decided [to go]. | I went there <to study>. |\n\n名詞のカタマリの if / when 節では、未来のことに will を使えます。「時・条件」の副詞節では未来でも現在形を使うので、**will があれば名詞節**の手がかりになります。\n\n## よくある誤り\n\n- **間接疑問を疑問文として訳す**: I don't know why he left. は「なぜ彼が去ったのか、私は知らない」\n- **文頭の -ing 形を分詞構文と読む**: 後ろにすぐ述語動詞が続けば動名詞の主語\n\n## 共通テストでの効き方\n\n筆者の主張は The point is that 〜 や What matters is 〜 の形でよく示されます。名詞のカタマリを正確に取れると要旨の問題で迷いません。","adj-modifier":"## カッコのつけ方の約束（解釈の5単元で共通）\n\n長い英文は、語のカタマリにカッコをつけると骨格が見えてきます。この道場では次の約束で統一します。\n\n| カッコ | 表すもの | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（S・O・C になる） | [What he said] S |\n| ( ) | 形容詞のカタマリ（名詞を修飾する） | the girl (in the photo) |\n| < > | 副詞のカタマリ（動詞や文全体を修飾する） | <after school> |\n\n文の要素は S（主語）・V（述語動詞）・O（目的語）・C（補語）で示し、「/」で区切ります。カッコの中は、いったん1語とみなして読みます。\n\n## 英語は「後ろから」修飾する\n\n日本語は「ピアノを弾いている女の子」のように修飾語が名詞の前に来ますが、英語では2語以上の修飾語は名詞の**後ろ**に置かれます。\n\n| 形 | 例 |\n|---|---|\n| 前置詞句 | the woman (with a red bag) |\n| 現在分詞 | the boy (running in the park) |\n| 過去分詞 | a car (made in Japan) |\n| to 不定詞 | something (to drink) |\n| 形容詞＋語句 | people (interested in art) |\n| 関係詞節 | the town (where I was born) |\n| 関係代名詞の省略 | the book ((that) I read) |\n\n## 修飾先の見つけ方\n\n1. ( ) の直前の名詞をまず候補にする\n2. 意味が通るかを確かめる（「だれが」「何が」〜するのか）\n3. 関係代名詞は **who＝人、which＝物** で候補をしぼる\n\n修飾語が名詞から**離れる**こともあります。\n\nI met [a woman] O <at the party> (who spoke five languages).\n\nwho は人を受けるので、party ではなく woman にかかります。\n\n## 関係代名詞の省略を見抜く\n\n名詞の直後に「主語＋動詞」が続いたら、間に that が省略されていると考えます。\n\n[The cake (my mother made)] S / was V / delicious C.\n\nmade は述語動詞ではありません。後ろに残った was が述語動詞です。\n\n## よくある誤り\n\n- **直前の名詞に機械的にかける**: the report on climate change that students wrote は「生徒が書いた報告」。気候変動を書くのではない\n- **分詞を述語動詞と読む**: The houses built last year are 〜 の built は過去分詞\n- **to 不定詞を「〜するために」と決めつける**: 名詞の直後なら形容詞用法を疑う\n\n## 共通テストでの効き方\n\n長文では、1つの名詞に分詞や関係詞節が重なってつくことがよくあります。「どの名詞の説明か」を取り違えると、登場人物や物の特徴を誤って読み、内容一致問題で失点します。( ) でくくって、名詞とその説明をセットで読む習慣をつけましょう。","adv-modifier":"## カッコのつけ方の約束（解釈の5単元で共通）\n\n長い英文は、語のカタマリにカッコをつけると骨格が見えてきます。この道場では次の約束で統一します。\n\n| カッコ | 表すもの | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（S・O・C になる） | [What he said] S |\n| ( ) | 形容詞のカタマリ（名詞を修飾する） | the girl (in the photo) |\n| < > | 副詞のカタマリ（動詞や文全体を修飾する） | <after school> |\n\n文の要素は S（主語）・V（述語動詞）・O（目的語）・C（補語）で示し、「/」で区切ります。カッコの中は、いったん1語とみなして読みます。\n\n## 副詞のカタマリとは\n\n文の骨格（S・V・O・C）には入らず、動詞・形容詞・文全体に「いつ・なぜ・どのように・何のために」などの情報を足すカタマリです。**取り除いても文が成り立つ**のが特徴です。\n\n| 形 | 例 | 意味 |\n|---|---|---|\n| 副詞節 | <When I got home>, 〜 | 時 |\n| | <Although it was cold>, 〜 | 譲歩 |\n| | <If you need help>, 〜 | 条件 |\n| | 〜 <so that we could see well> | 目的 |\n| to 不定詞 | 〜 <to catch the bus> | 目的 |\n| | glad <to see you> | 感情の原因 |\n| | 〜, <only to fail> | 結果 |\n| 分詞構文 | <Walking home>, I 〜 | 時・理由など |\n| with＋O＋C | <with the door open> | 付帯状況 |\n\n## 見分け方\n\n- **文頭のカタマリの後にコンマ＋主語**が来たら、そのカタマリは副詞（主語ではない）\n  - <Reading the letter>, she cried.（分詞構文）\n  - [Reading letters] is fun.（動名詞の主語）\n- **名詞の直後の to 不定詞**は形容詞用法の可能性がある。動詞や文全体にかかるなら副詞用法\n- **if / when** は、主節の外にあれば副詞節（条件・時）、動詞の目的語なら名詞節（〜かどうか・いつ〜か）\n\n## 分詞構文の読み方\n\n分詞構文は接続詞を使わない副詞のカタマリです。主語は主節の主語と同じで、意味は文脈で決まります。\n\n- Not knowing 〜（否定は not を前に置く）\n- Having finished 〜（主節より前に終わったこと）\n- Tired 〜 / Written 〜（Being の省略）\n\n## よくある誤り\n\n- **to 不定詞をすべて「〜するために」と訳す**: glad to hear は「聞いてうれしい」、only to find は「結局〜だった」\n- **Given that 〜 を「与えられた」と訳す**: 「〜を考えると」という慣用表現\n- **as をいつも「〜ので」と訳す**: 比較級や変化とともに使えば「〜につれて」\n\n## 共通テストでの効き方\n\n副詞のカタマリをいったん < > でくくって外すと、文の骨格がすぐに見えます。そのうえで、譲歩（Although）や結果（only to）などの論理関係を読み取ると、筆者の主張や話の展開を正しくつかめます。","that-usage":"## カッコの約束\n\nこの道場では、英文の構造を次の記号で示します。\n\n| 記号 | 意味 | 例 |\n|---|---|---|\n| [ ] | 名詞のカタマリ（主語・目的語・補語になる） | I know [that he is right]. |\n| ( ) | 形容詞のカタマリ（直前の名詞を説明する） | the book (that I bought) |\n| < > | 副詞のカタマリ（動詞や文全体を説明する） | <When I got home>, it was dark. |\n\n文の要素は [S]（主語）[V]（動詞）[O]（目的語）[C]（補語）の印を、その語句の前につけて示します。\n\n## that は「後ろ」と「前」で見分ける\n\nthat を見たら、まず **that の後ろが完全な文か、名詞が1つ欠けた文か** を確かめます。次に **that の前に何があるか** を見ます。\n\n| 前にあるもの | 後ろ | 用法 | 訳し方 |\n|---|---|---|---|\n| 名詞 | 名詞が欠けている | 関係代名詞 | 〜する（名詞） |\n| fact / news / idea などの名詞 | 完全な文 | 同格の接続詞 | 〜という（名詞） |\n| 動詞（know, say など）/ is | 完全な文 | 名詞節の接続詞 | 〜ということ |\n| It is 形容詞 | 完全な文 | 形式主語 it の真主語 | 〜ということは…だ |\n| It is 語句 | 残りの部分 | 強調構文 | 〜なのは…だ |\n| so＋形容詞・副詞 | 完全な文 | so〜that（結果） | とても〜なので… |\n\n## 例文で確認\n\n- The rumor (that Aki told me) was false.　told me の後ろに「何を」が欠けている → 関係代名詞\n- The rumor [that Aki is moving] was false.　後ろが完全な文 → 同格「アキが引っ越すといううわさ」\n- It was Aki that found the key.　It was と that を消すと Aki found the key. が成り立つ → 強調構文\n- It is strange [that Aki is late].　It is と that を消すと文にならない → 形式主語\n\n## よくある誤り\n\n1. **「名詞＋that」をすべて関係代名詞と思いこむ。** fact, news, idea, belief, evidence などの後ろは同格のことが多いが、後ろが不完全なら関係代名詞。必ず後ろを確かめる。\n2. **強調構文と形式主語の混同。** It is の後が形容詞なら形式主語、名詞や副詞句（in Kyoto など）なら強調構文を疑い、It is と that を外して文が成り立つか試す。\n3. **so〜that を「〜するために」と訳す。** 目的の so that は so と that が並ぶ。間に形容詞・副詞が入れば「とても〜なので」。\n\n## 共通テストでの効き方\n\n長文では that 節が長く、どこまでが主語かを見失いやすい。that の種類がわかると、[S] の終わりと [V] の位置が見え、1文を正確に読めるようになります。","apposition":"## カッコの約束\n\n| 記号 | 意味 |\n|---|---|\n| [ ] | 名詞のカタマリ（主語・目的語・補語） |\n| ( ) | 形容詞のカタマリ（名詞を説明） |\n| < > | 副詞のカタマリ（動詞や文全体を説明） |\n\n文の要素は [S][V][O][C] の印を語句の前につけて示します。\n\n## 1. 並列 ―― and / or / but は「同じ形」を結ぶ\n\n等位接続詞は、**文法上同じ種類のもの**（名詞と名詞、動詞と動詞、-ing と -ing …）を結びます。and の**直後の語の形**を見て、前から同じ形を探すのがコツです。\n\n- My brother [V]washed the dishes and [V]cleaned the kitchen.　→ washed と cleaned（過去形どうし）\n- She likes [reading comics] and [drawing pictures].　→ reading と drawing（-ing どうし）\n\n直前の名詞と結ぶとはかぎりません。**意味と形の両方**で確かめます。三単現の s や is / are も手がかりになります。\n\n## 2. 同格 ―― 名詞を別の名詞で言いかえる\n\n| 形 | 例 |\n|---|---|\n| 名詞, 名詞, | Ms. Sato, our music teacher, plays the violin. |\n| 名詞 ― 名詞 ― | One problem ― the high cost ― stopped the plan. |\n| 名詞 of 名詞 | the dream of flying（飛ぶという夢） |\n| 名詞, or 名詞 | ecology, or the study of nature（つまり） |\n\nカンマで囲まれた名詞は、直前の名詞と**同じもの**を指します。主語と動詞の間に入ると、動詞が遠くなるので注意しましょう。\n\n## 3. 挿入 ―― カッコに入れて読み飛ばす\n\nカンマやダッシュに挟まれた部分（as far as I know / I think / for example など）は、いったん < > でくくって外すと骨格が見えます。\n\n- The shop, <I hear>, closes at six.　→ The shop closes at six.\n- the boy who <I think> is the tallest　→ the boy who is the tallest\n\n## よくある誤り\n\n1. **and を直前の名詞どうしの接続と決めつける。** and の後ろが動詞なら、前の動詞を探す。\n2. **挿入の中の名詞を主語と取り違える。** カンマの間を外してから主語と動詞を決める。\n3. **or をいつも「または」と訳す。** カンマ＋or＋説明なら「つまり」の言いかえ。\n\n## 共通テストでの効き方\n\n説明文では、専門用語を or や同格で言いかえる文、長い主語の間に挿入が入る文が多く出ます。並列と挿入を見抜けると、1文が長くても骨格がすぐに見えます。","inversion":"## カッコの約束\n\n| 記号 | 意味 |\n|---|---|\n| [ ] | 名詞のカタマリ（主語・目的語・補語） |\n| ( ) | 形容詞のカタマリ（名詞を説明） |\n| < > | 副詞のカタマリ（動詞や文全体を説明） |\n\n文の要素は [S][V][O][C] の印を語句の前につけて示します。倒置の文では、**[V] の後ろに [S] が来る**ことに注目します。\n\n## 1. 倒置 ―― 語順が入れかわる4つの型\n\n| 型 | 例 | 語順 |\n|---|---|---|\n| 否定語が文頭 | Never have I seen it. | 否定語＋助動詞＋S＋V |\n| 場所の語句が文頭 | On the desk lay a cat. | 場所＋V＋S |\n| 補語が文頭 | So kind was she that ～ | C＋V＋S |\n| if の省略 | Had I known, ～ | 助動詞＋S＋V（＝If I had known） |\n\n否定語は never, little, seldom, rarely, hardly, not until, only（「～して初めて」）など。**否定語の後ろは疑問文と同じ語順**になります。\n\nso / neither も同じ語順です。\n- I like cats, and so does my brother.（兄も好きだ）\n- I can't swim, and neither can Yuta.（ユウタも泳げない）\n\n## 2. 省略 ―― 前に出た語句をくり返さない\n\n- <When (I was) a child>, I lived in Osaka.　主節と同じ主語＋be 動詞が消える\n- <If (it is) necessary>, call me.　it is が消える決まった形\n- I wanted to go, but I didn't have time to (go).　to の後ろの動詞が消える\n- Aki ordered tea, and Rin (ordered) coffee.　同じ動詞が消える\n\n補うときは、**前に出てきた語句をそのまま戻す**のが原則です。\n\n## 3. 強調構文 ―― It is ～ that …\n\nIt is と that を外して文が成り立てば強調構文。「…なのは～だ」と訳します。疑問詞を強調すると **What was it that ～?**「一体何が～したのか」の形になります。\n\n## よくある誤り\n\n1. **倒置の文で、文頭の名詞を主語と思いこむ。** On the hill stood a tower. の主語は a tower。\n2. **Not until A did B を「A するまで B しなかった」とだけ訳す。** 自然な日本語は「A して初めて B した」。\n3. **Should you ～ を「～すべき」と訳す。** 文頭の Should は if の省略で「万一～なら」。\n\n## 共通テストでの効き方\n\n倒置は評論文や物語文の山場に出ます。主語がどれかを取り違えると内容一致問題で誤答します。語順の型を覚え、[V] の後ろの [S] を探す習慣をつけましょう。","inanimate":"## カッコの約束\n\n| 記号 | 意味 |\n|---|---|\n| [ ] | 名詞のカタマリ（主語・目的語・補語） |\n| ( ) | 形容詞のカタマリ（名詞を説明） |\n| < > | 副詞のカタマリ（動詞や文全体を説明） |\n\n文の要素は [S][V][O][C] の印を語句の前につけて示します。\n\n## 1. 無生物主語 ―― 主語を「原因・手段・条件」として訳す\n\n英語では、物や出来事がよく主語になります。日本語にそのまま訳すと不自然なので、**主語を副詞のように訳し、目的語の人を主語にする**のが基本です。\n\n| 動詞の型 | 例 | 自然な訳 |\n|---|---|---|\n| S take 人 to ～ | This road takes you to the lake. | この道を行けば湖に出る |\n| S make 人 do | The movie made me cry. | その映画を見て私は泣いた |\n| S enable / allow 人 to do | The app enables us to ～ | そのアプリのおかげで～できる |\n| S prevent / keep 人 from -ing | The rain kept us from ～ | 雨のせいで～できなかった |\n| S remind 人 of ～ | The song reminds me of ～ | その歌を聞くと～を思い出す |\n| S cost 人 ～ | The error cost us the game. | その失敗のせいで試合に負けた |\n| S lead to ～ | Stress can lead to ～ | ストレスは～につながる |\n\n主語を訳すときの言葉は「～のおかげで」「～のせいで」「～すれば」「～を見ると」など。**プラスの内容かマイナスの内容か**で使い分けます。\n\n## 2. 名詞構文 ―― 名詞の中に文が隠れている\n\n動詞や形容詞からできた名詞は、**文に戻して訳す**と自然になります。\n\n- his arrival → he arrived（彼が着いたこと）\n- the discovery of the island by a sailor → a sailor discovered the island\n- her failure to come → she did not come（彼女が来なかったこと）\n- our lack of time → we did not have enough time\n- A closer look at ～ shows … → ～をよく見ると…とわかる\n\n**of の後ろが目的語、by の後ろが主語**になることが多いので、「誰が何をしたか」を確かめます。\n\n## よくある誤り\n\n1. **keep 人 from -ing を「～し続ける」と訳す。** from があれば「～させない」。\n2. **remind 人 of ～ と remind 人 to do の混同。** of は「思い出させる」、to do は「忘れずに～するよう言う」。\n3. **failure を「失敗した」とだけ訳す。** failure to do は「～しないこと」。\n\n## 共通テストでの効き方\n\n説明文や論説文では無生物主語と名詞構文が多く、直訳のままだと因果関係を見失います。「何が原因で、誰がどうなったか」に組み直す練習をしておくと、内容一致や理由を問う設問に強くなります。"};
+  var WORDS = [];
+
+  var els = {};
+  ["unit-groups","selected-unit-box","selected-unit-label","selected-unit-count",
+   "btn-make-quiz","btn-view-guide",
+   "error-banner","error-text","error-close",
+   "view-setup","view-quiz","view-result","view-guide","view-stats",
+   "quiz-count","quiz-score","quiz-unit","quiz-dots","quiz-prompt","quiz-question","quiz-source","quiz-choices",
+   "quiz-feedback","feedback-speak","feedback-sentence","btn-speak","btn-speak-slow","feedback-verdict","feedback-head","feedback-explanation","feedback-translation","feedback-translation-text","feedback-meta",
+   "btn-next-question",
+   "result-frac","result-message","btn-retry-quiz","btn-new-quiz","btn-guide-from-result","btn-change-unit",
+   "guide-content","btn-guide-back","btn-guide-quiz",
+   "stats-body","btn-stats","btn-stats-back","btn-stats-reset","btn-stats-from-result",
+   "btn-wrongbox","btn-wrong-only","range-from","range-to","btn-range"
+  ].forEach(function(id){ els[id.replace(/-([a-z])/g, function(_,c){return c.toUpperCase();})] = document.getElementById(id); });
+
+  var SET_SIZE = 10;
+  var quizData = [];
+  var currentIndex = 0;
+  var score = 0;
+  var results = [];
+  var selectedUnit = null;
+  var isWrongReview = false;
+
+  // 問題文と正解から安定したIDを作る（データの並び順が変わってもずれない）
+  function qid(text){
+    var h = 5381, s = String(text);
+    for(var i=0;i<s.length;i++){ h = ((h*33) ^ s.charCodeAt(i)) >>> 0; }
+    return h.toString(36);
+  }
+  var QID_MAP = {};
+  POOL.forEach(function(q){
+    q.id = qid(q.q + "|" + q.c[q.a]);
+    QID_MAP[q.id] = q;
+  });
+
+  // ===================== 学習記録（この端末のブラウザ内だけに保存） =====================
+  var RECENT_MAX = 60;
+  var DAYS_MAX  = 400;
+
+  function emptyStore(){ return { units:{}, wrong:[], recent:{}, days:[] }; }
+
+  var store = (function(){
+    try{
+      var raw = window.localStorage.getItem(CONFIG.storeKey);
+      if(!raw) return emptyStore();
+      var o = JSON.parse(raw);
+      return {
+        units:  o.units  || {},
+        wrong:  Array.isArray(o.wrong) ? o.wrong : [],
+        recent: o.recent || {},
+        days:   o.days   || []
+      };
+    }catch(e){ return emptyStore(); }
+  })();
+
+  var storageOK = true;
+  function saveStore(){
+    try{ window.localStorage.setItem(CONFIG.storeKey, JSON.stringify(store)); }
+    catch(e){ storageOK = false; }
+  }
+
+  function rangeUnit(from, to){
+    return { id: "r" + from + "-" + to, label: "No." + from + "〜" + to, from: from, to: to };
+  }
+
+  function findUnit(uid){
+    var found = null;
+    UNITS.forEach(function(g){
+      g.items.forEach(function(it){ if(it.id === uid) found = it; });
+    });
+    if(!found){
+      var m = /^r(\d+)-(\d+)$/.exec(uid);
+      if(m) found = rangeUnit(+m[1], +m[2]);
+    }
+    return found;
+  }
+  function unitLabelOf(uid){
+    var u = findUnit(uid);
+    return u ? u.label : uid;
+  }
+
+  function poolOf(unit){
+    if(unit.from){
+      return POOL.filter(function(q){ return q.no >= unit.from && q.no <= unit.to; });
+    }
+    return POOL.filter(function(q){ return q.g === unit.id; });
+  }
+
+  function todayKey(){
+    var d = new Date();
+    function p(n){ return (n<10?"0":"") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+
+  function recordAnswer(id, isCorrect){
+    var at = store.wrong.indexOf(id);
+    if(isCorrect){
+      if(at >= 0) store.wrong.splice(at, 1);   // 正解したら苦手ボックスから外す
+    } else if(at < 0){
+      store.wrong.push(id);
+    }
+  }
+
+  function recordQuizFinished(unitId, asked, correct){
+    var u = store.units[unitId] || { attempts:0, asked:0, correct:0, last:"" };
+    u.attempts += 1;
+    u.asked    += asked;
+    u.correct  += correct;
+    u.last      = todayKey();
+    store.units[unitId] = u;
+    if(store.days.indexOf(u.last) < 0){
+      store.days.push(u.last);
+      if(store.days.length > DAYS_MAX) store.days = store.days.slice(-DAYS_MAX);
+    }
+    saveStore();
+  }
+
+  function rememberAsked(unitId, questions){
+    var seen = store.recent[unitId] || [];
+    questions.forEach(function(q){
+      var at = seen.indexOf(q.id);
+      if(at >= 0) seen.splice(at, 1);
+      seen.push(q.id);
+    });
+    if(seen.length > RECENT_MAX) seen = seen.slice(-RECENT_MAX);
+    store.recent[unitId] = seen;
+    saveStore();
+  }
+
+  function wrongBoxQuestions(limit){
+    var out = [];
+    store.wrong.forEach(function(id){ if(QID_MAP[id]) out.push(QID_MAP[id]); });
+    return shuffleArray(out).slice(0, limit || SET_SIZE);
+  }
+  function wrongBoxCount(){
+    return store.wrong.filter(function(id){ return QID_MAP[id]; }).length;
+  }
+
+  function switchView(name){
+    ["setup","quiz","result","guide","stats"].forEach(function(v){
+      els["view"+v[0].toUpperCase()+v.slice(1)].hidden = (v !== name);
+    });
+    if(name !== "quiz") stopSpeaking();
+    window.scrollTo(0, 0);
+  }
+
+  function showError(msg){
+    els.errorText.textContent = msg;
+    els.errorBanner.hidden = false;
+  }
+  function clearError(){ els.errorBanner.hidden = true; }
+  els.errorClose.addEventListener("click", clearError);
+
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, function(ch){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch];
+    });
+  }
+  // 《》で囲んだ部分を傍線にする
+  function markup(s){
+    return escapeHTML(s).replace(/《(.+?)》/g, '<span class="bosen">$1</span>');
+  }
+
+  // ---- 単元選び ----
+  function renderUnitGroups(){
+    els.unitGroups.innerHTML = "";
+    UNITS.forEach(function(group){
+      var wrap = document.createElement("div");
+      wrap.className = "unit-group";
+      var h3 = document.createElement("h3");
+      h3.textContent = group.chapter;
+      wrap.appendChild(h3);
+      var chips = document.createElement("div");
+      chips.className = "chips";
+      group.items.forEach(function(item){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip";
+        btn.textContent = item.label;
+        btn.dataset.unitId = item.id;
+        btn.addEventListener("click", function(){ selectUnit(item); });
+        chips.appendChild(btn);
+      });
+      wrap.appendChild(chips);
+      els.unitGroups.appendChild(wrap);
+    });
+  }
+  renderUnitGroups();
+
+  function selectUnit(item){
+    selectedUnit = item;
+    Array.prototype.forEach.call(els.unitGroups.querySelectorAll(".chip"), function(chip){
+      chip.classList.toggle("active", chip.dataset.unitId === item.id);
+    });
+    els.selectedUnitLabel.textContent = item.label + (item.hint ? "（" + item.hint + "）" : "");
+    els.selectedUnitCount.textContent = " 全" + poolOf(item).length + "問";
+    els.selectedUnitBox.hidden = false;
+    els.btnMakeQuiz.disabled = false;
+    els.btnViewGuide.disabled = false;
+    clearError();
+  }
+
+  if(els.btnRange){
+    els.btnRange.addEventListener("click", function(){
+      var a = parseInt(els.rangeFrom.value, 10), b = parseInt(els.rangeTo.value, 10);
+      if(isNaN(a) || isNaN(b)){ showError("はじめとおわりの番号を数字で入れてください。"); return; }
+      if(a > b){ var t = a; a = b; b = t; }
+      a = Math.max(1, a); b = Math.min(CONFIG.maxNo, b);
+      var u = rangeUnit(a, b);
+      if(!poolOf(u).length){ showError("No." + a + "〜" + b + " には問題がありません。"); return; }
+      els.rangeFrom.value = a; els.rangeTo.value = b;
+      selectUnit(u);
+      els.selectedUnitBox.scrollIntoView({ block:"nearest" });
+    });
+  }
+
+  // ---- 出題 ----
+  function shuffleArray(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function shuffleChoices(q){
+    var order = shuffleArray(q.c.map(function(_, i){ return i; }));
+    var copy = {};
+    Object.keys(q).forEach(function(k){ copy[k] = q[k]; });
+    copy.c = order.map(function(i){ return q.c[i]; });
+    copy.a = order.indexOf(q.a);
+    return copy;
+  }
+
+  // 同じ語が1セットに重ならないように選ぶ（足りなければ重ねる）
+  function pickDistinct(list, n){
+    var used = {}, out = [], rest = [];
+    list.forEach(function(q){
+      if(out.length >= n){ return; }
+      if(q.w && used[q.w]){ rest.push(q); return; }
+      if(q.w) used[q.w] = true;
+      out.push(q);
+    });
+    return out.concat(rest).slice(0, n);
+  }
+
+  function pickQuizForUnit(unit){
+    var pool = poolOf(unit);
+    if(!pool.length) return null;
+    // 直近に出した問題をいったん後回しにして、同じ問題の再出現を減らす
+    var seen = store.recent[unit.id] || [];
+    var fresh = pool.filter(function(q){ return seen.indexOf(q.id) < 0; });
+    var picked;
+    if(fresh.length >= SET_SIZE){
+      picked = pickDistinct(shuffleArray(fresh), SET_SIZE);
+    } else {
+      // 未出題が足りなくなったら一巡したとみなし、記憶を流して全体から選び直す
+      picked = pickDistinct(shuffleArray(fresh).concat(
+        shuffleArray(pool.filter(function(q){ return fresh.indexOf(q) < 0; }))
+      ), SET_SIZE);
+      store.recent[unit.id] = [];
+    }
+    rememberAsked(unit.id, picked);
+    return picked.map(shuffleChoices);
+  }
+
+  function beginQuiz(questions, title){
+    quizData = questions;
+    currentIndex = 0; score = 0; results = [];
+    renderQuizDots();
+    els.quizUnit.textContent = title;
+    renderQuestion();
+    switchView("quiz");
+  }
+
+  function startQuizWith(questions, title){
+    if(!questions || !questions.length) return false;
+    isWrongReview = true;
+    beginQuiz(questions.map(shuffleChoices), title);
+    return true;
+  }
+
+  function startQuiz(){
+    clearError();
+    if(!selectedUnit) return;
+    isWrongReview = false;
+    var qs = pickQuizForUnit(selectedUnit);
+    if(!qs){
+      showError("「" + selectedUnit.label + "」の問題は準備中です。別の単元をお試しください。");
+      switchView("setup");
+      return;
+    }
+    beginQuiz(qs, CONFIG.unitWord + ": " + selectedUnit.label);
+  }
+
+  function renderQuizDots(){
+    els.quizDots.innerHTML = "";
+    quizData.forEach(function(){ els.quizDots.appendChild(document.createElement("span")); });
+    updateDots();
+  }
+  function updateDots(){
+    var dots = els.quizDots.children;
+    for(var i=0;i<dots.length;i++){
+      dots[i].className = "";
+      if(results[i] === "correct") dots[i].classList.add("done-correct");
+      else if(results[i] === "wrong") dots[i].classList.add("done-wrong");
+      else if(i === currentIndex) dots[i].classList.add("current");
+    }
+  }
+
+  // ---- 英語 ----
+  function isEnglish(s){
+    var t = String(s || "").replace(/[\s\d\p{P}《》]/gu, "");
+    if(!t) return false;
+    var ascii = t.replace(/[^A-Za-z]/g, "").length;
+    return ascii / t.length > 0.6;
+  }
+  var canSpeak = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+  var enVoice = null;
+  function pickVoice(){
+    if(!canSpeak) return;
+    var vs = window.speechSynthesis.getVoices() || [];
+    var en = vs.filter(function(v){ return /^en[-_]/i.test(v.lang); });
+    var pref = function(re){ return en.filter(function(v){ return re.test(v.lang); }); };
+    var us = pref(/US/i), gb = pref(/GB/i);
+    var cand = us.length ? us : (gb.length ? gb : en);
+    // 高品質な音声（Enhanced / Premium / Google / Natural）を優先
+    enVoice = cand.filter(function(v){ return /enhanced|premium|natural|google|samantha/i.test(v.name); })[0] || cand[0] || null;
+  }
+  if(canSpeak){
+    pickVoice();
+    if(window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener("voiceschanged", pickVoice);
+  }
+  function stopSpeaking(){
+    if(!canSpeak) return;
+    try{ window.speechSynthesis.cancel(); }catch(e){}
+    if(els.btnSpeak){ els.btnSpeak.setAttribute("aria-pressed","false"); els.btnSpeakSlow.setAttribute("aria-pressed","false"); }
+  }
+  function speak(text, rate, btn){
+    if(!canSpeak || !text) return;
+    stopSpeaking();
+    // 長い文で読み上げが途中で止まるブラウザがあるので、文ごとに分けて順に読む
+    var parts = String(text).match(/[^.!?]+[.!?]*["')]*\s*/g) || [text];
+    btn.setAttribute("aria-pressed","true");
+    parts.forEach(function(part, i){
+      var u = new SpeechSynthesisUtterance(part.trim());
+      u.lang = enVoice ? enVoice.lang : "en-US";
+      if(enVoice) u.voice = enVoice;
+      u.rate = rate;
+      if(i === parts.length-1){ u.onend = u.onerror = function(){ btn.setAttribute("aria-pressed","false"); }; }
+      window.speechSynthesis.speak(u);
+    });
+  }
+  els.btnSpeak.addEventListener("click", function(){ speak(quizData[currentIndex].en, 0.95, els.btnSpeak); });
+  els.btnSpeakSlow.addEventListener("click", function(){ speak(quizData[currentIndex].en, 0.7, els.btnSpeakSlow); });
+
+  function renderQuestion(){
+    var q = quizData[currentIndex];
+    els.quizCount.textContent = "問 " + (currentIndex+1) + " / " + quizData.length;
+    els.quizScore.textContent = "正解 " + score;
+    els.quizPrompt.textContent = q.p || "";
+    els.quizPrompt.hidden = !q.p;
+    els.quizQuestion.innerHTML = markup(q.q);
+    els.quizQuestion.lang = isEnglish(q.q) ? "en" : "ja";
+    stopSpeaking();
+    els.quizQuestion.classList.toggle("big", !!q.big);
+    els.quizSource.textContent = q.s || "";
+    els.quizSource.hidden = !q.s;
+    els.quizFeedback.hidden = true;
+    els.btnNextQuestion.hidden = true;
+    updateDots();
+
+    els.quizChoices.innerHTML = "";
+    var letters = ["A","B","C","D","E","F"];
+    q.c.forEach(function(choiceText, idx){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.innerHTML = '<span class="badge">' + letters[idx] + '</span><span></span>';
+      var label = btn.querySelector("span:last-child");
+      label.textContent = choiceText;
+      if(isEnglish(choiceText)){ label.className = "en"; label.lang = "en"; }
+      btn.addEventListener("click", function(){ onChoose(idx); });
+      els.quizChoices.appendChild(btn);
+    });
+  }
+
+  function onChoose(idx){
+    var q = quizData[currentIndex];
+    var buttons = els.quizChoices.querySelectorAll(".choice");
+    Array.prototype.forEach.call(buttons, function(b){ b.disabled = true; });
+
+    var isCorrect = (idx === q.a);
+    buttons[idx].classList.add(isCorrect ? "correct" : "incorrect");
+    if(!isCorrect) buttons[q.a].classList.add("correct");
+
+    if(isCorrect) score++;
+    results[currentIndex] = isCorrect ? "correct" : "wrong";
+    recordAnswer(q.id, isCorrect);
+    saveStore();
+    updateDots();
+    els.quizScore.textContent = "正解 " + score;
+
+    els.feedbackVerdict.textContent = isCorrect ? "○ 正解！" : "× 残念、不正解";
+    els.feedbackVerdict.className = "verdict " + (isCorrect ? "correct" : "incorrect");
+    els.feedbackHead.textContent = q.h || "";
+    els.feedbackHead.hidden = !q.h;
+    els.feedbackExplanation.textContent = q.e || "";
+    els.feedbackSentence.textContent = q.en || "";
+    els.feedbackSpeak.hidden = !q.en;
+    els.btnSpeak.hidden = els.btnSpeakSlow.hidden = !canSpeak;
+    if(q.t){
+      els.feedbackTranslationText.innerHTML = markup(q.t);
+      els.feedbackTranslation.hidden = false;
+    } else {
+      els.feedbackTranslation.hidden = true;
+    }
+    els.feedbackMeta.textContent = q.m || "";
+    els.feedbackMeta.hidden = !q.m;
+    els.quizFeedback.hidden = false;
+    els.btnNextQuestion.hidden = false;
+    els.btnNextQuestion.textContent = (currentIndex === quizData.length-1) ? "結果を見る" : "次の問題へ";
+    // 解説とボタンが画面の外に出ないように寄せる
+    try{
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      els.btnNextQuestion.scrollIntoView({ block: "end", behavior: reduceMotion ? "auto" : "smooth" });
+    }catch(e){
+      els.btnNextQuestion.scrollIntoView(false);
+    }
+  }
+
+  els.btnNextQuestion.addEventListener("click", function(){
+    if(currentIndex < quizData.length-1){
+      currentIndex++;
+      renderQuestion();
+      els.quizCount.scrollIntoView({ block: "nearest" });
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult(){
+    var total = quizData.length;
+    els.resultFrac.textContent = score + "/" + total;
+    var ratio = score/total;
+    var msg;
+    if(score === total) msg = "満点です！お見事な出来栄え。もう一つ別の範囲にも挑戦してみましょう。";
+    else if(ratio >= 0.7) msg = "よくできました。間違えた問題の解説を読み返して、仕上げていきましょう。";
+    else if(ratio >= 0.4) msg = "もう少しです。解説を読み直して、同じ範囲にもう一度挑戦してみましょう。";
+    else msg = CONFIG.lowScoreMessage;
+    els.resultMessage.textContent = msg;
+
+    if(selectedUnit && !isWrongReview){
+      recordQuizFinished(selectedUnit.id, total, score);
+    } else {
+      saveStore();
+    }
+
+    var wrongCount = results.filter(function(r){ return r === "wrong"; }).length;
+    els.btnWrongOnly.hidden = (wrongCount === 0);
+    if(wrongCount) els.btnWrongOnly.textContent = "間違えた" + wrongCount + "問だけもう一度";
+    els.btnGuideFromResult.hidden = !selectedUnit || isWrongReview;
+    els.btnNewQuiz.hidden = !selectedUnit || isWrongReview;
+
+    switchView("result");
+  }
+
+  els.btnRetryQuiz.addEventListener("click", function(){
+    beginQuiz(quizData.map(shuffleChoices), els.quizUnit.textContent);
+  });
+  els.btnNewQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnChangeUnit.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideFromResult.addEventListener("click", function(){ showGuide(); });
+  els.btnGuideBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideQuiz.addEventListener("click", function(){ startQuiz(); });
+
+  // ---- 学習ガイド / 単語一覧 ----
+  function renderMarkdown(text){
+    try{
+      if(window.marked && typeof window.marked.parse === "function") return window.marked.parse(text);
+    }catch(e){}
+    return escapeHTML(text).replace(/\n/g, "<br>");
+  }
+
+  function wordListHTML(unit){
+    var rows = WORDS.filter(function(w){
+      return unit.from ? (w.no >= unit.from && w.no <= unit.to) : w.g === unit.id;
+    });
+    if(!rows.length) return "";
+    var html = '<h2>' + escapeHTML(unit.label) + ' の語</h2>'
+             + '<div style="overflow-x:auto"><table class="word-table"><thead><tr>'
+             + '<th>' + (unit.from ? "No." : "頁") + '</th><th>語</th><th>意味</th></tr></thead><tbody>';
+    rows.forEach(function(w){
+      html += '<tr><td class="no">' + (unit.from ? w.no : "p." + w.pg) + '</td>'
+           +  '<td class="w">' + escapeHTML(w.w) + (w.k ? '<small>' + escapeHTML(w.k) + (w.h ? "・" + escapeHTML(w.h) : "") + '</small>' : "") + '</td>'
+           +  '<td>' + escapeHTML(w.m) + (unit.from && w.pg ? ' <span style="color:var(--ink-soft);font-size:.78rem">p.' + w.pg + '</span>' : "") + '</td></tr>';
+    });
+    return html + '</tbody></table></div>';
+  }
+
+  function showGuide(){
+    clearError();
+    if(!selectedUnit) return;
+    var html = GUIDES[selectedUnit.id] ? renderMarkdown(GUIDES[selectedUnit.id]) : wordListHTML(selectedUnit);
+    els.guideContent.innerHTML = html || "<p>「" + escapeHTML(selectedUnit.label) + "」のガイドは準備中です。</p>";
+    switchView("guide");
+  }
+
+  // ===================== 記録画面 =====================
+  function pct(n, d){ return d ? Math.round(n / d * 100) : 0; }
+
+  function dayKey(d){
+    function p(x){ return (x<10?"0":"") + x; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+  function streakDays(){
+    if(!store.days.length) return 0;
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var n = 0, cur = new Date();
+    if(!set[dayKey(cur)]) cur.setDate(cur.getDate() - 1);   // 今日まだなら昨日から数える
+    while(set[dayKey(cur)]){ n++; cur.setDate(cur.getDate() - 1); }
+    return n;
+  }
+
+  function calendarHTML(){
+    var now = new Date();
+    var year = now.getFullYear(), month = now.getMonth();
+    var first = new Date(year, month, 1).getDay();
+    var last = new Date(year, month+1, 0).getDate();
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var html = '<div class="cal">';
+    ["日","月","火","水","木","金","土"].forEach(function(w){ html += '<span class="head">' + w + '</span>'; });
+    for(var i=0;i<first;i++) html += '<span></span>';
+    for(var d=1; d<=last; d++){
+      var cls = [];
+      if(set[dayKey(new Date(year, month, d))]) cls.push("on");
+      if(d === now.getDate()) cls.push("today");
+      html += '<span class="' + cls.join(" ") + '">' + d + '</span>';
+    }
+    return html + '</div>';
+  }
+
+  function renderStats(){
+    var uids = Object.keys(store.units);
+    var totalAttempts = 0, totalAsked = 0, totalCorrect = 0;
+    uids.forEach(function(u){
+      totalAttempts += store.units[u].attempts;
+      totalAsked    += store.units[u].asked;
+      totalCorrect  += store.units[u].correct;
+    });
+
+    var html = "";
+    if(!storageOK){
+      html += '<p class="stats-empty">このブラウザでは記録を保存できない設定になっています（プライベートモードなど）。'
+           +  'その場合でも、いま解いている分の「間違えた問題だけもう一度」は使えます。</p>';
+    }
+    if(!totalAttempts){
+      html += '<p class="stats-empty">まだ記録がありません。範囲を選んで10問解くと、ここに正答率と学習した日が残ります。</p>';
+      els.statsBody.innerHTML = html;
+      return;
+    }
+
+    html += '<div class="stat-grid">'
+         +  '<div class="stat-tile"><span class="k">挑戦した回数</span><span class="v">' + totalAttempts + '<small>回</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">解いた問題</span><span class="v">' + totalAsked + '<small>問</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">通算の正答率</span><span class="v">' + pct(totalCorrect, totalAsked) + '<small>%</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">連続学習日数</span><span class="v">' + streakDays() + '<small>日</small></span></div>'
+         +  '</div>';
+
+    var wn = wrongBoxCount();
+    html += '<div class="stats-section-title">苦手ボックス</div>';
+    if(wn){
+      html += '<div class="wrongbox-line"><span>間違えたまま正解していない問題が <strong>' + wn + '問</strong> あります。</span>'
+           +  '<button type="button" class="btn btn-primary" id="btn-wrongbox-2">ここから10問解く</button></div>';
+    } else {
+      html += '<p class="stats-empty">いまは空です。間違えた問題がここにたまり、正解すると消えます。</p>';
+    }
+
+    uids.sort(function(a,b){
+      return pct(store.units[a].correct, store.units[a].asked) - pct(store.units[b].correct, store.units[b].asked);
+    });
+    html += '<div class="stats-section-title">' + CONFIG.unitWord + 'ごとの成績（正答率の低い順）</div>';
+    html += '<div style="overflow-x:auto"><table class="stat-table"><thead><tr>'
+         +  '<th>' + CONFIG.unitWord + '</th><th class="num">挑戦</th><th class="num">正答率</th><th style="width:90px"></th><th class="num">最終</th>'
+         +  '</tr></thead><tbody>';
+    uids.forEach(function(uid){
+      var u = store.units[uid];
+      var r = pct(u.correct, u.asked);
+      var cls = r < 50 ? "low" : (r < 80 ? "mid" : "");
+      html += '<tr><td>' + escapeHTML(unitLabelOf(uid)) + '</td>'
+           +  '<td class="num">' + u.attempts + '回</td>'
+           +  '<td class="num">' + r + '%</td>'
+           +  '<td><span class="rate-bar"><i class="' + cls + '" style="width:' + r + '%"></i></span></td>'
+           +  '<td class="num">' + (u.last || "-").slice(5).replace("-", "/") + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<div class="stats-section-title">今月の学習した日</div>' + calendarHTML();
+
+    els.statsBody.innerHTML = html;
+    var btn2 = document.getElementById("btn-wrongbox-2");
+    if(btn2) btn2.addEventListener("click", openWrongBox);
+  }
+
+  function openWrongBox(){
+    clearError();
+    var qs = wrongBoxQuestions(SET_SIZE);
+    if(!qs.length){
+      showError("苦手ボックスは空です。まずは範囲を選んで挑戦してみましょう。");
+      switchView("setup");
+      return;
+    }
+    startQuizWith(qs, "苦手ボックス(" + qs.length + "問)");
+  }
+
+  function showStats(){ clearError(); renderStats(); switchView("stats"); }
+
+  els.btnStats.addEventListener("click", showStats);
+  els.btnStatsFromResult.addEventListener("click", showStats);
+  els.btnStatsBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnWrongbox.addEventListener("click", openWrongBox);
+
+  els.btnStatsReset.addEventListener("click", function(){
+    if(!window.confirm("これまでの記録と苦手ボックスをすべて消します。よろしいですか？")) return;
+    store = emptyStore();
+    try{ window.localStorage.removeItem(CONFIG.storeKey); }catch(e){}
+    renderStats();
+  });
+
+  els.btnWrongOnly.addEventListener("click", function(){
+    var wrong = quizData.filter(function(_, i){ return results[i] === "wrong"; });
+    if(!wrong.length) return;
+    startQuizWith(wrong, "間違えた問題の解き直し(" + wrong.length + "問)");
+  });
+
+  function refreshWrongBoxButton(){
+    var n = wrongBoxCount();
+    els.btnWrongbox.textContent = n ? ("苦手ボックスから10問(" + n + "問たまっています)") : "苦手ボックスから10問";
+    els.btnWrongbox.disabled = (n === 0);
+  }
+  refreshWrongBoxButton();
+
+  els.btnMakeQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnViewGuide.addEventListener("click", function(){ showGuide(); });
+})();
+</script>
+</body>
+</html>

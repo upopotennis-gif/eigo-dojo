@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="however・therefore・for example など、英文の論理をつなぐ言葉を短い文章で練習するドリル。">
+<title>渡邊梢太のつなぎ言葉道場</title>
+<style>
+  :root{
+    --ai:#23406e;
+    --ai-deep:#172b4d;
+    --yamabuki:#dda23a;
+    --yamabuki-deep:#a8761c;
+    --wakatake:#3f8a63;
+    --wakatake-bg:#e6f0e8;
+    --kobai:#b8483f;
+    --kobai-bg:#f6e6e2;
+    --bg:#eef1f5;
+    --surface:#fbfcfe;
+    --surface-2:#e0e6ee;
+    --ink:#1e2530;
+    --ink-soft:#566170;
+    --line:#c6d0dc;
+    --shadow:rgba(30,37,48,0.13);
+    --focus:#a8761c;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ai:#8fb0e6;
+      --ai-deep:#c3d4f2;
+      --yamabuki:#e0ac47;
+      --yamabuki-deep:#f0c877;
+      --wakatake:#7fc39e;
+      --wakatake-bg:#1c3329;
+      --kobai:#e2938c;
+      --kobai-bg:#3a2320;
+      --bg:#10151d;
+      --surface:#171e29;
+      --surface-2:#212a38;
+      --ink:#e6ebf2;
+      --ink-soft:#9aa6b6;
+      --line:#334154;
+      --shadow:rgba(0,0,0,0.45);
+      --focus:#e0ac47;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ai:#8fb0e6;
+    --ai-deep:#c3d4f2;
+    --yamabuki:#e0ac47;
+    --yamabuki-deep:#f0c877;
+    --wakatake:#7fc39e;
+    --wakatake-bg:#1c3329;
+    --kobai:#e2938c;
+    --kobai-bg:#3a2320;
+    --bg:#10151d;
+    --surface:#171e29;
+    --surface-2:#212a38;
+    --ink:#e6ebf2;
+    --ink-soft:#9aa6b6;
+    --line:#334154;
+    --shadow:rgba(0,0,0,0.45);
+    --focus:#e0ac47;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Zen Maru Gothic','Hiragino Maru Gothic ProN',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .stage{
+    max-width:680px;
+    margin:0 auto;
+    padding:28px 18px 60px;
+    position:relative;
+  }
+  .stage::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:radial-gradient(circle at 1px 1px, var(--line) 1px, transparent 0);
+    background-size:16px 16px;
+    opacity:.22;
+    mix-blend-mode:multiply;
+    pointer-events:none;
+    z-index:0;
+  }
+  :root:not([data-theme="light"]) .stage::before{ mix-blend-mode:screen; opacity:.10; }
+  :root[data-theme="dark"] .stage::before{ mix-blend-mode:screen; opacity:.10; }
+
+  .stage > *{ position:relative; z-index:1; }
+
+  .rod{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:0 auto;
+  }
+  .rod::before,.rod::after{
+    content:'';
+    flex:1;
+    height:5px;
+    border-radius:3px;
+    background:var(--ai-deep);
+  }
+  .rod .knob{
+    width:14px; height:14px; border-radius:50%;
+    background:var(--yamabuki);
+    box-shadow:0 0 0 2px var(--surface);
+    flex:none;
+  }
+
+  header.masthead{ text-align:center; padding:6px 0 22px; }
+  header.masthead .rod{ margin-bottom:16px; }
+  h1{
+    font-family:'Shippori Mincho', serif;
+    font-weight:800;
+    font-size:clamp(1.6rem, 1.1rem + 3vw, 2.3rem);
+    letter-spacing:.03em;
+    margin:0 0 8px;
+    text-wrap:balance;
+  }
+  header.masthead p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.92rem;
+    line-height:1.75;
+  }
+
+  section{ display:block; }
+  section[hidden]{ display:none !important; }
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:22px 20px;
+    box-shadow:0 3px 14px var(--shadow);
+  }
+  .card + .card{ margin-top:16px; }
+
+  .steps{
+    list-style:none;
+    margin:0 0 20px;
+    padding:0;
+    display:grid;
+    gap:8px;
+    font-size:.9rem;
+    color:var(--ink-soft);
+  }
+  .steps li{ display:flex; gap:10px; align-items:baseline; }
+  .steps .num{
+    font-family:'Shippori Mincho',serif;
+    color:var(--yamabuki-deep);
+    font-weight:700;
+    flex:none;
+    width:1.4em;
+  }
+
+  label.field-label{
+    display:block;
+    font-weight:700;
+    margin-bottom:4px;
+    font-size:.95rem;
+  }
+  .field-hint{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+  }
+
+  .unit-group{ margin-bottom:18px; }
+  .unit-group:last-child{ margin-bottom:0; }
+  .unit-group h3{
+    font-family:'Shippori Mincho',serif;
+    font-size:.95rem;
+    font-weight:700;
+    color:var(--ai);
+    margin:0 0 8px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    border:1.5px solid var(--line);
+    background:var(--bg);
+    color:var(--ink);
+    border-radius:999px;
+    padding:8px 14px;
+    font-size:.84rem;
+    line-height:1.4;
+    cursor:pointer;
+    font-family:'Zen Maru Gothic',sans-serif;
+    text-align:left;
+  }
+  .chip:hover{ border-color:var(--ai); }
+  .chip.active{ background:var(--ai); color:var(--surface); border-color:var(--ai); font-weight:700; }
+
+  .selected-unit-box{
+    margin-top:18px;
+    padding:12px 14px;
+    background:var(--surface-2);
+    border-radius:8px;
+    font-size:.88rem;
+  }
+  .selected-unit-box strong{
+    font-family:'Shippori Mincho',serif;
+    color:var(--ai);
+  }
+
+  textarea:focus-visible, button:focus-visible, .choice:focus-visible, .chip:focus-visible, input:focus-visible{
+    outline:3px solid var(--focus);
+    outline-offset:2px;
+  }
+
+  .actions{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
+  }
+  button.btn{
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-weight:700;
+    font-size:1.02rem;
+    padding:15px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, filter .12s ease;
+  }
+  @media (prefers-reduced-motion: reduce){ button.btn{ transition:none; } }
+  button.btn:active{ transform:translateY(1px); }
+  button.btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+  .btn-primary{
+    background:var(--yamabuki);
+    color:#2a1c04;
+    box-shadow:0 3px 0 var(--yamabuki-deep);
+  }
+  :root:not([data-theme="light"]) .btn-primary{ color:#241a02; }
+  :root[data-theme="dark"] .btn-primary{ color:#241a02; }
+  .btn-primary:hover:not(:disabled){ filter:brightness(1.04); }
+  .btn-secondary{
+    background:transparent;
+    color:var(--ai);
+    border-color:var(--ai);
+  }
+  .btn-secondary:hover:not(:disabled){ background:var(--surface-2); }
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-soft);
+    border:none;
+    text-decoration:underline;
+    padding:8px;
+    font-size:.9rem;
+  }
+
+  #error-banner[hidden]{ display:none !important; }
+  #error-banner{
+    background:var(--kobai-bg);
+    border:1px solid var(--kobai);
+    color:var(--kobai);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.88rem;
+    margin-bottom:14px;
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:flex-start;
+  }
+  #error-banner button{
+    background:none; border:none; color:inherit; font-weight:700; cursor:pointer; font-size:1rem; line-height:1;
+  }
+
+  .quiz-progress{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:6px;
+    font-family:'Shippori Mincho',serif;
+  }
+  .quiz-progress .count{ font-size:1.1rem; font-weight:700; font-variant-numeric:tabular-nums; }
+  .quiz-progress .score{ font-size:.85rem; color:var(--ink-soft); font-family:'Zen Maru Gothic',sans-serif; }
+  .quiz-unit{
+    font-size:.8rem;
+    color:var(--ink-soft);
+    margin:0 0 14px;
+  }
+  .passage-box{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:14px 16px;
+    margin:0 0 18px;
+  }
+  .passage-box .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:6px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+  .passage-box p{
+    font-family:'Shippori Mincho',serif;
+    font-size:.98rem;
+    line-height:1.9;
+    margin:0;
+    white-space:pre-wrap;
+  }
+  .dots{ display:flex; gap:5px; margin-bottom:18px; flex-wrap:wrap; }
+  .dots span{ width:9px; height:9px; border-radius:50%; background:var(--line); }
+  .dots span.done-correct{ background:var(--wakatake); }
+  .dots span.done-wrong{ background:var(--kobai); }
+  .dots span.current{ background:var(--yamabuki); }
+
+  .question-text{
+    font-family:'Shippori Mincho',serif;
+    font-size:clamp(1.05rem, .9rem + 1vw, 1.3rem);
+    line-height:1.85;
+    margin:0 0 20px;
+    text-wrap:balance;
+  }
+
+  .choices{ display:grid; gap:10px; }
+  .choice{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-align:left;
+    width:100%;
+    background:var(--bg);
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:14px 16px;
+    font-family:'Zen Maru Gothic',sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--ink);
+    cursor:pointer;
+  }
+  .choice:hover:not(:disabled){ border-color:var(--ai); }
+  .choice .badge{
+    flex:none;
+    width:28px; height:28px;
+    border-radius:50%;
+    background:var(--surface-2);
+    color:var(--ink-soft);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:.85rem;
+    font-family:'Shippori Mincho',serif;
+  }
+  .choice:disabled{ cursor:default; }
+  .choice.correct{ background:var(--wakatake-bg); border-color:var(--wakatake); }
+  .choice.correct .badge{ background:var(--wakatake); color:#fff; }
+  .choice.incorrect{ background:var(--kobai-bg); border-color:var(--kobai); }
+  .choice.incorrect .badge{ background:var(--kobai); color:#fff; }
+
+  .feedback{
+    margin-top:18px;
+    padding-top:16px;
+    border-top:1px dashed var(--line);
+  }
+  .feedback .verdict{
+    font-family:'Shippori Mincho',serif;
+    font-weight:800;
+    font-size:1.15rem;
+    margin:0 0 10px;
+  }
+  .feedback .verdict.correct{ color:var(--wakatake); }
+  .feedback .verdict.incorrect{ color:var(--kobai); }
+  .feedback .explanation{ font-size:.95rem; line-height:1.8; margin:0 0 12px; }
+  .feedback .translation{
+    background:var(--surface-2);
+    border-radius:8px;
+    padding:12px 14px;
+    font-size:.9rem;
+    line-height:1.8;
+  }
+  .feedback .translation .label{
+    font-weight:700;
+    color:var(--ai);
+    display:block;
+    margin-bottom:4px;
+    font-size:.78rem;
+    letter-spacing:.04em;
+  }
+
+  .result-head{ text-align:center; padding:8px 0 22px; }
+  .stamp{
+    width:118px; height:118px;
+    margin:0 auto 16px;
+    border-radius:50%;
+    border:3px solid var(--kobai);
+    box-shadow:inset 0 0 0 3px var(--surface), 0 3px 10px var(--shadow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform:rotate(-5deg);
+    color:var(--kobai);
+    font-family:'Shippori Mincho',serif;
+  }
+  .stamp .frac{ font-size:1.7rem; font-weight:800; line-height:1; font-variant-numeric:tabular-nums; }
+  .stamp .of{ font-size:.7rem; margin-top:2px; }
+  .result-message{ font-size:.98rem; line-height:1.8; color:var(--ink-soft); max-width:32em; margin:0 auto; }
+
+  .guide-content{
+    font-size:.98rem;
+    line-height:1.95;
+  }
+  .guide-content h1,.guide-content h2,.guide-content h3{
+    font-family:'Shippori Mincho',serif;
+    margin:1.2em 0 .5em;
+    line-height:1.5;
+  }
+  .guide-content h1{ font-size:1.25rem; }
+  .guide-content h2{ font-size:1.12rem; }
+  .guide-content h3{ font-size:1.02rem; }
+  .guide-content p{ margin:0 0 .9em; }
+  .guide-content ul,.guide-content ol{ margin:0 0 1em; padding-left:1.4em; }
+  .guide-content li{ margin-bottom:.4em; }
+  .guide-content strong{ color:var(--ai); }
+  .guide-content code{ background:var(--surface-2); padding:.1em .3em; border-radius:4px; }
+  .thinking{ color:var(--ink-soft); }
+
+  footer{
+    text-align:center;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    margin-top:34px;
+    line-height:1.7;
+  }
+
+
+/* ==== 記録機能 追加分 ==== */
+.sub-actions{ display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+.stat-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px; margin-bottom:22px; }
+.stat-tile{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; background:var(--bg); }
+.stat-tile .k{ display:block; font-size:.74rem; color:var(--ink-soft); letter-spacing:.06em; }
+.stat-tile .v{ display:block; font-size:1.5rem; font-weight:700; color:var(--ai); font-variant-numeric:tabular-nums; margin-top:2px; }
+.stat-tile .v small{ font-size:.8rem; font-weight:400; color:var(--ink-soft); margin-left:2px; }
+.stats-empty{ color:var(--ink-soft); padding:18px 0; }
+.stat-table{ width:100%; border-collapse:collapse; font-size:.9rem; }
+.stat-table th{ text-align:left; font-size:.72rem; letter-spacing:.08em; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px 8px; font-weight:700; }
+.stat-table td{ border-bottom:1px solid var(--line); padding:8px; vertical-align:middle; }
+.stat-table td.num{ text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.rate-bar{ display:block; position:relative; height:8px; border-radius:4px; background:var(--line); min-width:70px; }
+.rate-bar i{ position:absolute; left:0; top:0; bottom:0; border-radius:4px; background:var(--wakatake); }
+.rate-bar i.low{ background:var(--kobai); }
+.rate-bar i.mid{ background:var(--yamabuki); }
+.cal{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; max-width:330px; }
+.cal span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:.74rem;
+  border-radius:6px; color:var(--ink-soft); font-variant-numeric:tabular-nums; }
+.cal span.head{ color:var(--ink-soft); font-size:.68rem; aspect-ratio:auto; padding-bottom:2px; }
+.cal span.on{ background:var(--wakatake); color:#fff; font-weight:700; }
+.cal span.today{ outline:2px solid var(--yamabuki); outline-offset:-2px; }
+.stats-section-title{ font-size:.95rem; font-weight:700; margin:26px 0 10px; color:var(--ai); }
+.wrongbox-line{ display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:6px; }
+.privacy-note{ font-size:.76rem; color:var(--ink-soft); margin-top:26px; line-height:1.7; }
+
+/* ==== 狭い画面（スマホ）の調整 ==== */
+@media (max-width:400px){
+  h1{ font-size:1.5rem; letter-spacing:.01em; }
+  .stage{ padding:20px 14px 48px; }
+  .card{ padding:18px 15px; }
+  .chip{ font-size:.82rem; padding:8px 12px; }
+  .stat-grid{ grid-template-columns:repeat(2,1fr); }
+}
+#btn-next-question{ scroll-margin-bottom:24px; }
+
+/* ==== 道場の切り替え ==== */
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+
+
+/* ==== 英語道場 追加分 ==== */
+.question-text, .en-sentence, .choice .en{ font-family:'Source Serif 4','Shippori Mincho',serif; }
+.question-text{ font-weight:500; letter-spacing:.005em; }
+.choice .en{ font-size:1.05rem; }
+.speak-box{ border-left:3px solid var(--yamabuki); padding:4px 0 4px 12px; margin:0 0 14px; }
+.en-sentence{ font-size:1.08rem; line-height:1.7; margin:0 0 8px; }
+.speak-row{ display:flex; gap:8px; flex-wrap:wrap; }
+.speak-btn{ font:inherit; font-size:.84rem; padding:6px 14px; border-radius:999px; cursor:pointer;
+  border:1.5px solid var(--line); background:var(--surface); color:var(--ink); }
+.speak-btn:hover{ border-color:var(--ai); color:var(--ai); }
+.speak-btn[aria-pressed="true"]{ background:var(--ai); color:var(--surface); border-color:var(--ai); }
+nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
+nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
+  color:var(--ink-soft); text-decoration:none; background:var(--surface); }
+nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
+nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+.q-prompt{ font-size:.84rem; color:var(--ink-soft); margin:0 0 8px; }
+.question-text .bosen, .translation .bosen{ text-decoration:underline; text-decoration-thickness:2px;
+  text-underline-offset:.3em; text-decoration-color:var(--yamabuki); font-weight:700; }
+.question-text.big{ font-size:clamp(1.6rem, 1.2rem + 2vw, 2.1rem); text-align:center; letter-spacing:.08em; }
+.q-source{ font-size:.8rem; color:var(--ink-soft); text-align:right; margin:-12px 0 18px; }
+.feedback .word-head{ font-family:'Shippori Mincho',serif; font-weight:700; color:var(--ai); margin:0 0 6px; }
+.feedback .explanation{ white-space:pre-line; }
+.feedback .meta-note{ font-size:.76rem; color:var(--ink-soft); margin:10px 0 0; }
+.range-box{ margin-top:18px; padding-top:16px; border-top:1px dashed var(--line); }
+.range-row{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.range-row input{ width:5.2em; font:inherit; font-size:1rem; padding:8px 10px; border-radius:8px;
+  border:1.5px solid var(--line); background:var(--bg); color:var(--ink); font-variant-numeric:tabular-nums; }
+.range-row .chip{ margin-left:4px; }
+.word-table{ width:100%; border-collapse:collapse; font-size:.9rem; line-height:1.6; }
+.word-table th{ text-align:left; font-size:.72rem; color:var(--ink-soft); border-bottom:1px solid var(--line); padding:6px; }
+.word-table td{ border-bottom:1px solid var(--line); padding:8px 6px; vertical-align:top; }
+.word-table td.no{ color:var(--ink-soft); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.word-table td.w{ font-family:'Shippori Mincho',serif; font-weight:700; width:8.5em; }
+.word-table td.w small{ display:block; font-weight:500; color:var(--ink-soft); font-size:.74rem; line-height:1.5; }
+.guide-content table{ border-collapse:collapse; font-size:.9rem; margin:0 0 1em; line-height:1.55; }
+.guide-content th, .guide-content td{ border:1px solid var(--line); padding:6px 8px; }
+.guide-content th{ background:var(--surface-2); }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400&family=Zen+Maru+Gothic:wght@400;500;700&display=swap">
+</head>
+<body>
+
+<div class="stage">
+  <header class="masthead">
+    <div class="rod"><span class="knob"></span><span class="knob"></span></div>
+    <h1>渡邊梢太のつなぎ言葉道場</h1>
+    <p>However, Therefore, For example——つなぎ言葉は長文の道しるべです。短い文章で前後の関係を見抜く練習をします。アカウント登録は不要です。</p>
+    <div class="rod" style="margin-top:16px"><span class="knob"></span><span class="knob"></span></div>
+  </header>
+
+  <nav class="sister" aria-label="道場の切り替え"><a href="./">英文法道場</a><a href="kaishaku.html">英文解釈道場</a><a href="tsunagi.html" aria-current="page">つなぎ言葉道場</a></nav>
+
+  <div id="error-banner" hidden>
+    <span id="error-text"></span>
+    <button type="button" id="error-close" aria-label="閉じる">×</button>
+  </div>
+
+  <main id="app">
+
+    <section id="view-setup">
+      <div class="card">
+        <ol class="steps">
+          <li><span class="num">一</span>単元を選ぶ（先に「学習ガイド」で要点を読むのがおすすめ）</li>
+          <li><span class="num">二</span>「クイズを始める」を押して4択に挑戦</li>
+        </ol>
+
+        <div id="unit-groups"></div>
+
+        
+
+        <div class="selected-unit-box" id="selected-unit-box" hidden>
+          選択中: <strong id="selected-unit-label"></strong>
+          <span id="selected-unit-count" style="color:var(--ink-soft)"></span>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-make-quiz" disabled>クイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-view-guide" disabled>学習ガイドを見る</button>
+        </div>
+
+        <div class="sub-actions">
+          <button type="button" class="btn btn-secondary" id="btn-wrongbox">苦手ボックスから10問</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats">これまでの記録</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-quiz" hidden>
+      <div class="card">
+        <div class="quiz-progress">
+          <span class="count" id="quiz-count">問 1 / 10</span>
+          <span class="score" id="quiz-score">正解 0</span>
+        </div>
+        <p class="quiz-unit" id="quiz-unit"></p>
+        <div class="dots" id="quiz-dots"></div>
+        <p class="q-prompt" id="quiz-prompt" hidden></p>
+        <p class="question-text" id="quiz-question"></p>
+        <p class="q-source" id="quiz-source" hidden></p>
+        <div class="choices" id="quiz-choices"></div>
+
+        <div class="feedback" id="quiz-feedback" hidden>
+          <p class="verdict" id="feedback-verdict"></p>
+          <p class="word-head" id="feedback-head" hidden></p>
+          <div class="speak-box" id="feedback-speak" hidden>
+            <p class="en-sentence" lang="en" id="feedback-sentence"></p>
+            <div class="speak-row">
+              <button type="button" class="speak-btn" id="btn-speak" aria-label="英文を読み上げる">🔊 聞く</button>
+              <button type="button" class="speak-btn" id="btn-speak-slow" aria-label="英文をゆっくり読み上げる">🐢 ゆっくり</button>
+            </div>
+          </div>
+          <p class="explanation" id="feedback-explanation"></p>
+          <div class="translation" id="feedback-translation" hidden>
+            <span class="label">和訳</span>
+            <span id="feedback-translation-text"></span>
+          </div>
+          <p class="meta-note" id="feedback-meta" hidden></p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-next-question" hidden>次の問題へ</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-result" hidden>
+      <div class="card">
+        <div class="result-head">
+          <div class="stamp"><span class="frac" id="result-frac">0/10</span><span class="of">正解</span></div>
+          <p class="result-message" id="result-message"></p>
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-wrong-only" hidden>間違えた問題だけもう一度</button>
+          <button type="button" class="btn btn-secondary" id="btn-retry-quiz">同じ問題にもう一度挑戦</button>
+          <button type="button" class="btn btn-secondary" id="btn-new-quiz">違う10問に挑戦する</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-from-result">学習ガイドを見る</button>
+          <button type="button" class="btn btn-ghost" id="btn-change-unit">別の単元を選ぶ</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-from-result">記録を見る</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-stats" hidden>
+      <div class="card">
+        <h2 class="card-title">これまでの記録</h2>
+        <div id="stats-body"></div>
+        <p class="privacy-note">
+          記録はこの端末のブラウザの中だけに保存されます。先生や他の人に送られることはありません。
+          ブラウザの履歴やサイトデータを消すと記録も消えます。
+        </p>
+        <div class="actions" style="margin-top:18px">
+          <button type="button" class="btn btn-secondary" id="btn-stats-back">単元選択に戻る</button>
+          <button type="button" class="btn btn-ghost" id="btn-stats-reset">記録を消す</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-guide" hidden>
+      <div class="card">
+        <div class="guide-content" id="guide-content"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" id="btn-guide-quiz">この範囲でクイズを始める</button>
+          <button type="button" class="btn btn-secondary" id="btn-guide-back">単元選択に戻る</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>渡邊梢太のつなぎ言葉道場<br>問題・例文・解説はすべて独自に作成しています（市販教材・入試問題からの転載はありません）。<br>試作版です。英文や解説の誤りに気づいたら、先生に知らせてください。</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var CONFIG = {"storeKey":"eigoTsunagi.v1","unitWord":"単元","lowScoreMessage":"学習ガイドの一覧表で、それぞれの語が「どんな関係」をつなぐかを確認してから再挑戦しましょう。","maxNo":0};
+  var UNITS = [{"chapter":"反対・譲歩","items":[{"id":"contrast","label":"逆接・対比","hint":"however, but, yet, on the other hand, while, whereas, instead"},{"id":"concession","label":"譲歩","hint":"although, even though, even if, despite, nevertheless, admittedly…but"}]},{"chapter":"理由と展開","items":[{"id":"cause","label":"原因・結果","hint":"because, since, as a result, therefore, thus, consequently, due to, so that"},{"id":"addition","label":"追加","hint":"also, in addition, moreover, furthermore, besides, not only…but also"},{"id":"sequence","label":"順序・時","hint":"first, then, after that, meanwhile, finally, eventually, at the same time"}]},{"chapter":"具体と抽象","items":[{"id":"example","label":"例示・具体化","hint":"for example, for instance, such as, in particular, specifically, including"},{"id":"paraphrase","label":"言い換え・要約","hint":"in other words, that is, namely, in short, to put it simply, in sum"},{"id":"conclusion","label":"結論・強調","hint":"in conclusion, after all, indeed, in fact, above all, therefore, overall"}]}];
+  var POOL = [{"g":"contrast","q":"Many students say that smartphones help them look up information quickly during class. ( ), some teachers believe the devices only distract students from the lesson.","c":["However","For example","As a result","In addition"],"a":0,"e":"前：スマホは役立つ（生徒の意見）⇔ 後：気を散らすだけ（教師の意見）と反対の考えが並ぶので逆接の However。For example（例示）・As a result（結果）・In addition（同じ向きの追加）は、前後が対立する関係に合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"授業中にスマートフォンを使えばすぐに情報を調べられると言う生徒は多い。しかし、その機器は生徒の気を授業からそらすだけだと考える教師もいる。","en":"Many students say that smartphones help them look up information quickly during class. However, some teachers believe the devices only distract students from the lesson.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"My sister practiced the piano for hours every day before the contest, ( ) she did not win a prize. She says she will try again next year.","c":["but","so","or","because"],"a":0,"e":"前：毎日何時間も練習した ⇔ 後：入賞しなかった。努力から予想される結果と逆なので but。so は「練習したから入賞しなかった」という因果になり不自然。or は選択、because は理由を表し、練習の理由が入賞しなかったことでは時間の順序も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"妹はコンテストの前に毎日何時間もピアノを練習したが、入賞できなかった。来年また挑戦すると言っている。","en":"My sister practiced the piano for hours every day before the contest, but she did not win a prize. She says she will try again next year.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"The new school library has thousands of books and comfortable seats. ( ) few students use it after school because it closes at four o'clock on weekdays.","c":["Yet","Also","Thus","Then"],"a":0,"e":"前：本も席も充実（よく使われそう）⇔ 後：放課後はほとんど使われない、と予想に反するので Yet（それなのに）。Thus（したがって）では「充実しているから使われない」と矛盾する。Also（追加）・Then（時の順序）も合わない。文頭の Yet は後ろにコンマを置かないことが多い。","p":"空所に入る最も適切なものを選びなさい。","t":"新しい学校図書館には何千冊もの本と座り心地のよい席がある。それなのに、平日は4時に閉まるので放課後に利用する生徒はほとんどいない。","en":"The new school library has thousands of books and comfortable seats. Yet few students use it after school because it closes at four o'clock on weekdays.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"Living in a big city has many advantages, such as convenient trains and a wide variety of shops. ( ), city life can be noisy and expensive.","c":["On the other hand","For instance","In short","In the same way"],"a":0,"e":"前：都会の利点 ⇔ 後：騒がしく費用がかかる（欠点）と、同じ話題の別の面を対比しているので On the other hand。For instance は前の具体例、In short は要約、In the same way は「同様に」で、利点と欠点をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"大都市に住むことには、便利な電車やさまざまな店など多くの利点がある。一方で、都会の生活は騒がしく、お金がかかることもある。","en":"Living in a big city has many advantages, such as convenient trains and a wide variety of shops. On the other hand, city life can be noisy and expensive.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"In Japan, most students eat lunch in their own classrooms. ( ), students in many American schools eat lunch together in a large cafeteria with their friends.","c":["In contrast","As a result","For example","After that"],"a":0,"e":"前：日本は教室で食べる ⇔ 後：アメリカはカフェテリアで食べる、と2つの国の違いを比べているので In contrast。For example では後ろが前の具体例になるが、アメリカは日本の例ではない。As a result（結果）、After that（時の順序）も不適。","p":"空所に入る最も適切なものを選びなさい。","t":"日本では、ほとんどの生徒が自分の教室で昼食をとる。対照的に、アメリカの多くの学校では、生徒は大きなカフェテリアで友達と一緒に昼食をとる。","en":"In Japan, most students eat lunch in their own classrooms. In contrast, students in many American schools eat lunch together in a large cafeteria with their friends.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"( ) some people prefer reading paper books, others enjoy e-books because they can carry hundreds of them in one small device. Both groups agree that reading is important.","c":["While","Because","Unless","Once"],"a":0,"e":"前：紙の本を好む人がいる ⇔ 後：電子書籍を好む人もいる、と2つを対比する接続詞 While（～する一方で）。Because（理由）では「紙の本を好む人がいるから」となり意味をなさない。Unless（～しない限り）・Once（いったん～すると）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"紙の本を読むほうが好きな人がいる一方で、小さな端末1台で何百冊も持ち運べるので電子書籍を楽しむ人もいる。どちらの人も読書は大切だと考えている。","en":"While some people prefer reading paper books, others enjoy e-books because they can carry hundreds of them in one small device. Both groups agree that reading is important.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"Solar power depends on the weather and the time of day, ( ) nuclear power can produce electricity at a steady rate. Each energy source has its own strengths and weaknesses.","c":["whereas","so that","as long as","in case"],"a":0,"e":"前：太陽光は天候や時間に左右される ⇔ 後：原子力は安定して発電できる、と対比する接続詞 whereas（～する一方で）。so that（目的）、as long as（～する限り：条件）、in case（～する場合に備えて）はいずれも前後を対比できない。","p":"空所に入る最も適切なものを選びなさい。","t":"太陽光発電は天候や時間帯に左右されるが、それに対して原子力発電は安定して電気をつくることができる。どのエネルギー源にも長所と短所がある。","en":"Solar power depends on the weather and the time of day, whereas nuclear power can produce electricity at a steady rate. Each energy source has its own strengths and weaknesses.","m":"難易度 ★★★ 発展"},{"g":"contrast","q":"Our class had planned to have a picnic in the park on Friday. It rained heavily that day, so we watched a movie in the gym ( ).","c":["instead","too","either","for example"],"a":0,"e":"予定：公園でピクニック ⇔ 実際：体育館で映画、と予定の代わりに別のことをしたので instead（その代わりに）。too は「～もまた」でピクニックもしたことになり矛盾。either は否定文で使う。for example（例示）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちのクラスは金曜日に公園でピクニックをする予定だった。その日は大雨だったので、代わりに体育館で映画を見た。","en":"Our class had planned to have a picnic in the park on Friday. It rained heavily that day, so we watched a movie in the gym instead.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"Emma wanted to study abroad after graduating from high school. Her parents, ( ), thought that she was still too young to live alone in a foreign country.","c":["however","but","therefore","for example"],"a":0,"e":"前：エマは留学したい ⇔ 後：両親はまだ若すぎると考えた、で逆接。however は副詞なので、主語の後にコンマではさんで挿入できる。but は接続詞で、このように文中に挿入できない。therefore（だから）は因果、for example（例示）は意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"エマは高校卒業後に留学したいと思っていた。しかし両親は、彼女が外国で一人暮らしをするにはまだ若すぎると考えた。","en":"Emma wanted to study abroad after graduating from high school. Her parents, however, thought that she was still too young to live alone in a foreign country.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"Many people believe that eating late at night is bad for their health. However, ( )","c":["some studies show that the amount we eat matters more than the time.","doctors also tell people not to eat right before going to bed.","eating late at night can easily lead to weight gain and poor sleep.","this idea is widely shared by doctors and food experts around the world."],"a":0,"e":"前：夜遅い食事は体に悪いと信じられている ⇔ However の後：その考えに反する内容。「時間より量が重要」という研究が対立する内容。ほかの3つは、医師も同じ助言をする・体重増加につながる・専門家も同じ考え、と前と同じ向きで However に合わない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"夜遅くに食べるのは健康に悪いと多くの人が信じている。しかし、食べる時間より量のほうが重要だと示す研究もある。","en":"Many people believe that eating late at night is bad for their health. However, some studies show that the amount we eat matters more than the time.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"Online classes allow students to study anywhere and at any time. On the other hand, ( )","c":["it is harder for students to ask their teachers questions directly.","students can watch the lesson videos again whenever they want to.","they help students save the time and money needed to travel to school.","students can choose the classes that match their own interests."],"a":0,"e":"前：オンライン授業の利点（場所や時間を選ばない）⇔ 後：欠点が来る。「先生に直接質問しにくい」が唯一の欠点。見直せる・通学の時間とお金の節約・興味に合う授業を選べる、はすべて利点で、On the other hand の後に置いても対比にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"オンライン授業なら、生徒はどこでもいつでも勉強できる。一方で、先生に直接質問するのは難しくなる。","en":"Online classes allow students to study anywhere and at any time. On the other hand, it is harder for students to ask their teachers questions directly.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"In the past, most people got news from newspapers and TV. In contrast, ( )","c":["many young people today get news mainly from social media on their smartphones.","newspapers were delivered to most homes every morning.","families often watched the evening news on TV together.","people usually talked about the news at dinner in those days."],"a":0,"e":"前：昔は新聞とテレビ ⇔ 後：今の若者は SNS、と「昔と今」を対比している。ほかの3つはどれも昔の様子の説明で、前の文と同じ時代の話なので In contrast でつなげない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"かつて、ほとんどの人は新聞やテレビからニュースを得ていた。対照的に、今日の若者の多くは主にスマートフォンのSNSからニュースを得ている。","en":"In the past, most people got news from newspapers and TV. In contrast, many young people today get news mainly from social media on their smartphones.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"Older people tend to keep in touch with their friends by phone, ( ) younger people usually prefer to send short messages. This difference can sometimes cause misunderstandings.","c":["whereas","however","in contrast","on the other hand"],"a":0,"e":"意味はどれも「対比」。空所の前後はどちらも〈主語＋動詞〉のそろった文で、コンマだけでつながっている。2つの文を1文にできるのは接続詞の whereas だけ。however・in contrast・on the other hand は副詞（句）で文をつなぐ力がなく、ピリオドなどで区切る必要がある。","p":"空所に入る最も適切なものを選びなさい。","t":"年配の人は電話で友人と連絡を取ることが多いのに対して、若い人はたいてい短いメッセージを送るほうを好む。この違いがときに誤解を生むこともある。","en":"Older people tend to keep in touch with their friends by phone, whereas younger people usually prefer to send short messages. This difference can sometimes cause misunderstandings.","m":"難易度 ★★★ 発展"},{"g":"contrast","q":"( ) taking the bus, Ken decided to ride his bicycle to school to get more exercise. After a month, he felt much healthier than before.","c":["Instead of","Because of","In spite of","Thanks to"],"a":0,"e":"「バスに乗る」と「自転車で行く」はどちらか一方を選ぶ関係なので Instead of（～の代わりに）。後ろが -ing なので前置詞句が入る。Because of・Thanks to は理由、In spite of は譲歩で、「バスに乗ったので／乗ったのに自転車で行く」は意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"ケンはもっと運動するために、バスに乗る代わりに自転車で通学することにした。1か月後、彼は以前よりずっと体調がよくなったと感じた。","en":"Instead of taking the bus, Ken decided to ride his bicycle to school to get more exercise. After a month, he felt much healthier than before.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"The final exam was very difficult, ( ) most students passed it. They had prepared for it carefully for several weeks with their teachers and classmates.","c":["yet","so","or","for"],"a":0,"e":"前：試験はとても難しかった ⇔ 後：ほとんどの生徒が合格、と予想に反するので yet（それでも）。so（だから）では「難しかったから合格した」となり不自然。or（または）、for（というのは～だから）も前後の関係に合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"期末試験はとても難しかったが、それでもほとんどの生徒が合格した。彼らは先生や同級生と一緒に、数週間かけて入念に準備していたのだ。","en":"The final exam was very difficult, yet most students passed it. They had prepared for it carefully for several weeks with their teachers and classmates.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"I usually walk to school with my friends, and it takes about twenty minutes. ( ) this morning I took the bus because I had hurt my leg at soccer practice.","c":["But","So","Or","Because"],"a":0,"e":"前：ふだんは歩いて通学 ⇔ 後：今朝はバスに乗った、と「いつも」と「今日」を対比しているので But。So（だから）は前の文が理由にならない。Or は選択、Because は理由を表す接続詞で、文中の because と重なり意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"私はふだん友達と歩いて通学し、20分ほどかかる。でも今朝は、サッカーの練習で足をけがしていたのでバスに乗った。","en":"I usually walk to school with my friends, and it takes about twenty minutes. But this morning I took the bus because I had hurt my leg at soccer practice.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"My older brother loves spicy food, ( ) my younger sister cannot eat anything hot. So my mother often has to cook two different dishes for dinner.","c":["while","because","until","if"],"a":0,"e":"前：兄は辛い物が好き ⇔ 後：妹は辛い物が食べられない、と2人を対比するので while（～する一方で）。because では「妹が食べられないから兄が好き」となり不自然。until（～まで）、if（もし～なら）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"兄は辛い食べ物が大好きだが、一方で妹は辛いものが何も食べられない。だから母は夕食に2種類の料理を作らなければならないことが多い。","en":"My older brother loves spicy food, while my younger sister cannot eat anything hot. So my mother often has to cook two different dishes for dinner.","m":"難易度 ★☆☆ 基礎"},{"g":"contrast","q":"Plastic bags are cheap, light, and convenient for shoppers, so many people use them every day. Yet ( )","c":["they cause serious harm to sea animals when they reach the ocean.","they can be used many times to carry heavy things home.","many stores give them to their customers without charge.","they are so easy to fold that people can keep several in a small bag."],"a":0,"e":"前：レジ袋の利点（安い・軽い・便利）⇔ Yet の後：欠点が来る。「海に流れると生き物に深刻な害」が唯一の欠点。何度も使える・無料でもらえる・たたみやすい、はどれも利点や便利さの話で、逆接にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"レジ袋は安くて軽く、買い物客にとって便利なので、毎日多くの人が使っている。それなのに、海に流れ着くと海の生き物に深刻な害を与える。","en":"Plastic bags are cheap, light, and convenient for shoppers, so many people use them every day. Yet they cause serious harm to sea animals when they reach the ocean.","m":"難易度 ★★☆ 標準"},{"g":"contrast","q":"The city council decided not to build a new parking lot near the station, even though some drivers had asked for one. ( ), it introduced a bicycle-sharing system to reduce traffic and air pollution.","c":["Instead","Besides","Similarly","For instance"],"a":0,"e":"前：駐車場を作らなかった ⇔ 後：自転車シェアを導入した、と「しなかったことの代わりにしたこと」を示すので Instead。Besides（そのうえ）は追加、Similarly（同様に）は類似、For instance（例えば）は例示で、「作らない」と「導入する」をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"市議会は、求めるドライバーもいたが、駅の近くに新しい駐車場を作らないことにした。その代わりに、交通量と大気汚染を減らすため自転車シェアの仕組みを導入した。","en":"The city council decided not to build a new parking lot near the station, even though some drivers had asked for one. Instead, it introduced a bicycle-sharing system to reduce traffic and air pollution.","m":"難易度 ★★★ 発展"},{"g":"contrast","q":"Most plants need plenty of sunlight to grow well. 《By contrast》, some types of mushrooms can grow in dark and wet places such as caves.","c":["On the other hand","For the same reason","In addition","For example"],"a":0,"e":"by contrast は in contrast と同じく「対照的に」。前：多くの植物は日光が必要 ⇔ 後：暗い所で育つキノコもある、と対比しているので On the other hand が最も近い。For the same reason（同じ理由で）、In addition（さらに）、For example（例えば）は対比を表さない。","p":"《》の語句に最も意味が近いものを選びなさい。","t":"ほとんどの植物はよく育つために十分な日光を必要とする。《それとは対照的に》、洞窟のような暗く湿った場所で育つキノコもある。","en":"Most plants need plenty of sunlight to grow well. By contrast, some types of mushrooms can grow in dark and wet places such as caves.","m":"難易度 ★★★ 発展"},{"g":"concession","q":"( ) it was raining hard, the students continued cleaning the beach near their school. They collected more than fifty bags of trash by the end of that afternoon.","c":["Although","Because","As soon as","So that"],"a":0,"e":"前：激しい雨 ⇔ 後：清掃を続けた、と予想に反するので譲歩の Although（～だけれども）。Because では雨が続けた理由になり不自然。As soon as（～するとすぐ）は時、So that（～するように）は目的で、意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"激しく雨が降っていたが、生徒たちは学校の近くの海岸の清掃を続けた。その日の午後が終わるまでに、彼らはごみを50袋以上集めた。","en":"Although it was raining hard, the students continued cleaning the beach near their school. They collected more than fifty bags of trash by the end of that afternoon.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"( ) the heavy rain, the baseball game went on until the end. Both teams played hard, and the fans in the stands kept cheering for them.","c":["Despite","Because of","Instead of","Such as"],"a":0,"e":"後ろが the heavy rain という名詞なので前置詞が入る。大雨 ⇔ 試合は最後まで続いた、と予想に反するので Despite（～にもかかわらず）。Because of では雨が続行の理由になり不自然。Instead of（～の代わりに）、Such as（～のような）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"大雨にもかかわらず、野球の試合は最後まで続けられた。両チームとも懸命にプレーし、スタンドのファンは声援を送り続けた。","en":"Despite the heavy rain, the baseball game went on until the end. Both teams played hard, and the fans in the stands kept cheering for them.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"Kenta still felt nervous before the speech contest, ( ) he had practiced his speech in front of his family many times. His hands were shaking when he walked onto the stage.","c":["even though","as soon as","so that","in order that"],"a":0,"e":"前：緊張した ⇔ 後：何度も練習していた、と「練習したのに緊張」の関係なので even though（～にもかかわらず）。as soon as（～するとすぐ）は時、so that・in order that（～するために）は目的で、過去完了の「練習していた」と結びつかない。","p":"空所に入る最も適切なものを選びなさい。","t":"ケンタは家族の前で何度もスピーチを練習していたのに、弁論大会の前はやはり緊張した。ステージに上がるとき、彼の手は震えていた。","en":"Kenta still felt nervous before the speech contest, even though he had practiced his speech in front of his family many times. His hands were shaking when he walked onto the stage.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"You should bring an umbrella to school tomorrow. ( ) it is sunny in the morning, the weather report says it will rain heavily in the afternoon.","c":["Even if","Because","As a result","So"],"a":0,"e":"前：朝は晴れているかもしれない（仮定）⇔ 後：午後は大雨の予報、と「たとえ～でも」の譲歩なので Even if。Because では晴れが雨の予報の理由になり矛盾。As a result・So は結果を表し、しかも「従属節, 主節」の形は作れない。","p":"空所に入る最も適切なものを選びなさい。","t":"明日は学校に傘を持っていったほうがいい。たとえ朝は晴れていても、天気予報では午後に大雨になると言っている。","en":"You should bring an umbrella to school tomorrow. Even if it is sunny in the morning, the weather report says it will rain heavily in the afternoon.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"The science project took much more time than the team had expected. ( ), they finished it before the deadline and won first prize at the school fair.","c":["Nevertheless","For example","In other words","Similarly"],"a":0,"e":"前：予想以上に時間がかかった ⇔ 後：締め切り前に完成し優勝した、と予想に反する展開なので Nevertheless（それにもかかわらず）。For example（例示）、In other words（言い換え）、Similarly（同様に）では、困難と成功という反対の内容をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"その科学研究は、チームが予想していたよりずっと時間がかかった。それにもかかわらず、彼らは締め切り前に完成させ、学校の展示会で1位になった。","en":"The science project took much more time than the team had expected. Nevertheless, they finished it before the deadline and won first prize at the school fair.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"( ), the new school uniform is more expensive than the old one. But it is much easier to wash, and students can wear it comfortably all year round.","c":["Admittedly","Therefore","For instance","Finally"],"a":0,"e":"「確かに高い ⇔ しかし洗いやすく快適」と、欠点を一度認めてから主張を述べる形。Admittedly（確かに）…But が典型。Therefore（だから）は前に理由がなく、For instance（例えば）は例示、Finally（最後に）は順序で、後の But とかみ合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"確かに、新しい制服は古いものより値段が高い。しかし、ずっと洗いやすく、生徒は一年中快適に着ることができる。","en":"Admittedly, the new school uniform is more expensive than the old one. But it is much easier to wash, and students can wear it comfortably all year round.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"It is true that smartphones make our daily lives much more convenient in many ways. But ( )","c":["using them too much can harm our sleep and our eyes.","they let us check maps and train times at any moment.","we can easily contact our friends and family with them.","many people use them to take photos and listen to music."],"a":0,"e":"It is true that ～. But … は「確かに～だが…」の譲歩の形で、But の後に筆者の主張（前と反対向きの内容）が来る。前：スマホは便利 ⇔ 後：使いすぎは睡眠や目に悪い。ほかの3つはすべて便利さの具体例で、But でつなぐと論理が合わない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"確かに、スマートフォンは多くの点で私たちの日常生活をずっと便利にしてくれる。しかし、使いすぎると睡眠や目に悪い影響を与えることがある。","en":"It is true that smartphones make our daily lives much more convenient in many ways. But using them too much can harm our sleep and our eyes.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"( ) the fact that the town is very small, it attracts thousands of visitors every summer because of its beautiful beaches and fresh local seafood.","c":["Despite","Although","Nevertheless","Even though"],"a":0,"e":"意味はどれも「譲歩」。空所の後は the fact that ～ という名詞のカタマリで、文（主語＋動詞）ではない。名詞の前に置けるのは前置詞の Despite だけ。Although・Even though は接続詞で後ろに文が必要、Nevertheless は副詞で名詞をとれない。","p":"空所に入る最も適切なものを選びなさい。","t":"その町はとても小さいにもかかわらず、美しい海岸と地元の新鮮な魚介類のおかげで、毎年夏に何千人もの観光客を引きつけている。","en":"Despite the fact that the town is very small, it attracts thousands of visitors every summer because of its beautiful beaches and fresh local seafood.","m":"難易度 ★★★ 発展"},{"g":"concession","q":"Our basketball team practiced hard every day for three months before the tournament. ( ), we lost the first game of the tournament by just one point.","c":["Nevertheless","Although","Despite","Even though"],"a":0,"e":"意味はどれも「譲歩」。空所の前にピリオドがあり、後ろは完全な文なので、文頭に置いて前の文全体を受ける副詞 Nevertheless が入る。Although・Even though は接続詞で「従属節, 主節」の形が必要。Despite は前置詞で後ろに名詞が来る。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちのバスケットボール部は大会前の3か月間、毎日一生懸命練習した。それにもかかわらず、大会の初戦でわずか1点差で負けてしまった。","en":"Our basketball team practiced hard every day for three months before the tournament. Nevertheless, we lost the first game of the tournament by just one point.","m":"難易度 ★★★ 発展"},{"g":"concession","q":"Maria enjoys living in Tokyo with its busy streets and many shops, ( ) she sometimes misses the quiet life in her small hometown in Brazil.","c":["although","because","so","as long as"],"a":0,"e":"前：東京暮らしを楽しんでいる ⇔ 後：ときどき故郷の静かな生活が恋しい、と相反する気持ちなので although（～だけれども）。because（理由）、so（結果）では因果関係になり不自然。as long as（～する限り）は条件で合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"マリアはにぎやかな通りやたくさんの店がある東京での生活を楽しんでいるが、ときどきブラジルの小さな故郷の静かな暮らしが恋しくなる。","en":"Maria enjoys living in Tokyo with its busy streets and many shops, although she sometimes misses the quiet life in her small hometown in Brazil.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"( ) Yuki is only fifteen years old, she has already won several prizes in national art contests. Her paintings of animals are especially popular.","c":["Even though","Because","As soon as","In order that"],"a":0,"e":"前：まだ15歳 ⇔ 後：すでに全国で複数入賞、と年齢から予想されることに反するので Even though（～なのに）。Because（理由）では年齢が受賞の理由になり不自然。As soon as（～するとすぐ）、In order that（～するために）も意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"ユキはまだ15歳なのに、すでに全国の美術コンクールでいくつも賞を取っている。彼女の動物の絵は特に人気がある。","en":"Even though Yuki is only fifteen years old, she has already won several prizes in national art contests. Her paintings of animals are especially popular.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"( ) having a bad cold, Sara went to the library to study for the entrance exam. She wanted to finish the practice test she had started the day before.","c":["Despite","Because of","In addition to","Instead of"],"a":0,"e":"後ろが having a bad cold（動名詞）なので前置詞が入る。風邪 ⇔ 図書館へ勉強に行った、と予想に反するので Despite。Because of では風邪が図書館へ行った理由になり不自然。In addition to（～に加えて）、Instead of（～の代わりに）も意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"サラはひどい風邪をひいていたにもかかわらず、入試の勉強をしに図書館へ行った。前日に始めた模擬試験を終わらせたかったのだ。","en":"Despite having a bad cold, Sara went to the library to study for the entrance exam. She wanted to finish the practice test she had started the day before.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"Our town has a history of more than a thousand years. Although it has such a long history, ( )","c":["few tourists know about its old temples and festivals.","it has many old temples and traditional festivals.","people there have kept their old customs for centuries.","its oldest shrine was built about eight hundred years ago."],"a":0,"e":"Although ～ は「～だけれども」。前：長い歴史がある ⇔ 後：それに反する内容が来る。「古い寺や祭りを知る観光客は少ない」が唯一の反対向きの内容。ほかの3つは歴史の長さを裏づける内容で、譲歩の関係にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"私たちの町には千年以上の歴史がある。それほど長い歴史があるにもかかわらず、その古い寺や祭りを知っている観光客はほとんどいない。","en":"Our town has a history of more than a thousand years. Although it has such a long history, few tourists know about its old temples and festivals.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"Don't worry too much about next week's English test. Even if you fail the test this time, ( )","c":["you can still learn a lot from your mistakes.","you will need to take a make-up test next week.","your parents might be disappointed with your score.","your grade for this term may go down a little."],"a":0,"e":"Even if ～ は「たとえ～でも」。前：不合格になる ⇔ 後：それでも得られる前向きな内容。「間違いから多くを学べる」が該当。追試を受ける・親が失望する・成績が下がる、はどれも不合格から当然予想される結果で、譲歩の関係にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"来週の英語のテストのことをあまり心配しすぎないで。たとえ今回不合格になっても、間違いから多くを学ぶことができるのだから。","en":"Don't worry too much about next week's English test. Even if you fail the test this time, you can still learn a lot from your mistakes.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"My history report is due tomorrow morning, and I have not finished it yet. I will finish it tonight ( ) I have to stay up until midnight.","c":["even if","because","so that","as soon as"],"a":0,"e":"前：今夜レポートを仕上げる ⇔ 後：夜中まで起きていなければならない（大変な条件）、と「たとえ～でも」やり遂げる関係なので even if。because では夜更かしが仕上げる理由になり不自然。so that（目的）、as soon as（時）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"歴史のレポートの締め切りは明日の朝なのに、まだ終わっていない。たとえ夜中まで起きていなければならなくても、今夜中に仕上げるつもりだ。","en":"My history report is due tomorrow morning, and I have not finished it yet. I will finish it tonight even if I have to stay up until midnight.","m":"難易度 ★★☆ 標準"},{"g":"concession","q":"Last Sunday, our hiking club climbed Mt. Kita. The trail was steep and rocky. Nevertheless, ( )","c":["even the youngest members of our group reached the top.","several members of our group had to turn back halfway up.","we had to walk very slowly and carefully all the way.","many of us had sore legs the next morning."],"a":0,"e":"前：道が急で岩だらけ（登るのが大変）⇔ 後：それでも達成できたこと。「最年少のメンバーまで頂上に着いた」が該当。引き返した・ゆっくり歩くしかなかった・翌朝足が痛かった、はどれも険しい道から予想される結果で、Nevertheless と合わない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"この前の日曜日、私たちの山岳部は北岳に登った。登山道は急で岩だらけだった。それにもかかわらず、グループの最年少のメンバーまで頂上にたどり着いた。","en":"Last Sunday, our hiking club climbed Mt. Kita. The trail was steep and rocky. Nevertheless, even the youngest members of our group reached the top.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"It is true that the train is faster than the bus, ( ) the bus is much cheaper and stops right in front of my house. That is why I usually take the bus.","c":["but","so","or","for"],"a":0,"e":"It is true that ～, but … は「確かに～だが…」の譲歩の形。前：電車の方が速い（電車の長所）⇔ 後：バスは安く家の前に止まる（バスの長所）。so（だから）は因果、or（または）は選択、for（というのは）は理由で、この形にはならない。","p":"空所に入る最も適切なものを選びなさい。","t":"確かに電車はバスより速いが、バスのほうがずっと安く、家のすぐ前に止まる。だから私はふだんバスを使う。","en":"It is true that the train is faster than the bus, but the bus is much cheaper and stops right in front of my house. That is why I usually take the bus.","m":"難易度 ★☆☆ 基礎"},{"g":"concession","q":"( ) she has lived in Canada for ten years, my aunt still speaks Japanese at home with her children. She wants them to keep both languages.","c":["Even though","Even so","In order that","So that"],"a":0,"e":"前：カナダに10年住んでいる ⇔ 後：今も家では日本語、と予想に反する事実なので Even though（～にもかかわらず）。Even so も「それでも」だが副詞で、「従属節, 主節」の形で文をつなげない。In order that・So that（～するように）は目的で意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"おばはカナダに10年住んでいるが、今でも家では子どもたちと日本語で話している。子どもたちに両方の言語を保ってほしいのだ。","en":"Even though she has lived in Canada for ten years, my aunt still speaks Japanese at home with her children. She wants them to keep both languages.","m":"難易度 ★★★ 発展"},{"g":"concession","q":"Online shopping, ( ), has some problems, such as delivery delays. But for people who live far from stores, it is a very useful service that saves them time.","c":["admittedly","for example","as a result","in other words"],"a":0,"e":"「確かに問題もある ⇔ しかし遠くに住む人には便利」と、欠点を一度認めてから長所を主張する形なので admittedly（確かに）。文中に挿入して後の But と呼応する。for example・as a result・in other words は前に受ける内容がなく、But ともかみ合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"ネットショッピングには、確かに配達の遅れなどの問題もある。しかし店から遠くに住む人にとっては、時間の節約になるとても役に立つサービスだ。","en":"Online shopping, admittedly, has some problems, such as delivery delays. But for people who live far from stores, it is a very useful service that saves them time.","m":"難易度 ★★★ 発展"},{"g":"concession","q":"In the future, robots may take over many jobs in factories and offices. 《Even if》 robots can do many jobs, humans will still be needed to make important decisions.","c":["たとえ～としても","～なので","～する限り","～するとすぐに"],"a":0,"e":"even if は「たとえ～としても」という譲歩。前：ロボットが多くの仕事をこなせる ⇔ 後：それでも重要な判断には人間が必要。「～なので」（because）では因果になり、「～する限り」（as long as）、「～するとすぐに」（as soon as）も文意に合わない。","p":"《》の語句の意味として最も適切なものを選びなさい。","t":"将来、ロボットが工場や会社の多くの仕事を引き受けるかもしれない。《たとえ》ロボットが多くの仕事をこなせる《としても》、重要な決定を下すにはやはり人間が必要だろう。","en":"In the future, robots may take over many jobs in factories and offices. Even if robots can do many jobs, humans will still be needed to make important decisions.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Many students in our class were late for school this morning ( ) the trains stopped for about an hour after a heavy storm. Our teacher decided to start the test later.","c":["because","although","until","unless"],"a":0,"e":"前：多くの生徒が遅刻（結果）⇐ 後：電車が約1時間止まった（原因）なので because。although（～だけれども）は譲歩で因果と逆。until（～まで）、unless（～しない限り）も意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"激しい嵐のあと電車が1時間ほど止まったので、今朝は私たちのクラスの多くの生徒が遅刻した。先生はテストの開始を遅らせることにした。","en":"Many students in our class were late for school this morning because the trains stopped for about an hour after a heavy storm. Our teacher decided to start the test later.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Our town started a new recycling program for plastic bottles and cans last year. ( ), the amount of garbage collected from homes has dropped by almost thirty percent.","c":["As a result","For example","However","In other words"],"a":0,"e":"前：リサイクル制度を始めた（原因）→ 後：ごみが約3割減った（結果）なので As a result（その結果）。However（しかし）は逆接、For example（例示）、In other words（言い換え）では原因と結果の関係を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちの町は昨年、ペットボトルと缶の新しいリサイクル制度を始めた。その結果、家庭から回収されるごみの量はほぼ3割減った。","en":"Our town started a new recycling program for plastic bottles and cans last year. As a result, the amount of garbage collected from homes has dropped by almost thirty percent.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Bees carry pollen from flower to flower, which helps many plants produce fruit. ( ), if bees disappeared, many of the foods we eat would become hard to grow.","c":["Therefore","However","For instance","Meanwhile"],"a":0,"e":"前：ハチが受粉を助け、植物が実をつける（根拠）→ 後：ハチがいなくなると食べ物が育ちにくくなる（結論）なので Therefore（したがって）。However（逆接）、For instance（例示）、Meanwhile（その間に）では論理がつながらない。","p":"空所に入る最も適切なものを選びなさい。","t":"ハチは花から花へ花粉を運び、それが多くの植物が実をつけるのを助けている。したがって、もしハチがいなくなれば、私たちが食べる食べ物の多くは育てにくくなるだろう。","en":"Bees carry pollen from flower to flower, which helps many plants produce fruit. Therefore, if bees disappeared, many of the foods we eat would become hard to grow.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"( ) the city museum is closed on Mondays, we decided to visit it on Tuesday instead. We also found that tickets were cheaper for students on weekdays.","c":["Since","Although","Unless","Whether"],"a":0,"e":"前：月曜は休館（理由）→ 後：火曜に行くことにした（結果）。文頭の Since は「～なので」と理由を表す。Although（譲歩）では「休館なのに火曜にした」と不自然。Unless（～しない限り）、Whether（～かどうか）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"市立博物館は月曜日が休館なので、私たちは代わりに火曜日に行くことにした。平日は学生のチケットが安いこともわかった。","en":"Since the city museum is closed on Mondays, we decided to visit it on Tuesday instead. We also found that tickets were cheaper for students on weekdays.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"The school festival was postponed until next week ( ) the typhoon. The students used the extra time to improve their stage performance and decorations.","c":["due to","instead of","in spite of","such as"],"a":0,"e":"後ろが the typhoon という名詞なので前置詞句が入る。台風（原因）→ 文化祭延期（結果）なので due to（～のために）。in spite of（～にもかかわらず）は譲歩、instead of（～の代わりに）、such as（～のような）は意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"台風のため、文化祭は来週に延期された。生徒たちは増えた時間を使って、舞台の出し物や飾りつけをよりよいものにした。","en":"The school festival was postponed until next week due to the typhoon. The students used the extra time to improve their stage performance and decorations.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Mr. Tanaka always speaks slowly and clearly in class ( ) all the students, including those from other countries, can follow his explanations. Many students say his classes are easy to understand.","c":["so that","even if","as if","unless"],"a":0,"e":"前：ゆっくりはっきり話す → 後：全員が説明についていける（目的）。so that ～ can … は「～が…できるように」。even if（たとえ～でも）は譲歩、as if（まるで～のように）は様態、unless（～しない限り）は条件で意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"田中先生は、外国から来た生徒も含めて全員が説明についていけるように、授業ではいつもゆっくりはっきり話す。先生の授業はわかりやすいと多くの生徒が言っている。","en":"Mr. Tanaka always speaks slowly and clearly in class so that all the students, including those from other countries, can follow his explanations. Many students say his classes are easy to understand.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"Trees absorb carbon dioxide from the air and store it in their trunks and roots for many years. Protecting forests is ( ) an important way to slow down global warming.","c":["thus","however","instead","otherwise"],"a":0,"e":"前：木は二酸化炭素を吸収し蓄える（根拠）→ 後：森林保護は温暖化を遅らせる重要な手段（結論）なので thus（したがって）。文中にも置ける。however（逆接）、instead（その代わりに）、otherwise（さもなければ）は前後の因果を表せない。","p":"空所に入る最も適切なものを選びなさい。","t":"木は空気中の二酸化炭素を吸収し、長年にわたって幹や根に蓄える。したがって、森林を守ることは地球温暖化を遅らせる重要な方法である。","en":"Trees absorb carbon dioxide from the air and store it in their trunks and roots for many years. Protecting forests is thus an important way to slow down global warming.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"Many young people have moved from rural villages to large cities to find work. ( ), some villages now have very few children, and their schools have had to close.","c":["Consequently","Nevertheless","For example","Likewise"],"a":0,"e":"前：若者が都市へ移った（原因）→ 後：子どもが減り学校が閉校（結果）なので Consequently（その結果）。Nevertheless（それにもかかわらず）は譲歩、For example（例示）、Likewise（同様に）では因果をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"多くの若者が仕事を求めて農村から大都市へ移っていった。その結果、今では子どもがほとんどいない村もあり、その学校は閉校せざるを得なくなった。","en":"Many young people have moved from rural villages to large cities to find work. Consequently, some villages now have very few children, and their schools have had to close.","m":"難易度 ★★★ 発展"},{"g":"cause","q":"Our train was delayed for forty minutes ( ) an accident near the station, so we missed the beginning of the concert. We were very disappointed.","c":["because of","because","so","therefore"],"a":0,"e":"意味の上では、事故（原因）→ 遅延（結果）。空所の後は an accident という名詞で文ではないので、前置詞の because of が入る。because は接続詞で後ろに文が必要。so・therefore は結果を導く語で、しかも名詞の前には置けない。","p":"空所に入る最も適切なものを選びなさい。","t":"駅の近くで起きた事故のために電車が40分遅れ、私たちはコンサートの最初を聞き逃した。とてもがっかりした。","en":"Our train was delayed for forty minutes because of an accident near the station, so we missed the beginning of the concert. We were very disappointed.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"( ) many students forgot to bring their gym clothes, the P.E. teacher changed the lesson to a classroom lecture about sports injuries and how to prevent them.","c":["Since","Due to","Therefore","As a result"],"a":0,"e":"空所の後は many students forgot … という文（主語＋動詞）なので、文をつなぐ接続詞の Since（～なので）が入る。Due to は前置詞で後ろに名詞が必要。Therefore・As a result は副詞（句）で、「従属節, 主節」の形は作れない。","p":"空所に入る最も適切なものを選びなさい。","t":"多くの生徒が体操服を忘れたので、体育の先生は授業を、スポーツのけがとその防ぎ方についての教室での講義に変更した。","en":"Since many students forgot to bring their gym clothes, the P.E. teacher changed the lesson to a classroom lecture about sports injuries and how to prevent them.","m":"難易度 ★★★ 発展"},{"g":"cause","q":"It was very hot in the gym during the basketball game, ( ) the teacher opened all the windows and told us to drink water often. Nobody felt sick in the end.","c":["so","or","if","unless"],"a":0,"e":"前：体育館がとても暑かった（原因）→ 後：先生が窓を開け、水を飲むよう言った（結果）なので so（だから）。or（または）は選択、if（もし～なら）、unless（～しない限り）は条件で、事実どうしの因果をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"バスケットボールの試合中、体育館はとても暑かったので、先生は窓を全部開け、こまめに水を飲むよう私たちに言った。結局、気分が悪くなった人はいなかった。","en":"It was very hot in the gym during the basketball game, so the teacher opened all the windows and told us to drink water often. Nobody felt sick in the end.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"These days, many people in Japan carry their own eco-bag when they go shopping at supermarkets. This is because ( )","c":["stores started charging customers for plastic bags.","most supermarkets stay open until late at night.","shopping is a popular way to spend free time.","many stores sell fresh vegetables from local farms."],"a":0,"e":"This is because ～ は「これは～だからだ」と、前の文の理由を述べる。前：エコバッグを持ち歩く ⇐ 理由：レジ袋が有料になった。スーパーが夜遅くまで開いている・買い物が人気・地元の野菜を売っている、はエコバッグを持つ理由にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"近ごろ、日本では多くの人がスーパーへ買い物に行くときに自分のエコバッグを持っていく。これは、店がレジ袋を有料にし始めたからだ。","en":"These days, many people in Japan carry their own eco-bag when they go shopping at supermarkets. This is because stores started charging customers for plastic bags.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Ten years ago, the city planted thousands of trees along its main streets. As a result, ( )","c":["the summer temperature downtown has fallen by about two degrees.","most of the trees were brought from farms in other parts of the country.","many local high school students helped to plant them.","the project was first discussed by the city council in 2014."],"a":0,"e":"As a result の後には前の行動の「結果」が来る。前：木を何千本も植えた → 結果：中心部の夏の気温が約2度下がった。木の出どころ・植えるのを手伝った人・計画が話し合われた時期は、植樹の経緯の説明であって結果ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"10年前、その市は大通り沿いに何千本もの木を植えた。その結果、中心部の夏の気温は約2度下がった。","en":"Ten years ago, the city planted thousands of trees along its main streets. As a result, the summer temperature downtown has fallen by about two degrees.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Our brains need sleep to store the information we learned at school during the day. Therefore, ( )","c":["students should get enough sleep before an important test.","some animals sleep for more than fifteen hours a day.","many people use their smartphones in bed late at night.","scientists still do not fully understand why we dream at night."],"a":0,"e":"Therefore は「したがって」と前の内容から導かれる結論を示す。前：脳は学んだことを記憶するのに睡眠が必要 → 結論：大事な試験の前は十分寝るべき。動物の睡眠時間・寝る前のスマホ・夢の研究は、前の文から導かれる結論になっていない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"私たちの脳は、日中に学校で学んだ情報を記憶するために睡眠を必要とする。したがって、生徒は大事な試験の前に十分な睡眠をとるべきだ。","en":"Our brains need sleep to store the information we learned at school during the day. Therefore, students should get enough sleep before an important test.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"The island is famous for its rare birds, which live only in its forest. ( ), the local government has banned the building of new hotels near the forest.","c":["For this reason","For instance","In other words","In the same way"],"a":0,"e":"前：珍しい鳥がその森にしかいない（理由）→ 後：森の近くでのホテル建設を禁止（結果）なので For this reason（この理由で）。For instance（例示）、In other words（言い換え）、In the same way（同様に）では因果を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"その島は、島の森にしかすんでいない珍しい鳥で有名だ。この理由から、地元の自治体は森の近くに新しいホテルを建てることを禁止している。","en":"The island is famous for its rare birds, which live only in its forest. For this reason, the local government has banned the building of new hotels near the forest.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"Kaito wants to become a doctor and help people in his hometown in the future. ( ) he studies biology and chemistry very hard at home every day after school.","c":["That is why","For example","Even so","In contrast"],"a":0,"e":"前：医者になりたい（理由）→ 後：毎日生物と化学を熱心に勉強する（結果）。That is why ～ は「そういうわけで～」と、前の文を理由として結果を述べる。For example（例示）、Even so（それでも）、In contrast（対照的に）では因果にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"カイトは将来医者になって故郷の人々を助けたいと思っている。そういうわけで、彼は毎日放課後、家で生物と化学を一生懸命勉強している。","en":"Kaito wants to become a doctor and help people in his hometown in the future. That is why he studies biology and chemistry very hard at home every day after school.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"Our school installed new air conditioners in every classroom during the spring vacation. ( ) the new air conditioners, students can now study comfortably even in the middle of summer.","c":["Thanks to","Instead of","In spite of","Such as"],"a":0,"e":"後ろが名詞なので前置詞句が入る。新しいエアコン（原因）→ 真夏でも快適に勉強できる（よい結果）なので Thanks to（～のおかげで）。In spite of（～にもかかわらず）は譲歩、Instead of（～の代わりに）、Such as（～のような）は意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちの学校は春休みの間に、すべての教室に新しいエアコンを設置した。新しいエアコンのおかげで、生徒は今では真夏でも快適に勉強できる。","en":"Our school installed new air conditioners in every classroom during the spring vacation. Thanks to the new air conditioners, students can now study comfortably even in the middle of summer.","m":"難易度 ★☆☆ 基礎"},{"g":"cause","q":"The number of foreign visitors to Japan has increased greatly in recent years, partly because ( )","c":["it has become much easier to find travel information online.","many of them visit famous places such as Kyoto and Nara.","they often spend a lot of money on shopping and food.","some towns are now too crowded with tourists."],"a":0,"e":"because の後には前の出来事の「原因」が来る。前：訪日客が大きく増えた ⇐ 原因：ネットで旅行情報を得やすくなった。京都や奈良を訪れる・買い物や食事にお金を使う、は訪日客の行動、観光地が混雑する、は増加の結果で、原因ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"近年、日本を訪れる外国人の数は大きく増えているが、その理由の一つは、インターネットで旅行の情報をずっと見つけやすくなったことだ。","en":"The number of foreign visitors to Japan has increased greatly in recent years, partly because it has become much easier to find travel information online.","m":"難易度 ★★☆ 標準"},{"g":"cause","q":"Before the bridge was built, people had to take a ferry to the mainland. The new bridge connects the island to the mainland, ( ) reducing travel time from two hours to twenty minutes.","c":["thus","however","instead","otherwise"],"a":0,"e":"前：橋が島と本土を結ぶ（原因）→ 後：移動時間が2時間から20分に短縮（結果）。〈, thus＋-ing〉で「その結果～する」を表す。however（しかし）、instead（その代わりに）、otherwise（さもなければ）は結果を示さず、-ing の前に置く形も不自然。","p":"空所に入る最も適切なものを選びなさい。","t":"橋ができる前は、人々は本土へフェリーで行かなければならなかった。新しい橋は島と本土を結び、その結果、移動時間を2時間から20分に短縮している。","en":"Before the bridge was built, people had to take a ferry to the mainland. The new bridge connects the island to the mainland, thus reducing travel time from two hours to twenty minutes.","m":"難易度 ★★★ 発展"},{"g":"cause","q":"There was very little rain in our area this summer, and many farms did not have enough water. 《Owing to》 the lack of rain, the price of vegetables has gone up sharply.","c":["～が原因で","～にもかかわらず","～の代わりに","～に加えて"],"a":0,"e":"owing to は due to・because of と同じく「～が原因で」を表す前置詞句。前：雨不足（原因）→ 後：野菜の値段が急上昇（結果）。「～にもかかわらず」（despite）、「～の代わりに」（instead of）、「～に加えて」（in addition to）は因果を表さない。","p":"《》の語句の意味として最も適切なものを選びなさい。","t":"今年の夏、私たちの地域では雨がほとんど降らず、多くの農場で水が不足した。雨不足《が原因で》、野菜の値段が急に上がった。","en":"There was very little rain in our area this summer, and many farms did not have enough water. Owing to the lack of rain, the price of vegetables has gone up sharply.","m":"難易度 ★★★ 発展"},{"g":"addition","q":"Our school has a large library with many English books and magazines. It ( ) has a computer room where students can practice typing after school.","c":["also","instead","however","therefore"],"a":0,"e":"前：図書館がある（学校の設備1）＋ 後：コンピュータ室もある（設備2）と、同じ向きの情報を足しているので also（～もまた）。instead（その代わりに）では図書館がないことになり矛盾。however（逆接）、therefore（結果）も合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちの学校には、英語の本や雑誌がたくさんある大きな図書館がある。また、放課後に生徒がタイピングの練習ができるコンピュータ室もある。","en":"Our school has a large library with many English books and magazines. It also has a computer room where students can practice typing after school.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Walking for thirty minutes every day in the park is good for your heart. ( ), it can help you reduce stress and sleep better at night.","c":["In addition","However","For example","Instead"],"a":0,"e":"前：歩くことは心臓によい（利点1）＋ 後：ストレスを減らし睡眠を改善（利点2）と、利点を足しているので In addition（さらに）。For example は前の文の具体例を示すが、ストレスや睡眠は心臓の例ではない。However（逆接）、Instead（代わりに）も不適。","p":"空所に入る最も適切なものを選びなさい。","t":"毎日公園で30分歩くことは心臓によい。さらに、ストレスを減らし、夜よく眠れるようにもなる。","en":"Walking for thirty minutes every day in the park is good for your heart. In addition, it can help you reduce stress and sleep better at night.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Riding a bicycle to school saves money on train fares. ( ), it produces no carbon dioxide, so it is better for the environment than driving a car.","c":["Moreover","Otherwise","In contrast","For instance"],"a":0,"e":"前：電車代の節約（利点1）＋ 後：二酸化炭素を出さない（利点2）と、同じ向きの理由を積み重ねているので Moreover（さらに）。In contrast（対照的に）は逆の内容、For instance は前の具体例、Otherwise（さもなければ）は条件を表し不適。","p":"空所に入る最も適切なものを選びなさい。","t":"自転車で通学すれば電車代の節約になる。さらに、二酸化炭素を出さないので、車を運転するより環境によい。","en":"Riding a bicycle to school saves money on train fares. Moreover, it produces no carbon dioxide, so it is better for the environment than driving a car.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"The new smartphone app from our school lets students check their class schedules easily. ( ), it sends them reminders about homework deadlines and upcoming tests.","c":["Furthermore","Nevertheless","As a result","In other words"],"a":0,"e":"前：時間割を確認できる（機能1）＋ 後：課題や試験の通知が届く（機能2）と機能を足しているので Furthermore（さらに）。Nevertheless（それにもかかわらず）は逆接、As a result（結果）、In other words（言い換え）は前後の関係に合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"学校の新しいスマートフォンアプリを使うと、生徒は時間割を簡単に確認できる。さらに、課題の締め切りや近づいているテストのお知らせも届く。","en":"The new smartphone app from our school lets students check their class schedules easily. Furthermore, it sends them reminders about homework deadlines and upcoming tests.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"I don't want to go to the mountains with you this weekend. It is going to be very cold there. ( ), I have a lot of homework to finish by Monday.","c":["Besides","Therefore","Otherwise","For example"],"a":0,"e":"行きたくない理由1：とても寒い ＋ 理由2：宿題が多い、と理由を足すので Besides（それに）。会話で理由を重ねるときによく使う。Therefore（だから）は因果、Otherwise（さもなければ）は条件、For example は例示で不適。","p":"空所に入る最も適切なものを選びなさい。","t":"今週末、あなたと山に行きたくない。向こうはとても寒くなりそうだ。それに、月曜日までに終わらせる宿題がたくさんあるんだ。","en":"I don't want to go to the mountains with you this weekend. It is going to be very cold there. Besides, I have a lot of homework to finish by Monday.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"Volunteering at the animal shelter last summer taught me ( ) how to take care of dogs but also how to work as part of a team.","c":["not only","neither","whether","as long as"],"a":0,"e":"後半の but also と組になるのは not only で、「～だけでなく…も」と2つの学びを追加している。neither は nor と、whether は or と組になり、as long as（～する限り）は後ろに文が必要なので、but also とは結びつかない。","p":"空所に入る最も適切なものを選びなさい。","t":"去年の夏に動物保護施設でボランティアをして、犬の世話の仕方だけでなく、チームの一員として働く方法も学んだ。","en":"Volunteering at the animal shelter last summer taught me not only how to take care of dogs but also how to work as part of a team.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"The old factory building near the port has been turned into a popular art museum. ( ), the café on its top floor offers a wonderful view of the harbor.","c":["What is more","Even so","As a result","In other words"],"a":0,"e":"前：工場が人気の美術館になった（魅力1）＋ 後：最上階のカフェから港が一望できる（魅力2）と、よい点を足しているので What is more（そのうえ）。Even so（それでも）は逆接、As a result（結果）、In other words（言い換え）は不適。","p":"空所に入る最も適切なものを選びなさい。","t":"港の近くの古い工場の建物は、人気の美術館に生まれ変わった。そのうえ、最上階のカフェからは港のすばらしい景色が見える。","en":"The old factory building near the port has been turned into a popular art museum. What is more, the café on its top floor offers a wonderful view of the harbor.","m":"難易度 ★★★ 発展"},{"g":"addition","q":"( ) playing the guitar, my brother can play the drums and the piano. He practices music for two hours every day and dreams of becoming a professional musician.","c":["Besides","Moreover","Furthermore","Also"],"a":0,"e":"意味はどれも「追加」だが、空所の後は playing the guitar という動名詞（名詞のカタマリ）。名詞の前に置けるのは前置詞の Besides（～に加えて）だけ。Moreover・Furthermore・Also は副詞で、後ろに名詞をとれない。","p":"空所に入る最も適切なものを選びなさい。","t":"兄はギターを弾くことに加えて、ドラムとピアノも演奏できる。毎日2時間音楽を練習していて、プロの音楽家になることを夢見ている。","en":"Besides playing the guitar, my brother can play the drums and the piano. He practices music for two hours every day and dreams of becoming a professional musician.","m":"難易度 ★★★ 発展"},{"g":"addition","q":"( ) its beautiful beaches, the island is famous for its fresh seafood and friendly people. Every year, more and more tourists visit it from abroad.","c":["In addition to","In addition","Moreover","As well"],"a":0,"e":"空所の後は its beautiful beaches という名詞で、その後にコンマと主節が続く。名詞をとれるのは前置詞句の In addition to（～に加えて）。In addition・Moreover は副詞で名詞をとれず、As well は文末で「～も」の意味で使う。","p":"空所に入る最も適切なものを選びなさい。","t":"その島は美しい海岸に加えて、新鮮な魚介類と親切な人々でも有名だ。毎年、ますます多くの観光客が海外から訪れている。","en":"In addition to its beautiful beaches, the island is famous for its fresh seafood and friendly people. Every year, more and more tourists visit it from abroad.","m":"難易度 ★★★ 発展"},{"g":"addition","q":"Mika can speak English very well because she lived in London as a child. She can speak a little Chinese, ( ). She wants to work at an international hotel in the future.","c":["too","either","instead","then"],"a":0,"e":"前：英語が上手 ＋ 後：中国語も少し話せる、と能力を足しているので too（～も）。either も「～も」だが否定文で使う。instead（その代わりに）では英語が話せないことになり矛盾。then（それから）も不適。","p":"空所に入る最も適切なものを選びなさい。","t":"ミカは子どもの頃ロンドンに住んでいたので、英語をとても上手に話せる。中国語も少し話せる。将来は国際的なホテルで働きたいと思っている。","en":"Mika can speak English very well because she lived in London as a child. She can speak a little Chinese, too. She wants to work at an international hotel in the future.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Eating a good breakfast every morning gives you the energy you need to start the school day. In addition, ( )","c":["it helps you concentrate better during your lessons.","many students skip it because they get up too late in the morning.","some people only have a cup of coffee instead.","it is hard to find time for it on busy mornings."],"a":0,"e":"In addition の後には、前と同じ向きの内容（朝食の利点）が来る。前：一日のエネルギーになる ＋ 後：授業に集中しやすくなる。朝食を抜く生徒・コーヒーだけの人・忙しい朝は時間がない、は利点ではなく、追加の関係にならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"毎朝しっかり朝食をとると、学校での一日を始めるのに必要なエネルギーが得られる。さらに、授業中に集中しやすくなる。","en":"Eating a good breakfast every morning gives you the energy you need to start the school day. In addition, it helps you concentrate better during your lessons.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Learning a foreign language can help you get a better job in the future. Moreover, ( )","c":["it lets you enjoy movies and books in their original form.","it usually takes many years of hard work to speak it fluently.","some people find its grammar rules hard to remember.","many learners give up before they reach a high level."],"a":0,"e":"Moreover は前と同じ向きの内容をさらに加える。前：よい仕事につける（利点）＋ 後：映画や本を原語で楽しめる（利点）。流暢になるのに何年もかかる・文法が覚えにくい・途中でやめる人が多い、はどれも難点で、Moreover ではつなげない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"外国語を学ぶと、将来よりよい仕事につける可能性がある。さらに、映画や本を原語のまま楽しめるようになる。","en":"Learning a foreign language can help you get a better job in the future. Moreover, it lets you enjoy movies and books in their original form.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"Our school garden teaches students how to grow vegetables such as tomatoes and potatoes in spring. Furthermore, ( )","c":["students cook the vegetables and share them at lunch.","only a few students are interested in taking care of it.","the garden is too small for all the classes to use.","the vegetables often die during the hot summer."],"a":0,"e":"Furthermore（さらに）の後には、前と同じ向きの内容が来る。前：野菜の育て方を学べる（よい点）＋ 後：育てた野菜を調理して昼食で分け合う（よい点）。興味のある生徒が少ない・狭い・夏に枯れる、は問題点で、追加の関係に合わない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"私たちの学校の菜園では、春にトマトやジャガイモなどの野菜の育て方を学べる。さらに、生徒はその野菜を調理して昼食のときに分け合う。","en":"Our school garden teaches students how to grow vegetables such as tomatoes and potatoes in spring. Furthermore, students cook the vegetables and share them at lunch.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"Kyoto is famous for its old temples ( ) its traditional food. Every year, millions of people visit the city from all over Japan and the rest of the world.","c":["as well as","instead of","because of","such as"],"a":0,"e":"前：古い寺で有名 ＋ 後：伝統料理でも有名、と2つを並べているので as well as（～だけでなく…も）。instead of（～の代わりに）は一方を否定し、because of（～のために）は理由、such as（～のような）は例を示すので不適。","p":"空所に入る最も適切なものを選びなさい。","t":"京都は伝統料理だけでなく古い寺でも有名だ。毎年、日本中や世界中から何百万人もの人が京都を訪れる。","en":"Kyoto is famous for its old temples as well as its traditional food. Every year, millions of people visit the city from all over Japan and the rest of the world.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"The hotel room we stayed in during our trip was small and dark. ( ), the air conditioner was broken, so we could not sleep well at all.","c":["On top of that","On the other hand","For example","In the end"],"a":0,"e":"前：部屋が狭くて暗い（不満1）＋ 後：エアコンが壊れていた（不満2）と、悪い点を重ねているので On top of that（そのうえ）。On the other hand は対比で、よい点が続くはず。For example は狭さ・暗さの例ではない。In the end（結局）も不適。","p":"空所に入る最も適切なものを選びなさい。","t":"旅行中に泊まったホテルの部屋は狭くて暗かった。そのうえエアコンが壊れていたので、まったくよく眠れなかった。","en":"The hotel room we stayed in during our trip was small and dark. On top of that, the air conditioner was broken, so we could not sleep well at all.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"I don't think I should buy that jacket. It is too expensive for a high school student like me. Besides, ( )","c":["I already have two jackets that look very similar.","it looks really nice with my favorite jeans.","the store is having a big sale on winter clothes this weekend.","my best friend says the color really suits me."],"a":0,"e":"Besides は「それに」と理由を足す。前：買わない理由1＝高すぎる ＋ 理由2＝似たジャケットを既に2着持っている。お気に入りのジーンズに合う・セール中・色が似合う、はどれも買う理由で、買わない理由に足せない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"あのジャケットは買わないほうがいいと思う。私のような高校生には高すぎる。それに、よく似たジャケットをもう2着持っている。","en":"I don't think I should buy that jacket. It is too expensive for a high school student like me. Besides, I already have two jackets that look very similar.","m":"難易度 ★★☆ 標準"},{"g":"addition","q":"My grandmother grows tomatoes in her small garden behind the house, ( ) she makes delicious sauce from them every summer. She sends some to our family every year.","c":["and","but","or","unless"],"a":0,"e":"前：祖母はトマトを育てる ＋ 後：毎夏それでソースを作る、と内容を足しているので and。but（しかし）は対立する内容が必要、or（または）は選択、unless（～しない限り）は条件で、意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"祖母は家の裏の小さな庭でトマトを育てていて、毎年夏にはそれでおいしいソースを作る。毎年、私たち家族にも送ってくれる。","en":"My grandmother grows tomatoes in her small garden behind the house, and she makes delicious sauce from them every summer. She sends some to our family every year.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"There are many simple ways to reduce food waste at home. You can plan your meals before you go shopping. ( ), you can use leftovers to make new dishes the next day.","c":["Also","However","Therefore","Otherwise"],"a":0,"e":"前：減らす方法1＝買い物前に献立を考える ＋ 方法2＝残り物で新しい料理を作る、と方法を並べているので Also（また）。However（逆接）、Therefore（結果）、Otherwise（さもなければ）では、同じ向きの方法を並べられない。","p":"空所に入る最も適切なものを選びなさい。","t":"家庭で食品ロスを減らす簡単な方法はたくさんある。買い物に行く前に献立を考えておくことができる。また、残り物を使って翌日に新しい料理を作ることもできる。","en":"There are many simple ways to reduce food waste at home. You can plan your meals before you go shopping. Also, you can use leftovers to make new dishes the next day.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Our town started collecting plastic bottles separately last year. Recycling them not only saves natural resources but also reduces the amount of trash that is burned.","c":["リサイクルは資源を節約するだけでなく、燃やすごみも減らす。","リサイクルは資源を節約するが、燃やすごみは減らさない。","リサイクルは資源を節約するので、燃やすごみが減る。","リサイクルは資源を節約するか、あるいは燃やすごみを減らすかのどちらかだ。"],"a":0,"e":"not only A but also B は「A だけでなく B も」で、2つのよい効果を追加している。「～が、～は減らさない」は逆接、「～ので～が減る」は因果、「～か～か」は選択で、not only … but also の意味を取り違えている。","p":"英文の内容として最も適切なものを選びなさい。","t":"私たちの町は昨年からペットボトルの分別回収を始めた。それらをリサイクルすることは、天然資源を節約するだけでなく、燃やされるごみの量も減らす。","en":"Our town started collecting plastic bottles separately last year. Recycling them not only saves natural resources but also reduces the amount of trash that is burned.","m":"難易度 ★☆☆ 基礎"},{"g":"addition","q":"Many schools in Japan are trying to use less paper. Some have started sending newsletters to parents by email. ( ), students increasingly submit their homework through tablets.","c":["In addition","In contrast","As a result","Nevertheless"],"a":0,"e":"第1文：紙を減らそうとしている（全体）→ 第2文：お知らせをメールで（取り組み1）＋ 第3文：宿題をタブレットで提出（取り組み2）。取り組みを並べるので In addition。In contrast（対比）、As a result（結果）、Nevertheless（それでも）は、同じ向きの具体策をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"日本の多くの学校は紙の使用を減らそうとしている。保護者へのお知らせをメールで送り始めた学校もある。さらに、タブレットで宿題を提出する生徒も増えている。","en":"Many schools in Japan are trying to use less paper. Some have started sending newsletters to parents by email. In addition, students increasingly submit their homework through tablets.","m":"難易度 ★★★ 発展"},{"g":"sequence","q":"Making a paper airplane is easy if you follow these steps. ( ), fold a sheet of paper in half. Then, fold the top corners down to the center line.","c":["First","However","In contrast","Therefore"],"a":0,"e":"作り方の手順を説明していて、後に Then（次に）が続くので、最初の手順を示す First（まず）。However・In contrast は対立する内容、Therefore は結果を表し、手順の順番を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"紙飛行機を作るのは、この手順に従えば簡単だ。まず、紙を半分に折る。次に、上の角を中心線まで折り下げる。","en":"Making a paper airplane is easy if you follow these steps. First, fold a sheet of paper in half. Then, fold the top corners down to the center line.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"Every morning, I wake up at six, wash my face, and get dressed for school. ( ) I eat breakfast with my family and leave home at seven thirty.","c":["Then","However","Instead","For example"],"a":0,"e":"起きて顔を洗い着替える → 朝食をとり7時半に家を出る、と朝の行動を順番に述べているので Then（それから）。However（しかし）、Instead（代わりに）、For example（例えば）では、時間の流れを表せない。","p":"空所に入る最も適切なものを選びなさい。","t":"毎朝、私は6時に起き、顔を洗って学校へ行く服に着替える。それから家族と朝食をとり、7時半に家を出る。","en":"Every morning, I wake up at six, wash my face, and get dressed for school. Then I eat breakfast with my family and leave home at seven thirty.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"In the morning, our class visited a car factory and learned how cars are made. ( ), we had lunch at a seafood restaurant near the port.","c":["After that","In contrast","For instance","Otherwise"],"a":0,"e":"午前：工場見学 → その後：港の近くで昼食、と遠足の出来事を時間の順に並べているので After that（その後）。In contrast（対照的に）、For instance（例えば）、Otherwise（さもなければ）は時の順序を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"午前中、私たちのクラスは自動車工場を見学し、車の作り方を学んだ。その後、港の近くのシーフードレストランで昼食をとった。","en":"In the morning, our class visited a car factory and learned how cars are made. After that, we had lunch at a seafood restaurant near the port.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"On Sunday evening, my father was cooking curry for dinner in the kitchen. ( ), my sister and I were setting the table and preparing drinks in the living room.","c":["Meanwhile","As a result","For example","Otherwise"],"a":0,"e":"父が料理をしている ＝ 同じ時間に妹と私は食卓の準備、と同時進行の出来事なので Meanwhile（その間に）。As a result（その結果）、For example（例えば）、Otherwise（さもなければ）は同時の関係を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"日曜日の夕方、父は台所で夕食のカレーを作っていた。その間に、妹と私は居間で食卓の準備をし、飲み物を用意していた。","en":"On Sunday evening, my father was cooking curry for dinner in the kitchen. Meanwhile, my sister and I were setting the table and preparing drinks in the living room.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"To make strawberry jam, first wash and cut the strawberries. Next, boil them with sugar for about twenty minutes. ( ), pour the hot jam into clean glass jars.","c":["Finally","However","In other words","For instance"],"a":0,"e":"first（まず）→ Next（次に）→ 最後の手順（瓶に注ぐ）という流れなので Finally（最後に）。However（逆接）、In other words（言い換え）、For instance（例示）では手順の最後を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"イチゴジャムを作るには、まずイチゴを洗って切る。次に、砂糖と一緒に約20分煮る。最後に、熱いジャムをきれいなガラス瓶に注ぐ。","en":"To make strawberry jam, first wash and cut the strawberries. Next, boil them with sugar for about twenty minutes. Finally, pour the hot jam into clean glass jars.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"When she was little, Yui could not swim at all and was afraid of the water. She practiced at the pool every weekend for years, and ( ) she was able to swim 100 meters.","c":["eventually","instead","however","for example"],"a":0,"e":"小さい頃は泳げない → 何年も毎週練習 → ついに100m泳げた、と長い時間の後の結末なので eventually（最終的に・ついに）。instead（代わりに）、however（しかし）、for example（例えば）は時の経過と結末を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"小さい頃、ユイはまったく泳げず、水を怖がっていた。何年も毎週末プールで練習し、ついに100メートル泳げるようになった。","en":"When she was little, Yui could not swim at all and was afraid of the water. She practiced at the pool every weekend for years, and eventually she was able to swim 100 meters.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"Just after we sat down in the concert hall, the lights slowly went down. ( ), the people around us stopped talking, and the hall became completely quiet.","c":["At the same time","For example","Instead","In short"],"a":0,"e":"照明が落ちる ＝ 同時に周りが静かになる、と2つの出来事が同じタイミングで起きているので At the same time（同時に）。For example（例示）、Instead（代わりに）、In short（要するに）では、時の関係を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちがコンサートホールの席に着いた直後、照明がゆっくりと落ちた。同時に、周りの人たちは話すのをやめ、ホールはすっかり静かになった。","en":"Just after we sat down in the concert hall, the lights slowly went down. At the same time, the people around us stopped talking, and the hall became completely quiet.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"( ) I was waiting for the bus this morning, I read a few pages of my English textbook. The bus was fifteen minutes late, so I was able to learn ten new words.","c":["While","During","Meanwhile","Then"],"a":0,"e":"空所の後は I was waiting …という文（主語＋動詞）なので、接続詞の While（～している間に）が入る。During も「～の間」だが前置詞で、後ろに名詞が来る（during the wait）。Meanwhile・Then は副詞で、2つの文を1文につなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"今朝バスを待っている間に、英語の教科書を数ページ読んだ。バスが15分遅れたので、新しい単語を10個覚えることができた。","en":"While I was waiting for the bus this morning, I read a few pages of my English textbook. The bus was fifteen minutes late, so I was able to learn ten new words.","m":"難易度 ★★★ 発展"},{"g":"sequence","q":"( ) finishing her club activities, Aya went to the library and studied until it closed. It was the last week before the exams, so the library was full of students.","c":["After","After that","Then","Meanwhile"],"a":0,"e":"空所の後は finishing her club activities という動名詞（名詞のカタマリ）で、その後にコンマと主節が続く。名詞をとれるのは前置詞の After（～の後で）。After that・Then・Meanwhile は副詞（句）で、後ろに名詞をとれない。","p":"空所に入る最も適切なものを選びなさい。","t":"部活動を終えた後、アヤは図書館に行き、閉館まで勉強した。試験前の最後の週だったので、図書館は生徒でいっぱいだった。","en":"After finishing her club activities, Aya went to the library and studied until it closed. It was the last week before the exams, so the library was full of students.","m":"難易度 ★★★ 発展"},{"g":"sequence","q":"You can start a small vegetable garden at home by following three easy steps. First, ( )","c":["choose a sunny spot that gets at least six hours of light.","you can enjoy fresh vegetables all summer long.","many people say that gardening helps them relax.","vegetables from supermarkets are often more expensive than homegrown ones."],"a":0,"e":"three easy steps（3つの手順）の後の First には、1つ目の手順が来る。「日当たりのよい場所を選ぶ」が最初の手順。夏中野菜を楽しめる（結果）、リラックスできる（効果）、スーパーの野菜は高い（比較）は手順ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"3つの簡単な手順に従えば、家で小さな家庭菜園を始められる。まず、少なくとも6時間は日が当たる場所を選ぶ。","en":"You can start a small vegetable garden at home by following three easy steps. First, choose a sunny spot that gets at least six hours of light.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"The small bakery had only a few customers when it first opened. Its bread slowly became popular through word of mouth. Eventually, ( )","c":["people began lining up outside the shop every morning.","the owner decided to open a bakery in a small town.","only a few people in the town knew about the bakery.","the owner had studied baking in France for many years."],"a":0,"e":"Eventually（ついに）の後には、時間をかけてたどり着いた結末が来る。開店当初は客が少ない → 口コミで人気に → 毎朝行列ができた。開店の決断・町の人に知られていない・パンの修業は、どれも人気が出る前の話で結末ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"その小さなパン屋は、開店当初は客がほんの数人しかいなかった。パンは口コミで少しずつ評判になった。ついには、毎朝店の外に行列ができるようになった。","en":"The small bakery had only a few customers when it first opened. Its bread slowly became popular through word of mouth. Eventually, people began lining up outside the shop every morning.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"On Volunteer Day, our class spent the whole morning cleaning the park near our school. Meanwhile, ( )","c":["another class was planting flowers in front of the station.","we were very tired when we finished in the afternoon.","we are going to clean the beach next month as well.","the park looked much cleaner than it had before."],"a":0,"e":"Meanwhile（その間に）の後には、同じ時間に別の場所で起きていたことが来る。私たちが公園を掃除 ＝ 同じ時間に別のクラスは駅前で花を植えていた。午後に疲れていた（後）、来月の予定（未来）、きれいになった（結果）は同時の出来事ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"ボランティアの日、私たちのクラスは午前中ずっと学校近くの公園を掃除した。その間に、別のクラスは駅前で花を植えていた。","en":"On Volunteer Day, our class spent the whole morning cleaning the park near our school. Meanwhile, another class was planting flowers in front of the station.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"To join the school's study-abroad program, students must first talk with their homeroom teacher. Next, they need to write a short essay in English. Finally, ( )","c":["they have an interview with the principal and an English teacher.","the program was started by our school about fifteen years ago.","many students want to study in Australia or Canada.","students who joined say the experience changed their lives."],"a":0,"e":"first（まず）→ Next（次に）→ Finally（最後に）と参加の手順が並ぶので、最後の手順（校長らとの面接）が入る。プログラムの開始時期・人気の留学先・参加者の感想は、手順ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"学校の留学プログラムに参加するには、生徒はまず担任の先生と話さなければならない。次に、英語で短い作文を書く必要がある。最後に、校長と英語の先生との面接を受ける。","en":"To join the school's study-abroad program, students must first talk with their homeroom teacher. Next, they need to write a short essay in English. Finally, they have an interview with the principal and an English teacher.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"To borrow a book from the school library, you first need to find it on the shelf. ( ), take it to the front desk with your student ID card and tell the librarian.","c":["Next","However","For example","Instead"],"a":0,"e":"まず本棚で本を探す → 次に学生証と一緒にカウンターへ持っていく、と手順を順に説明しているので Next（次に）。However（しかし）、For example（例えば）、Instead（代わりに）は手順の順序を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"学校図書館で本を借りるには、まず本棚で本を探す必要がある。次に、学生証と一緒にカウンターへ持っていき、司書に伝える。","en":"To borrow a book from the school library, you first need to find it on the shelf. Next, take it to the front desk with your student ID card and tell the librarian.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"At the amusement park, we waited in line for more than two hours in the hot sun. ( ), it was our turn to ride the new roller coaster.","c":["At last","In contrast","For example","In other words"],"a":0,"e":"2時間以上待った → やっと自分たちの番、と長く待った末の出来事なので At last（ついに・やっと）。In contrast（対照的に）、For example（例えば）、In other words（言い換えれば）では、時間の経過を表せない。","p":"空所に入る最も適切なものを選びなさい。","t":"遊園地で、私たちは炎天下で2時間以上列に並んだ。やっと、新しいジェットコースターに乗る順番が来た。","en":"At the amusement park, we waited in line for more than two hours in the hot sun. At last, it was our turn to ride the new roller coaster.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"Please wash your hands with soap ( ) you eat lunch. Many kinds of germs can get on your hands when you touch doors, desks, and computers.","c":["before","although","unless","so"],"a":0,"e":"手を洗う → 昼食を食べる、という順序なので before（～する前に）。although（～だけれども）は譲歩、unless（～しない限り）は条件、so（だから）は結果を表し、行動の順番を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"昼食を食べる前に、せっけんで手を洗ってください。ドアや机、コンピュータに触れると、手にさまざまな菌がつくことがあります。","en":"Please wash your hands with soap before you eat lunch. Many kinds of germs can get on your hands when you touch doors, desks, and computers.","m":"難易度 ★☆☆ 基礎"},{"g":"sequence","q":"( ) the lunch bell rang, the students rushed out of the classroom to get good seats in the cafeteria. Within a minute, the room was empty.","c":["As soon as","Even though","Unless","In case"],"a":0,"e":"ベルが鳴る → すぐに生徒が飛び出した、と2つの出来事が間をおかずに続くので As soon as（～するとすぐに）。Even though（～にもかかわらず）は譲歩、Unless（～しない限り）は条件、In case（～の場合に備えて）で、意味が通らない。","p":"空所に入る最も適切なものを選びなさい。","t":"昼休みのベルが鳴るとすぐに、生徒たちはカフェテリアでよい席を取ろうと教室から駆け出した。1分もしないうちに教室は空になった。","en":"As soon as the lunch bell rang, the students rushed out of the classroom to get good seats in the cafeteria. Within a minute, the room was empty.","m":"難易度 ★★☆ 標準"},{"g":"sequence","q":"( ), I thought living in the school dormitory would be difficult and lonely. But now I enjoy sharing meals and talking with my roommates every night.","c":["At first","First","Firstly","First of all"],"a":0,"e":"「最初は大変だと思った ⇔ But now（今では）楽しい」と、はじめの状態と後の変化を対比しているので At first（最初は）。First・Firstly・First of all は「第一に・まず」と手順や項目を並べる語で、後の変化を前提とする使い方はしない。","p":"空所に入る最も適切なものを選びなさい。","t":"最初は、学校の寮での生活は大変で寂しいだろうと思っていた。でも今では、毎晩ルームメイトと食事をしたり話したりするのを楽しんでいる。","en":"At first, I thought living in the school dormitory would be difficult and lonely. But now I enjoy sharing meals and talking with my roommates every night.","m":"難易度 ★★★ 発展"},{"g":"sequence","q":"The new school gym is being built and will not be ready until next spring. ( ), the basketball team will practice at a community center near the station.","c":["In the meantime","In other words","On the contrary","For example"],"a":0,"e":"新しい体育館は来春まで完成しない → それまでの間、バスケ部は駅近くの施設で練習する、なので In the meantime（それまでの間）。In other words（言い換え）、On the contrary（それどころか）、For example（例えば）は、完成までの期間を表せない。","p":"空所に入る最も適切なものを選びなさい。","t":"新しい体育館は建設中で、来年の春まで完成しない。それまでの間、バスケットボール部は駅の近くの公民館で練習する。","en":"The new school gym is being built and will not be ready until next spring. In the meantime, the basketball team will practice at a community center near the station.","m":"難易度 ★★★ 発展"},{"g":"sequence","q":"After graduating from college, Kazu tried many different jobs, from teaching to web design. 《In the end》, he opened his own small restaurant in his hometown.","c":["Eventually","However","For example","Besides"],"a":0,"e":"in the end は「結局・最後には」で、いろいろあった後の結末を表すので eventually が最も近い。However（しかし）、For example（例えば）、Besides（そのうえ）は時の流れや結末を表さない。","p":"《》の語句に最も意味が近いものを選びなさい。","t":"大学を卒業した後、カズは教師からウェブデザインまで、さまざまな仕事を経験した。《結局》、彼は故郷に自分の小さなレストランを開いた。","en":"After graduating from college, Kazu tried many different jobs, from teaching to web design. In the end, he opened his own small restaurant in his hometown.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"There are many easy ways to save energy at home. ( ), you can turn off the lights when you leave a room and unplug chargers you are not using.","c":["For example","However","As a result","Instead"],"a":0,"e":"前：家で省エネする方法はたくさんある（一般論）→ 後：電気を消す、充電器を抜く（具体例）なので For example。However（逆接）、As a result（結果）、Instead（代わりに）では、一般論と具体例の関係を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"家庭で省エネする簡単な方法はたくさんある。例えば、部屋を出るときに電気を消したり、使っていない充電器をコンセントから抜いたりすることができる。","en":"There are many easy ways to save energy at home. For example, you can turn off the lights when you leave a room and unplug chargers you are not using.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"Our city has many places for young people to enjoy on weekends, ( ) a large sports center, a public library, and a skate park by the river.","c":["such as","because of","instead of","in spite of"],"a":0,"e":"前：若者が楽しめる場所が多い → 後：スポーツセンター・図書館・スケートパーク（具体例）。名詞を並べて例を示す such as（～のような）が入る。because of（理由）、instead of（代わりに）、in spite of（～にもかかわらず）は例示にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"私たちの市には、大きなスポーツセンターや公立図書館、川沿いのスケートパークなど、若者が週末に楽しめる場所がたくさんある。","en":"Our city has many places for young people to enjoy on weekends, such as a large sports center, a public library, and a skate park by the river.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"Some animals have surprising abilities that scientists have studied for years. ( ), dolphins can recognize themselves in a mirror, and crows can use sticks as tools to get food.","c":["For instance","In contrast","Nevertheless","Therefore"],"a":0,"e":"前：驚くべき能力をもつ動物がいる（一般論）→ 後：イルカは鏡の自分がわかる、カラスは道具を使う（具体例）なので For instance（例えば）。In contrast（対照的に）、Nevertheless（それでも）、Therefore（したがって）は例示を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"科学者たちが長年研究してきた驚くべき能力をもつ動物がいる。例えば、イルカは鏡に映った自分を認識でき、カラスは棒を道具として使ってえさを取ることができる。","en":"Some animals have surprising abilities that scientists have studied for years. For instance, dolphins can recognize themselves in a mirror, and crows can use sticks as tools to get food.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"Japanese anime is popular in many countries around the world. ( ), it has a large number of fans in France, where big anime events are held every year.","c":["In particular","In contrast","Otherwise","In conclusion"],"a":0,"e":"前：多くの国で人気（全体）→ 後：特にフランスにファンが多い（その中の目立つ一例）なので In particular（特に）。In contrast（対照的に）は反対の内容、Otherwise（さもなければ）は条件、In conclusion（結論として）はまとめで、話を絞り込む働きがない。","p":"空所に入る最も適切なものを選びなさい。","t":"日本のアニメは世界の多くの国で人気がある。特にフランスにはファンが多く、毎年大きなアニメのイベントが開かれている。","en":"Japanese anime is popular in many countries around the world. In particular, it has a large number of fans in France, where big anime events are held every year.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"The school wants to improve students' health this year. ( ), it plans to offer more vegetables at lunch and add a ten-minute exercise time every morning.","c":["Specifically","Nevertheless","On the other hand","In the end"],"a":0,"e":"前：生徒の健康を改善したい（大まかな目標）→ 後：野菜を増やし、毎朝10分の運動（具体的な計画）なので Specifically（具体的には）。Nevertheless（それでも）・On the other hand（一方で）は対立、In the end（結局）は結末を表し不適。","p":"空所に入る最も適切なものを選びなさい。","t":"学校は今年、生徒の健康を改善したいと考えている。具体的には、給食の野菜を増やし、毎朝10分間の運動の時間を加える予定だ。","en":"The school wants to improve students' health this year. Specifically, it plans to offer more vegetables at lunch and add a ten-minute exercise time every morning.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"More than 3,000 people joined the city marathon this year, ( ) about 200 high school students and several runners in their eighties from all over Japan.","c":["including","instead of","despite","because of"],"a":0,"e":"前：3000人以上が参加（全体）→ 後：高校生約200人や80代の走者（その中に含まれる人）。including（～を含めて）が入る。instead of（代わりに）、despite（～にもかかわらず）、because of（～のために）は、全体と一部の関係を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"今年の市民マラソンには、約200人の高校生や、全国から集まった80代のランナー数人を含め、3,000人以上が参加した。","en":"More than 3,000 people joined the city marathon this year, including about 200 high school students and several runners in their eighties from all over Japan.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"Some fruits are rich in vitamin C, which helps our bodies fight colds. ( ), oranges and kiwis contain a lot of it, so they are good to eat in winter.","c":["For example","Such as","Including","Like"],"a":0,"e":"意味はどれも例示だが、空所の後は oranges and kiwis contain … という完全な文。文頭に置いて文全体に「例えば」を添えられるのは副詞句の For example だけ。Such as・Including・Like は前置詞のように働き、名詞の直後に置いて例を並べる形で使う。","p":"空所に入る最も適切なものを選びなさい。","t":"果物の中には、体がかぜと闘うのを助けるビタミンCを多く含むものがある。例えば、オレンジやキウイにはたくさん含まれているので、冬に食べるとよい。","en":"Some fruits are rich in vitamin C, which helps our bodies fight colds. For example, oranges and kiwis contain a lot of it, so they are good to eat in winter.","m":"難易度 ★★★ 発展"},{"g":"example","q":"The summer festival brings many benefits to our small town. ( ), last year it attracted 50,000 visitors, who spent about 300 million yen at local shops and hotels.","c":["To illustrate","In contrast","Even so","In the meantime"],"a":0,"e":"前：祭りは町に多くの利益をもたらす（主張）→ 後：5万人が来て約3億円を使った（具体的な数字の例）なので To illustrate（例を挙げると）。In contrast（対照的に）、Even so（それでも）は逆接、In the meantime（その間に）は時を表し不適。","p":"空所に入る最も適切なものを選びなさい。","t":"夏祭りは私たちの小さな町に多くの利益をもたらしている。例を挙げると、昨年は5万人の観光客が訪れ、地元の店やホテルで約3億円を使った。","en":"The summer festival brings many benefits to our small town. To illustrate, last year it attracted 50,000 visitors, who spent about 300 million yen at local shops and hotels.","m":"難易度 ★★★ 発展"},{"g":"example","q":"My little brother loves eating sweet things ( ) chocolate, cake, and ice cream. My mother always tells him to brush his teeth carefully after eating them.","c":["like","than","without","instead of"],"a":0,"e":"前：甘いもの（全体）→ 後：チョコ・ケーキ・アイス（具体例）。名詞の直後で「～のような」と例を示す like が入る（such as とほぼ同じ）。than は比較級と使う。without（～なしで）、instead of（～の代わりに）では例示にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"弟はチョコレートやケーキ、アイスクリームのような甘いものを食べるのが大好きだ。母はいつも、食べたあとはしっかり歯をみがくように弟に言う。","en":"My little brother loves eating sweet things like chocolate, cake, and ice cream. My mother always tells him to brush his teeth carefully after eating them.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"There are many ways to practice English outside the classroom, even if you are busy with club activities. For example, ( )","c":["you can watch English movies with English subtitles.","most students start learning it in elementary school.","many people find English grammar difficult to learn.","English is spoken as a first language in many countries."],"a":0,"e":"For example の後には、前の文の具体例が来る。前：教室の外で英語を練習する方法はたくさんある → 例：英語字幕で映画を見る。小学校で学び始める・文法が難しい・多くの国で話される、は「教室外の練習方法」の例になっていない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"部活動で忙しくても、教室の外で英語を練習する方法はたくさんある。例えば、英語の字幕つきで英語の映画を見ることができる。","en":"There are many ways to practice English outside the classroom, even if you are busy with club activities. For example, you can watch English movies with English subtitles.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"Some animals can change the color of their bodies to protect themselves from enemies. For instance, ( )","c":["certain octopuses can match the color of the rocks around them.","many birds fly south to warmer places when winter comes.","most wild animals need to drink water every day to survive.","some insects can carry things that are much heavier than themselves."],"a":0,"e":"For instance の後には前の文の具体例が来る。前：身を守るために体の色を変える動物がいる → 例：周りの岩の色に合わせるタコ。渡り鳥・毎日水を飲む・重い物を運ぶ昆虫は、「色を変える」例ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"敵から身を守るために体の色を変えられる動物がいる。例えば、ある種のタコは周りの岩の色に体の色を合わせることができる。","en":"Some animals can change the color of their bodies to protect themselves from enemies. For instance, certain octopuses can match the color of the rocks around them.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"According to a recent survey, many young people in Japan are interested in working abroad. In particular, ( )","c":["many of them hope to find jobs in Southeast Asian countries.","some older people prefer to stay in their hometowns.","working abroad can be difficult without language skills.","companies in Japan are also hiring more and more foreign workers."],"a":0,"e":"In particular（特に）は、前の話題の中から目立つものに絞る。前：若者が海外で働くことに関心 → 絞り込み：東南アジアで働きたい人が多い。高齢者の話・語学の難しさ・外国人の雇用は、前の文を絞り込んだ内容になっていない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"最近の調査によると、日本の多くの若者が海外で働くことに関心をもっている。特に、その多くが東南アジアの国々で仕事を見つけたいと考えている。","en":"According to a recent survey, many young people in Japan are interested in working abroad. In particular, many of them hope to find jobs in Southeast Asian countries.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"At their first meeting, the volunteer club members decided to make their town cleaner. Specifically, ( )","c":["they will pick up trash along the river every Saturday.","the town has become much more popular with tourists from abroad.","some members were not able to come to the meeting.","they felt proud of the town where they grew up."],"a":0,"e":"Specifically（具体的には）の後には、前の内容を具体的にした行動が来る。前：町をきれいにすると決めた → 具体的に：毎週土曜に川沿いのごみを拾う。観光客が増えた・会議に来られない部員がいた・町に誇りを感じた、は具体的な行動になっていない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"最初の会合で、ボランティア部の部員たちは町をもっときれいにすることに決めた。具体的には、毎週土曜日に川沿いのごみを拾う予定だ。","en":"At their first meeting, the volunteer club members decided to make their town cleaner. Specifically, they will pick up trash along the river every Saturday.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"Some sports require a lot of teamwork from the players. Soccer, ( ), cannot be played well unless all eleven players on the field work together.","c":["for example","however","on the other hand","otherwise"],"a":0,"e":"前：チームワークが必要なスポーツがある（一般論）→ 後：サッカーは全員が協力しないとうまくいかない（具体例）なので for example。文中にコンマではさんで挿入できる。however・on the other hand（逆接・対比）ではサッカーが例外になり矛盾。otherwise（さもなければ）も不適。","p":"空所に入る最も適切なものを選びなさい。","t":"選手に多くのチームワークを求めるスポーツがある。例えばサッカーは、フィールドの11人全員が協力しなければうまくプレーできない。","en":"Some sports require a lot of teamwork from the players. Soccer, for example, cannot be played well unless all eleven players on the field work together.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"I like all kinds of music, ( ) jazz. I often go to a small jazz club near my house on weekends to listen to live performances.","c":["especially","except","instead of","because of"],"a":0,"e":"前：あらゆる音楽が好き（全体）→ 後：中でもジャズ（特に好きなもの）なので especially（特に）。次の文で週末にジャズクラブへ行くことからも分かる。except（～を除いて）は矛盾し、instead of（代わりに）、because of（～のために）は意味が合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"私はあらゆる種類の音楽が好きで、特にジャズが好きだ。週末には、生演奏を聴きに家の近くの小さなジャズクラブへよく行く。","en":"I like all kinds of music, especially jazz. I often go to a small jazz club near my house on weekends to listen to live performances.","m":"難易度 ★☆☆ 基礎"},{"g":"example","q":"Several countries, ( ) Canada and Australia, have special programs that let young people from Japan work while traveling. Many Japanese students use them after graduation.","c":["including","instead of","according to","as a result of"],"a":0,"e":"前：いくつかの国（全体）→ カナダ・オーストラリア（その中に含まれる国）なので including（～を含めて）。instead of（～の代わりに）、according to（～によると）、as a result of（～の結果）は、全体と一部の関係を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"カナダやオーストラリアを含むいくつかの国には、日本の若者が旅行しながら働ける特別な制度がある。卒業後にそれを利用する日本の学生は多い。","en":"Several countries, including Canada and Australia, have special programs that let young people from Japan work while traveling. Many Japanese students use them after graduation.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"Many schools now use digital tools in their lessons. 《To be specific》, students use tablets to take notes, look up words, and share their ideas with classmates.","c":["Specifically","Nevertheless","As a result","Otherwise"],"a":0,"e":"to be specific は「具体的に言うと」で specifically と同じ。前：デジタル機器を使う（大まか）→ 後：タブレットでノート・単語調べ・意見共有（具体的）。Nevertheless（それでも）、As a result（その結果）、Otherwise（さもなければ）は意味が異なる。","p":"《》の語句に最も意味が近いものを選びなさい。","t":"今では多くの学校が授業でデジタル機器を使っている。《具体的に言うと》、生徒はタブレットを使ってノートをとったり、単語を調べたり、クラスメートと意見を共有したりしている。","en":"Many schools now use digital tools in their lessons. To be specific, students use tablets to take notes, look up words, and share their ideas with classmates.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"Plants need certain nutrients from the soil to grow well. ( ), nitrogen helps them grow green leaves, while phosphorus helps their roots grow strong and deep.","c":["For example","Consequently","However","Instead"],"a":0,"e":"前：植物は成長に特定の栄養素が必要（一般論）→ 後：窒素は葉を、リンは根を育てる（具体例）なので For example。Consequently（その結果）は因果、However（しかし）は逆接、Instead（代わりに）は置き換えで、一般論と例の関係にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"植物がよく育つには、土から特定の栄養素を取り入れる必要がある。例えば、窒素は緑の葉を育てるのを助け、リンは根が強く深く伸びるのを助ける。","en":"Plants need certain nutrients from the soil to grow well. For example, nitrogen helps them grow green leaves, while phosphorus helps their roots grow strong and deep.","m":"難易度 ★★★ 発展"},{"g":"example","q":"Many people want to eat less between meals. Foods high in fiber, 《such as》 beans and whole grains, can help you feel full for a longer time.","c":["食物繊維の多い食品","食事と食事の間","満腹感が続く時間","食べる量を減らしたい人"],"a":0,"e":"such as は直前の名詞の具体例を示す。beans and whole grains（豆や全粒穀物）は、直前の foods high in fiber（食物繊維の多い食品）の例。食事の間・満腹の時間・人は、豆や穀物の例として成り立たない。","p":"《such as》以下は何の例か。最も適切なものを選びなさい。","t":"食事の合間に食べる量を減らしたいと思う人は多い。豆や全粒穀物《のような》食物繊維の多い食品は、満腹感を長く保つのに役立つ。","en":"Many people want to eat less between meals. Foods high in fiber, such as beans and whole grains, can help you feel full for a longer time.","m":"難易度 ★★☆ 標準"},{"g":"example","q":"According to a school survey, many students find science subjects difficult. Physics, ( ), is a subject that many of them avoid choosing in their second year.","c":["in particular","in contrast","on the contrary","instead"],"a":0,"e":"前：理科を難しいと感じる生徒が多い（全体）→ 後：中でも物理は多くの生徒が避ける（特に目立つもの）なので in particular（特に）。in contrast（対照的に）・on the contrary（それどころか逆に）では物理が例外になり矛盾。instead（代わりに）も前後が同じ向きなので合わない。","p":"空所に入る最も適切なものを選びなさい。","t":"学校の調査によると、理科の科目を難しいと感じている生徒が多い。中でも物理は、2年生で多くの生徒が選択を避ける科目だ。","en":"According to a school survey, many students find science subjects difficult. Physics, in particular, is a subject that many of them avoid choosing in their second year.","m":"難易度 ★★★ 発展"},{"g":"paraphrase","q":"Ken always finishes his homework before dinner and never forgets to bring his textbooks to school. ( ), he is a very responsible student.","c":["That is to say","However","On the other hand","Instead"],"a":0,"e":"前：宿題を夕食前に終え、教科書を忘れない（具体的な行動）→ 後：責任感のある生徒（ひとことで言い換え）なので That is to say（つまり）。However・On the other hand は対立する内容、Instead（代わりに）は置き換えを表し不適。","p":"空所に入る最も適切なものを選びなさい。","t":"ケンはいつも夕食前に宿題を終え、学校に教科書を持っていくのを忘れたことがない。つまり、彼はとても責任感のある生徒だ。","en":"Ken always finishes his homework before dinner and never forgets to bring his textbooks to school. That is to say, he is a very responsible student.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"The school concert will start at 18:00, ( ), six o'clock in the evening. Please arrive at the hall at least fifteen minutes before it begins.","c":["that is","for example","as a result","however"],"a":0,"e":"18:00 を six o'clock in the evening と、同じ内容をわかりやすく言い直しているので that is（つまり）。for example は具体例、as a result は結果、however は逆接で、同じものを言い換える働きはない。","p":"空所に入る最も適切なものを選びなさい。","t":"学校のコンサートは18時、つまり夕方の6時に始まる。始まる少なくとも15分前にはホールに到着してください。","en":"The school concert will start at 18:00, that is, six o'clock in the evening. Please arrive at the hall at least fifteen minutes before it begins.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"The new phone has a better camera, a longer battery life, and a larger screen than the old model. ( ), it is an improvement in almost every way.","c":["In short","In contrast","For instance","Even so"],"a":0,"e":"前：カメラ・電池・画面がすべて向上（細かい点の列挙）→ 後：ほぼすべての点で改良（要約）なので In short（要するに）。In contrast（対照的に）、Even so（それでも）は逆の内容、For instance（例えば）は具体例を導くので不適。","p":"空所に入る最も適切なものを選びなさい。","t":"新しい電話は古い機種よりカメラが良く、電池が長持ちし、画面が大きい。要するに、ほとんどすべての点で改良されている。","en":"The new phone has a better camera, a longer battery life, and a larger screen than the old model. In short, it is an improvement in almost every way.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"After losing in the first round last year, our soccer team has only one goal this season, ( ) to win the city championship for the first time in ten years.","c":["namely","however","besides","otherwise"],"a":0,"e":"one goal（1つの目標）の中身を「10年ぶりに市の大会で優勝すること」と特定しているので namely（すなわち）。however（しかし）は逆接、besides（そのうえ）は追加、otherwise（さもなければ）は条件で、目標の中身を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"昨年初戦で敗れた私たちのサッカー部には、今季ただ1つの目標がある。すなわち、10年ぶりに市の大会で優勝することだ。","en":"After losing in the first round last year, our soccer team has only one goal this season, namely to win the city championship for the first time in ten years.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"Photosynthesis is the process in which plants use light energy to change water and carbon dioxide into sugar and oxygen. ( ), plants make their own food from sunlight.","c":["To put it simply","On the other hand","At the same time","Even so"],"a":0,"e":"前：光合作用の専門的な説明 → 後：植物は日光から自分の食べ物を作る（やさしい言い換え）なので To put it simply（簡単に言えば）。On the other hand・Even so は対立する内容、At the same time（同時に）は同時に起こる別のことを表し、言い換えにならない。","p":"空所に入る最も適切なものを選びなさい。","t":"光合作用とは、植物が光のエネルギーを使って水と二酸化炭素を糖と酸素に変える過程である。簡単に言えば、植物は日光から自分の食べ物を作っているのだ。","en":"Photosynthesis is the process in which plants use light energy to change water and carbon dioxide into sugar and oxygen. To put it simply, plants make their own food from sunlight.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"Regular exercise strengthens the heart, improves sleep, and reduces stress. It also helps older people stay independent. ( ), exercise benefits people of all ages in many ways.","c":["In sum","In contrast","Instead","For instance"],"a":0,"e":"前：心臓・睡眠・ストレス・高齢者の自立と利点を列挙 → 後：運動はあらゆる年代に多くの面で有益（まとめ）なので In sum（要約すると）。In contrast（対照的に）は反対の内容、Instead（代わりに）は置き換え、For instance（例えば）は具体例を導くので不適。","p":"空所に入る最も適切なものを選びなさい。","t":"定期的な運動は心臓を強くし、睡眠を改善し、ストレスを減らす。また、高齢者が自立した生活を続ける助けにもなる。要約すると、運動はあらゆる年代の人に多くの面で役立つ。","en":"Regular exercise strengthens the heart, improves sleep, and reduces stress. It also helps older people stay independent. In sum, exercise benefits people of all ages in many ways.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"Researchers wanted to compare school lunches in different parts of the world. Two countries, ( ) Japan and Finland, were chosen for the study because both have a long history of school lunches.","c":["namely","in short","in sum","to put it simply"],"a":0,"e":"Two countries（2つの国）が具体的にどの国かを Japan and Finland と特定しているので namely（すなわち）。in short・in sum は長い説明を「要するに」とまとめる語、to put it simply は難しい内容をやさしく言い直す語で、数を示した名詞の中身を挙げる用法はない。","p":"空所に入る最も適切なものを選びなさい。","t":"研究者たちは、世界のさまざまな地域の給食を比較したいと考えた。2つの国、すなわち日本とフィンランドが、どちらも給食の長い歴史をもつという理由で研究対象に選ばれた。","en":"Researchers wanted to compare school lunches in different parts of the world. Two countries, namely Japan and Finland, were chosen for the study because both have a long history of school lunches.","m":"難易度 ★★★ 発展"},{"g":"paraphrase","q":"Our brain uses about twenty percent of the body's energy, although it makes up only about two percent of our body weight. In other words, ( )","c":["the brain needs far more energy than its size suggests.","we should eat more food when we study for tests.","the heart and lungs also use a lot of energy.","scientists are still studying how the brain works."],"a":0,"e":"In other words の後には、前の内容を別の表現で言い直した文が来る。前：体重の2％なのにエネルギーの20％を使う → 言い換え：大きさの割に多くのエネルギーが必要。試験前に多く食べるべき（前からは言えない主張）・心臓や肺（追加）・研究中（無関係）は言い換えではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"脳は体重のおよそ2％を占めるにすぎないのに、体のエネルギーの約20％を使う。言い換えれば、脳は大きさから想像されるよりはるかに多くのエネルギーを必要とする。","en":"Our brain uses about twenty percent of the body's energy, although it makes up only about two percent of our body weight. In other words, the brain needs far more energy than its size suggests.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"Our school trip was full of problems. The bus was late, it rained all day, and the museum was closed. In short, ( )","c":["the trip did not go as we had planned.","we visited the museum in the afternoon.","the weather was sunny and warm that day.","we all enjoyed it more than we had expected."],"a":0,"e":"In short（要するに）の後には、前の内容のまとめが来る。前：バスが遅れ、雨が降り、博物館は休館 → まとめ：計画どおりにいかなかった。博物館を訪れた・晴れていた、は前の内容と矛盾し、思ったより楽しめた、は逆接でつなぐ内容。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"私たちの修学旅行は問題だらけだった。バスは遅れ、一日中雨が降り、博物館は閉まっていた。要するに、旅行は計画どおりにはいかなかった。","en":"Our school trip was full of problems. The bus was late, it rained all day, and the museum was closed. In short, the trip did not go as we had planned.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"Tourists can buy a special train ticket at the station. The ticket is valid for 72 hours, that is, ( )","c":["for three full days after you first use it.","you can also use it on buses and boats.","it costs less than buying single tickets.","it is not sold at small stations in the area."],"a":0,"e":"that is（つまり）の後には、直前の語句を言い換えた語句が来る。72 hours を「丸3日間」と言い換えている。バスや船にも使える（追加）・1枚ずつ買うより安い（別の利点）・小さな駅では売っていない（別の情報）は、72時間の言い換えではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"観光客は駅で特別な乗車券を買うことができる。その乗車券は72時間、つまり最初に使ってから丸3日間有効だ。","en":"Tourists can buy a special train ticket at the station. The ticket is valid for 72 hours, that is, for three full days after you first use it.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"Inflation is a general rise in the prices of goods and services over a period of time. To put it simply, ( )","c":["the same amount of money buys less than before.","some people keep most of their money in the bank.","the government prints money in many countries.","prices of some goods sometimes go down during a sale."],"a":0,"e":"To put it simply（簡単に言えば）の後には、前の難しい説明をやさしく言い直した文が来る。前：物価が全般的に上がること → 言い換え：同じお金で前より少ししか買えない。銀行に預ける・政府が紙幣を刷る・セールで値下がり、は言い換えではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"インフレとは、一定の期間にわたって商品やサービスの価格が全般的に上がることである。簡単に言えば、同じ金額で以前より少ししか買えなくなるということだ。","en":"Inflation is a general rise in the prices of goods and services over a period of time. To put it simply, the same amount of money buys less than before.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"The koala is a marsupial, ( ) an animal that carries its baby in a pouch. Koalas live in the forests of eastern Australia and sleep for most of the day.","c":["or","but","so","for"],"a":0,"e":"marsupial（有袋類）という難しい語を、an animal that carries its baby in a pouch（袋で子を運ぶ動物）と言い換えている。この or は「すなわち」（直後に同じものを指す名詞が来る）。but・so・for は後ろに文が必要で、名詞を置いて言い換えることはできない。","p":"空所に入る最も適切なものを選びなさい。","t":"コアラは有袋類、すなわち袋に子どもを入れて運ぶ動物である。コアラはオーストラリア東部の森林にすみ、一日の大半を眠って過ごす。","en":"The koala is a marsupial, or an animal that carries its baby in a pouch. Koalas live in the forests of eastern Australia and sleep for most of the day.","m":"難易度 ★★★ 発展"},{"g":"paraphrase","q":"The hotel we stayed at in Okinawa was clean, the staff were kind, and the food was delicious. ( ), it was perfect for a family trip.","c":["In a word","However","For example","Instead"],"a":0,"e":"前：清潔・親切・料理がおいしいと長所を列挙 → 後：家族旅行にぴったり（ひとことでまとめる）なので In a word（ひとことで言えば）。However（逆接）、For example（例示）、Instead（代わりに）は、列挙をまとめる働きがない。","p":"空所に入る最も適切なものを選びなさい。","t":"沖縄で泊まったホテルは清潔で、スタッフは親切で、料理はおいしかった。ひとことで言えば、家族旅行にぴったりだった。","en":"The hotel we stayed at in Okinawa was clean, the staff were kind, and the food was delicious. In a word, it was perfect for a family trip.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"The museum's new exhibition about space does not charge any entrance fee. ( ), visitors can see it for free.","c":["In other words","However","Instead","Otherwise"],"a":0,"e":"前：入場料を取らない ＝ 後：無料で見られる。同じ内容を別の言い方で言い直しているので In other words（言い換えれば）。However（しかし）、Instead（その代わりに）、Otherwise（さもなければ）では、同じ内容の言い換えにならない。","p":"空所に入る最も適切なものを選びなさい。","t":"その博物館の宇宙に関する新しい展示は、入場料を取らない。言い換えれば、来館者は無料で見られる。","en":"The museum's new exhibition about space does not charge any entrance fee. In other words, visitors can see it for free.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"Mr. Sato is kind, patient, and always ready to help us when we have problems. He is, ( ), the best teacher I have ever had.","c":["to sum up","for example","on the other hand","instead"],"a":0,"e":"前：優しく、忍耐強く、いつも助けてくれる（長所の列挙）→ 後：今までで最高の先生（まとめ）なので to sum up（要するに）。for example は具体例、on the other hand は対比、instead は置き換えで、列挙を1つにまとめる働きはない。","p":"空所に入る最も適切なものを選びなさい。","t":"佐藤先生は優しく、忍耐強く、私たちが困っているときはいつでも助けてくれる。要するに、今まで出会った中で最高の先生だ。","en":"Mr. Sato is kind, patient, and always ready to help us when we have problems. He is, to sum up, the best teacher I have ever had.","m":"難易度 ★☆☆ 基礎"},{"g":"paraphrase","q":"The school library is open only on weekdays, ( ) students can use it from Monday to Friday. It is closed on weekends and national holidays.","c":["which means","even though","unless","as if"],"a":0,"e":"weekdays（平日）を「月曜から金曜まで使える」と言い換えているので、前の内容全体を受けて「それはつまり～ということだ」と続ける which means。even though（譲歩）、unless（条件）、as if（様態）は言い換えを表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"学校図書館は平日しか開いていない。つまり、生徒が使えるのは月曜日から金曜日までだ。週末と祝日は閉館している。","en":"The school library is open only on weekdays, which means students can use it from Monday to Friday. It is closed on weekends and national holidays.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"The student council spent two hours discussing the plan to build a new gym. 《In a nutshell》, the plan was too expensive and would take too long to finish.","c":["In short","For example","However","Besides"],"a":0,"e":"in a nutshell は「要するに・かいつまんで言えば」で in short とほぼ同じ。2時間の議論の結論を短くまとめている。For example（例えば）、However（しかし）、Besides（そのうえ）はまとめの意味をもたない。","p":"《》の語句に最も意味が近いものを選びなさい。","t":"生徒会は新しい体育館を建てる計画について2時間話し合った。《要するに》、その計画は費用がかかりすぎ、完成までに時間がかかりすぎるということだった。","en":"The student council spent two hours discussing the plan to build a new gym. In a nutshell, the plan was too expensive and would take too long to finish.","m":"難易度 ★★★ 発展"},{"g":"paraphrase","q":"Most of the students who took part in the survey said that they sleep less than six hours a night. ( ), many of them are not getting enough rest.","c":["Put another way","On the contrary","For instance","Even so"],"a":0,"e":"前：多くが睡眠6時間未満と回答 → 後：多くの生徒が十分に休めていない、と同じ事実を別の角度から言い直しているので Put another way（別の言い方をすれば）。On the contrary（それどころか）は前を否定、For instance（例えば）は具体例、Even so（それでも）は逆接で不適。","p":"空所に入る最も適切なものを選びなさい。","t":"調査に参加した生徒の大半が、一晩の睡眠は6時間未満だと答えた。別の言い方をすれば、その多くが十分な休息をとれていないということだ。","en":"Most of the students who took part in the survey said that they sleep less than six hours a night. Put another way, many of them are not getting enough rest.","m":"難易度 ★★★ 発展"},{"g":"paraphrase","q":"Many animals in this forest, such as owls and bats, are nocturnal; ( ), they sleep during the day and become active at night to look for food.","c":["that is","however","otherwise","even so"],"a":0,"e":"nocturnal（夜行性の）という語の意味を「昼に眠り、夜に活動する」と説明し直しているので that is（つまり）。however・even so は逆接、otherwise（さもなければ）は条件を表し、語の意味を言い換える働きはない。","p":"空所に入る最も適切なものを選びなさい。","t":"フクロウやコウモリなど、この森の多くの動物は夜行性だ。つまり、昼間は眠り、夜になるとえさを探して活動する。","en":"Many animals in this forest, such as owls and bats, are nocturnal; that is, they sleep during the day and become active at night to look for food.","m":"難易度 ★★☆ 標準"},{"g":"paraphrase","q":"We talked about the problems with our class project for a long time after school. 《In short》, we need more time and more people to finish the project.","c":["要するに","例えば","それにもかかわらず","その代わりに"],"a":0,"e":"in short は「要するに」で、長い話し合いの内容を短くまとめるときに使う。「例えば」は for example、「それにもかかわらず」は nevertheless、「その代わりに」は instead の意味で、まとめの働きはない。","p":"《》の語句の意味として最も適切なものを選びなさい。","t":"放課後、私たちはクラスの企画の問題について長い時間話し合った。《要するに》、企画を完成させるにはもっと時間と人手が必要だ。","en":"We talked about the problems with our class project for a long time after school. In short, we need more time and more people to finish the project.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"In this essay, I have shown how school uniforms save time and money and help students feel equal. ( ), I believe all high schools should keep their uniforms.","c":["In conclusion","For example","In contrast","On the other hand"],"a":0,"e":"前：制服の利点をエッセイで示してきた（根拠のまとめ）→ 後：制服を続けるべきと考える（最終的な主張）なので In conclusion（結論として）。For example（例示）、In contrast・On the other hand（対比）は、文章の最後で主張をまとめる働きをもたない。","p":"空所に入る最も適切なものを選びなさい。","t":"この小論文では、制服がどのように時間とお金を節約し、生徒が平等だと感じる助けになるかを示してきた。結論として、すべての高校は制服を残すべきだと私は考える。","en":"In this essay, I have shown how school uniforms save time and money and help students feel equal. In conclusion, I believe all high schools should keep their uniforms.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"A good team leader needs many qualities, such as patience and a sense of humor. ( ), a good leader must always be honest with the team members.","c":["Above all","In contrast","Instead","Otherwise"],"a":0,"e":"前：忍耐やユーモアなど多くの資質が必要 → 後：何よりも誠実であるべき、と最も重要なものを強調しているので Above all（何よりも）。In contrast（対照的に）、Instead（代わりに）、Otherwise（さもなければ）は強調を表さない。","p":"空所に入る最も適切なものを選びなさい。","t":"よいチームリーダーには、忍耐力やユーモアのセンスなど多くの資質が必要だ。何よりも、よいリーダーは常にメンバーに対して誠実でなければならない。","en":"A good team leader needs many qualities, such as patience and a sense of humor. Above all, a good leader must always be honest with the team members.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"Many people think that bats are blind because they fly at night. ( ), most bats can see quite well, even though many of them also use sound to find food.","c":["Actually","For example","As a result","In addition"],"a":0,"e":"前：コウモリは目が見えないと思われている ⇔ 後：実はよく見える、と一般の思い込みを「実は」と正しているので Actually（実は）。For example（例示）、As a result（結果）、In addition（追加）では、思い込みを訂正する流れにならない。","p":"空所に入る最も適切なものを選びなさい。","t":"コウモリは夜に飛ぶので目が見えないと多くの人が思っている。実は、多くのコウモリは音を使ってえさを探すものの、ほとんどのコウモリはかなりよく目が見える。","en":"Many people think that bats are blind because they fly at night. Actually, most bats can see quite well, even though many of them also use sound to find food.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"My grandparents live in a small mountain village that is very quiet. ( ), you can hear nothing but birds singing and the wind blowing through the trees.","c":["Indeed","However","Instead","Meanwhile"],"a":0,"e":"前：村はとても静か → 後：鳥の声と風の音しか聞こえない、と前の内容をさらに強めて裏づけているので Indeed（実際に・本当に）。However（しかし）は逆接、Instead（代わりに）は置き換え、Meanwhile（その間に）は時を表し不適。","p":"空所に入る最も適切なものを選びなさい。","t":"祖父母はとても静かな小さな山村に住んでいる。実際、鳥のさえずりと木々を吹き抜ける風の音以外には何も聞こえない。","en":"My grandparents live in a small mountain village that is very quiet. Indeed, you can hear nothing but birds singing and the wind blowing through the trees.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"Don't be too hard on yourself for making a few mistakes in your speech today. ( ), it was your first time speaking in front of the whole school.","c":["After all","For example","In contrast","Otherwise"],"a":0,"e":"前：失敗を責めすぎないで ⇐ 後：全校の前で話すのは初めてだった、と理由を補っているので文頭の After all（何しろ～なのだから）。For example（例示）、In contrast（対比）、Otherwise（さもなければ）は理由を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"今日のスピーチでいくつか間違えたからといって、自分を責めすぎないで。何しろ、全校の前で話すのは初めてだったのだから。","en":"Don't be too hard on yourself for making a few mistakes in your speech today. After all, it was your first time speaking in front of the whole school.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"The school festival had some problems, such as long lines at the food stands. ( ), however, it was a great success, and most visitors said they wanted to come again.","c":["Overall","Besides","For instance","Instead"],"a":0,"e":"前：行列などの問題もあった → 後：全体としては大成功、と細部を踏まえて全体の評価を述べているので Overall（全体的に見て）。Besides（そのうえ）は追加、For instance（例えば）は例示、Instead（代わりに）は置き換えで、全体の評価を示せない。","p":"空所に入る最も適切なものを選びなさい。","t":"文化祭には、模擬店の長い行列などいくつか問題があった。しかし全体としては大成功で、来場者のほとんどがまた来たいと言った。","en":"The school festival had some problems, such as long lines at the food stands. Overall, however, it was a great success, and most visitors said they wanted to come again.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"Plastic takes hundreds of years to break down, and much of it ends up in the ocean. ( ), we should reduce the amount of plastic we use in our daily lives.","c":["Therefore","For instance","Meanwhile","In contrast"],"a":0,"e":"前：プラスチックは分解に何百年もかかり海に流れ込む（根拠）→ 後：日常のプラスチック使用を減らすべき（結論）なので Therefore（したがって）。For instance（例示）、Meanwhile（その間に）、In contrast（対比）では根拠と結論をつなげない。","p":"空所に入る最も適切なものを選びなさい。","t":"プラスチックは分解されるのに何百年もかかり、その多くが最終的に海に流れ着く。したがって、私たちは日常生活で使うプラスチックの量を減らすべきだ。","en":"Plastic takes hundreds of years to break down, and much of it ends up in the ocean. Therefore, we should reduce the amount of plastic we use in our daily lives.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"My family planned to go camping by the lake last weekend, but it was too windy to put up a tent. We stayed home ( ) and played board games together.","c":["after all","for example","in contrast","in addition"],"a":0,"e":"キャンプの予定 → 風が強い → 結局家にいた、と予定と違う結末を文末の after all（結局）で表す。for example（例えば）、in contrast（対照的に）、in addition（さらに）は結末を表さない。文頭の After all（何しろ～だから）とは意味が違う点に注意。","p":"空所に入る最も適切なものを選びなさい。","t":"先週末、家族で湖のそばにキャンプに行く予定だったが、風が強すぎてテントを張れなかった。結局、家にいて一緒にボードゲームをした。","en":"My family planned to go camping by the lake last weekend, but it was too windy to put up a tent. We stayed home after all and played board games together.","m":"難易度 ★★★ 発展"},{"g":"conclusion","q":"You should thank your parents more often, even for small things. 《After all》, they have supported you in many ways since you were a baby.","c":["何といっても","結局は","その後で","それにもかかわらず"],"a":0,"e":"文頭の After all は「何といっても・何しろ～だから」と、前の主張（親に感謝すべき）の理由を添える。文末の after all（結局）と混同しやすいので「結局は」は誤り。「その後で」は after that、「それにもかかわらず」は nevertheless の意味。","p":"《》の語句の意味として最も適切なものを選びなさい。","t":"小さなことでも、もっと両親に感謝したほうがいい。《何といっても》、あなたが赤ちゃんの頃からいろいろな形で支えてくれたのだから。","en":"You should thank your parents more often, even for small things. After all, they have supported you in many ways since you were a baby.","m":"難易度 ★★★ 発展"},{"g":"conclusion","q":"Reading books improves our vocabulary, gives us new ideas, and helps us understand other people's feelings. In conclusion, ( )","c":["reading is a habit that everyone should try to develop.","some people prefer watching movies to reading books.","many libraries now lend e-books to their members.","books were so expensive in the past that few people could buy them."],"a":0,"e":"In conclusion の後には、前の根拠から導かれる最終的な主張が来る。前：読書の3つの利点 → 結論：誰もが読書の習慣を身につけるべき。映画のほうが好きな人・電子書籍の貸し出し・昔の本の値段は、前の内容から導かれる結論ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"本を読むことは語彙を増やし、新しい考えを与え、他人の気持ちを理解する助けになる。結論として、読書は誰もが身につけるよう努めるべき習慣である。","en":"Reading books improves our vocabulary, gives us new ideas, and helps us understand other people's feelings. In conclusion, reading is a habit that everyone should try to develop.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"When you choose a university, you should think about its location, costs, and campus life. Above all, ( )","c":["make sure it offers the subject you really want to study.","some students choose a university close to their homes.","many universities hold open campus events in summer.","the costs of private universities are usually higher than public ones."],"a":0,"e":"Above all（何よりも）の後には、前に挙げた項目の中で最も大切な助言が来る。場所・費用・キャンパス生活 → 何よりも「学びたい分野があるか確かめる」。家の近くを選ぶ学生・オープンキャンパス・私立の費用は、助言の強調になっていない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"大学を選ぶときは、場所や費用、キャンパスライフについて考えるべきだ。何よりも、本当に学びたい分野があるかどうかを確かめよう。","en":"When you choose a university, you should think about its location, costs, and campus life. Above all, make sure it offers the subject you really want to study.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"Many people walk to stay in good shape, but walking is good for more than just your body. In fact, ( )","c":["studies show it can also improve your mood and creativity.","some people find walking boring and prefer running.","it is important to wear comfortable shoes when you go for a long walk.","many people in cities walk to the station every morning."],"a":0,"e":"In fact（実際に）の後には、前の内容を裏づける、より具体的な事実が来る。前：歩くことは体以外にもよい → 裏づけ：気分や創造性を高めるという研究。退屈に感じる人・靴の話・駅まで歩く人は、前の主張の裏づけにならない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"体型を保つために歩く人は多いが、歩くことは体だけでなく他の面にもよい。実際、気分や創造性も高められることが研究で示されている。","en":"Many people walk to stay in good shape, but walking is good for more than just your body. In fact, studies show it can also improve your mood and creativity.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"Our survey found that most students liked the new school lunch menu, although some said the portions were too small. Overall, ( )","c":["the new menu was well received by the students.","the portions should be the same as last year's.","the survey was carried out in the school gym.","some students bring their own lunch from home."],"a":0,"e":"Overall（全体として）の後には、細かい意見を踏まえた全体の評価が来る。前：量が少ないという声もあるが、ほとんどが気に入った → 全体として好評。量についての提案・調査の場所・弁当持参の生徒は、全体の評価ではない。","p":"空所に入る内容として最も適切なものを選びなさい。","t":"私たちの調査では、量が少なすぎるという声もあったものの、ほとんどの生徒が新しい給食の献立を気に入っていることがわかった。全体として、新しい献立は生徒に好評だった。","en":"Our survey found that most students liked the new school lunch menu, although some said the portions were too small. Overall, the new menu was well received by the students.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"The weather report says the temperature will reach 35 degrees tomorrow. ( ) don't forget to bring a hat and plenty of water to the sports day.","c":["So","But","Or","Instead"],"a":0,"e":"前：明日は35度になる（根拠）→ 後：帽子と水を忘れずに（そこから導く助言）なので So（だから）。But（しかし）は逆接、Or（または）は選択、Instead（代わりに）は置き換えで、根拠と助言の関係を表せない。","p":"空所に入る最も適切なものを選びなさい。","t":"天気予報によると、明日は気温が35度に達するそうだ。だから、体育祭には帽子とたっぷりの水を忘れずに持ってきてね。","en":"The weather report says the temperature will reach 35 degrees tomorrow. So don't forget to bring a hat and plenty of water to the sports day.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"My grandfather loves baseball more than anything else. ( ), he has watched almost every home game of his favorite team for the last fifty years.","c":["In fact","However","Instead","In contrast"],"a":0,"e":"前：祖父は野球が大好き → 後：50年間ほぼ全部のホームゲームを見てきた、と前の内容をより具体的に強めているので In fact（実際に）。However・In contrast は逆の内容、Instead は置き換えを表すので不適。","p":"空所に入る最も適切なものを選びなさい。","t":"祖父は何よりも野球が好きだ。実際、この50年間、応援するチームのホームゲームをほとんどすべて見てきた。","en":"My grandfather loves baseball more than anything else. In fact, he has watched almost every home game of his favorite team for the last fifty years.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"When you give a presentation in class, speak clearly and look at your audience. ( ), practice it several times at home before the day of your presentation.","c":["Most importantly","In contrast","Instead","Otherwise"],"a":0,"e":"発表のコツ：はっきり話す・聞き手を見る → 最も大切なのは事前に何度も練習すること、と一番重要な点を強調しているので Most importantly（最も大切なことに）。In contrast（対比）、Instead（代わりに）、Otherwise（さもなければ）では強調にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"授業で発表するときは、はっきり話し、聞き手を見るようにしよう。最も大切なのは、発表の日までに家で何度か練習しておくことだ。","en":"When you give a presentation in class, speak clearly and look at your audience. Most importantly, practice it several times at home before the day of your presentation.","m":"難易度 ★☆☆ 基礎"},{"g":"conclusion","q":"Before the season began, our coach said the new player would be a great help to the team. ( ), she scored three goals in her very first game.","c":["Indeed","Nevertheless","Otherwise","In other words"],"a":0,"e":"前：新しい選手はチームの大きな助けになる（監督の予想）→ 後：初試合で3得点、と予想が本当だったことを裏づけているので Indeed（実際に）。Nevertheless（それにもかかわらず）は逆接、Otherwise（さもなければ）は条件、In other words（言い換え）は同じ内容の言い直しで不適。","p":"空所に入る最も適切なものを選びなさい。","t":"シーズンが始まる前、監督は新しい選手がチームの大きな助けになるだろうと言った。実際、彼女はまさに最初の試合で3得点を挙げた。","en":"Before the season began, our coach said the new player would be a great help to the team. Indeed, she scored three goals in her very first game.","m":"難易度 ★★☆ 標準"},{"g":"conclusion","q":"The old bridge over the river was badly damaged by the earthquake last month; ( ), it has been closed to all cars and trucks since then.","c":["therefore","so that","because","although"],"a":0,"e":"前：橋が地震で壊れた（根拠）→ 後：通行止めになっている（結論）。セミコロンの後に置き、コンマをつけて前の文を受けるのは副詞 therefore（したがって）。because では通行止めが損傷の理由になり逆。although（譲歩）、so that（目的）も合わず、この句読点の形もとらない。","p":"空所に入る最も適切なものを選びなさい。","t":"川にかかる古い橋は先月の地震でひどく損傷した。そのため、それ以来すべての車とトラックが通行止めになっている。","en":"The old bridge over the river was badly damaged by the earthquake last month; therefore, it has been closed to all cars and trucks since then.","m":"難易度 ★★★ 発展"},{"g":"conclusion","q":"Many students said the final math test was not easy at all. ( ), for most of them, it was the most difficult test they had ever taken.","c":["In fact","On the other hand","For example","Otherwise"],"a":0,"e":"前：テストは簡単ではなかった → 後：今までで一番難しかった、と前の内容を「実は（それどころか）」とさらに強めているので In fact。On the other hand（一方で）は対比、For example（例えば）は例示、Otherwise（さもなければ）は条件で、強調にならない。","p":"空所に入る最も適切なものを選びなさい。","t":"多くの生徒が、数学の期末テストはまったく簡単ではなかったと言った。実際、ほとんどの生徒にとって、今まで受けた中で最も難しいテストだった。","en":"Many students said the final math test was not easy at all. In fact, for most of them, it was the most difficult test they had ever taken.","m":"難易度 ★★★ 発展"},{"g":"conclusion","q":"Our trip to Hokkaido had a few small problems, but the food was great and the people were very kind. ( ), it was a wonderful experience for our family.","c":["All in all","For instance","On the contrary","Meanwhile"],"a":0,"e":"前：小さな問題はあったが料理も人もよかった（細部）→ 後：すばらしい経験だった（全体の評価）なので All in all（全体としては）。For instance（例えば）は例示、On the contrary（それどころか）は前の否定、Meanwhile（その間に）は時を表すので不適。","p":"空所に入る最も適切なものを選びなさい。","t":"北海道旅行にはちょっとした問題もいくつかあったが、料理はすばらしく、人々はとても親切だった。全体としては、家族にとってすばらしい経験になった。","en":"Our trip to Hokkaido had a few small problems, but the food was great and the people were very kind. All in all, it was a wonderful experience for our family.","m":"難易度 ★★☆ 標準"}];
+  var GUIDES = {"contrast":"## 逆接・対比のつなぎ言葉\n\n逆接・対比の語は「前と後ろが**反対向き**になる」ことを知らせる合図です。共通テストの長文では、この語の**後ろ**に筆者の本当の主張や大事な情報が来ることが多いので、見つけたら印をつけましょう。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| but | 接続詞（文と文を1文につなぐ） | しかし | I studied hard, but I failed. |\n| yet | 接続詞／副詞 | それなのに | It was cheap, yet it worked well. |\n| however | 副詞（文頭・文中・文末） | しかし | The plan is good. However, it costs a lot. |\n| on the other hand | 副詞句 | 一方で（同じ話題の別の面） | Cities are convenient. On the other hand, they are noisy. |\n| in contrast / by contrast | 副詞句 | 対照的に（2つのものの違い） | Cats sleep a lot. In contrast, horses sleep little. |\n| while / whereas | 接続詞 | ～する一方で | I like tea, whereas my sister likes coffee. |\n| instead | 副詞 | その代わりに | We didn't go out. Instead, we stayed home. |\n| instead of | 前置詞句（後ろは名詞・-ing） | ～の代わりに | Instead of driving, I walked. |\n\n### 接続詞・副詞・前置詞の違い\n\n意味が同じでも、**文法上の働き**が違うと入る場所が決まります。\n\n- **接続詞**（but, yet, while, whereas）: 〈文, 接続詞＋文〉のように、2つの文を**1文にまとめる**。\n- **副詞**（however, on the other hand, in contrast, instead）: 文と文を意味の上でつなぐだけで、**文をつなぐ力はない**。前の文とはピリオドかセミコロンで区切る。\n  - × Older people call, however younger people text.\n  - ○ Older people call. However, younger people text.\n- **前置詞**（instead of, unlike）: 後ろに**名詞や -ing**を置く。\n\nまた however は文中に挿入できますが、but はできません（○ Her parents, however, disagreed. / × Her parents, but, disagreed.）。\n\n### よくある誤り\n\n1. **意味が同じ語どうしで迷う**: 選択肢に however と on the other hand が並んだら、意味ではなく**文法（コンマだけで文がつながっていないか）**を確認する。\n2. **instead を「しかし」と訳す**: instead は「前のことをしないで、代わりに後のことをする」という置き換え。\n3. **on the other hand と in contrast**: on the other hand は同じものの長所と短所、in contrast は2つのものの違いによく使う。\n\n### 共通テストでの効き方\n\n「筆者の主張として最も適切なもの」を選ぶ問題では、However や But の後ろに答えの根拠があることが多い。また「一般には～と考えられている。しかし実は…」という形では、前半ではなく後半が筆者の考え。空所補充では、前後が**同じ向きか反対向きか**をまず判断すると、選択肢を半分に絞れます。","concession":"## 譲歩のつなぎ言葉\n\n譲歩とは「**～だけれども…**」と、ある事実や相手の意見をいったん認めたうえで、それとは反対向きの内容を述べる形です。逆接と似ていますが、譲歩では**後半（主節）が話し手の言いたいこと**になります。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| although / though | 接続詞（後ろは文） | ～だけれども | Although it was cold, we swam. |\n| even though | 接続詞（後ろは事実） | ～なのに | Even though he is young, he is wise. |\n| even if | 接続詞（後ろは仮定） | たとえ～でも | Even if it rains, I will go. |\n| despite / in spite of | 前置詞（後ろは名詞・-ing） | ～にもかかわらず | Despite the rain, we swam. |\n| nevertheless / even so | 副詞（前の文を受ける） | それにもかかわらず | It was cold. Nevertheless, we swam. |\n| admittedly … but | 副詞＋接続詞 | 確かに…だが | Admittedly, it is old. But it works. |\n| it is true that … but | 構文 | 確かに…だが | It is true that it is old, but it works. |\n\n### 接続詞・副詞・前置詞の違い（最重要）\n\n同じ「～にもかかわらず」でも、**後ろに何が来るか**で使える語が決まります。\n\n| 後ろの形 | 使える語 | 例 |\n|---|---|---|\n| 文（主語＋動詞） | although, even though, even if | Although **it rained**, … |\n| 名詞・-ing | despite, in spite of | Despite **the rain**, … |\n| （ピリオドの後で）前の文全体を受ける | nevertheless, even so | It rained. Nevertheless, … |\n\n- × Despite it rained, … → ○ Despite the rain, … / Although it rained, …\n- × Although the rain, … → ○ Although it rained, …\n- the fact that ～ は名詞のカタマリなので Despite the fact that ～ は正しい。\n- even so は副詞なので、後ろに2つの文をつなげない（× Even so she is young, she …）。\n\n### even though と even if\n\neven though は**事実**（実際にそうである）、even if は**仮定**（そうなるかどうかわからない）。「たとえ失敗しても」は even if、「実際に失敗したのに」は even though。\n\n### よくある誤り\n\n1. although の文に but を重ねる（× Although it was cold, but we swam.）。英語では片方だけ。\n2. 文頭の Admittedly や It is true that を見たら、**後の But が主張**だと予測する。\n\n### 共通テストでの効き方\n\n意見文では「確かに～という意見もある。しかし…」という形で反論を示すことが多い。Admittedly / It is true that / Of course の後には筆者の**反対側の意見**が来るので、そこを筆者の主張と取り違えないこと。","cause":"## 原因・結果のつなぎ言葉\n\n原因・結果の語は「**A だから B**」という因果関係を示します。大切なのは、その語の**後ろに来るのが原因か結果か**を見分けることです。\n\n- 後ろに**原因**が来る: because, since, as, because of, due to, thanks to\n- 後ろに**結果**が来る: so, therefore, thus, as a result, consequently, that is why\n- 後ろに**目的**が来る: so that ～ can …（～が…できるように）\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| because | 接続詞（後ろは原因の文） | ～なので | I stayed home because I was sick. |\n| since / as | 接続詞（相手も知っている理由） | ～なので | Since it's late, let's go home. |\n| so | 接続詞（後ろは結果の文） | だから | I was sick, so I stayed home. |\n| because of / due to | 前置詞句（後ろは名詞） | ～のために | The game was canceled due to rain. |\n| thanks to | 前置詞句（よい結果） | ～のおかげで | Thanks to you, I passed. |\n| therefore / thus | 副詞（文頭・文中） | したがって | He was sick. Therefore, he stayed home. |\n| as a result / consequently | 副詞句 | その結果 | It rained. As a result, the river rose. |\n| that is why | 構文 | そういうわけで | I love animals. That is why I want to be a vet. |\n| so that | 接続詞（目的） | ～するように | Speak up so that everyone can hear. |\n\n### 接続詞・副詞・前置詞の違い\n\n| 後ろの形 | 使える語 |\n|---|---|\n| 文（主語＋動詞） | because, since, as, so, so that |\n| 名詞・-ing | because of, due to, thanks to, owing to |\n| ピリオドの後で前の文全体を受ける | therefore, thus, as a result, consequently |\n\n- × The trip was canceled because the typhoon. → ○ because of the typhoon\n- × Due to it rained, … → ○ Because it rained, …\n- × It rained, therefore we stayed home.（コンマだけで文をつなぐのは誤り）→ ○ It rained. Therefore, we stayed home. / It rained, so we stayed home.\n- 〈, thus＋-ing〉は「その結果～する」という書き言葉の形（The bridge opened, thus reducing travel time.）。\n\n### よくある誤り\n\n1. **原因と結果を逆にする**: because の後は原因、so の後は結果。矢印（原因 → 結果）を書いて確認する。\n2. **since を「～以来」とだけ覚える**: 現在完了と一緒でなければ「～なので」のことが多い。\n3. **so that を「その結果」と読む**: so that ～ can / will は「～するように」という目的。\n\n### 共通テストでの効き方\n\n「なぜ～したのか」を問う設問では、because / since / due to の後ろに答えがある。グラフ問題では「A が増えた。その結果 B が減った」という因果の読み取りが頻出。Therefore / As a result の後は筆者の結論になりやすいので、要旨を選ぶ問題でも手がかりになる。","addition":"## 追加のつなぎ言葉\n\n追加の語は「**前と同じ向きの情報をもう1つ足す**」合図です。利点に利点を、理由に理由を、問題点に問題点を重ねます。逆接と違って話の向きは変わりません。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| also | 副詞（一般動詞の前・be動詞の後） | ～もまた | She also plays the violin. |\n| too / as well | 副詞（文末） | ～も | I like cats, too. |\n| in addition | 副詞句（文頭） | さらに | It is cheap. In addition, it is light. |\n| in addition to | 前置詞句（後ろは名詞・-ing） | ～に加えて | In addition to English, she speaks French. |\n| moreover / furthermore | 副詞（やや硬い） | さらに | The plan is safe. Moreover, it saves money. |\n| besides | 副詞（会話で理由を重ねる）／前置詞 | それに／～に加えて | I'm tired. Besides, it's late. |\n| what is more / on top of that | 副詞句 | そのうえ | It was cold. What is more, it began to rain. |\n| not only A but also B | 相関語句 | A だけでなく B も | He is not only kind but also funny. |\n| as well as | 前置詞のように働く | ～だけでなく | She sings as well as dances. |\n\n### 品詞の違いに注意\n\n- **副詞**（moreover, furthermore, in addition, also）は、前の文全体を受けて次の文の頭に置く。後ろに名詞だけを置くことはできない。\n- **前置詞**（besides, in addition to）は後ろに名詞や -ing を置く。\n  - ○ Besides playing the guitar, he plays the drums.\n  - × Moreover playing the guitar, he plays the drums.\n  - × In addition playing the guitar, … → ○ In addition to playing the guitar, …\n- either は「～も」でも**否定文**で使う（I don't like it, either.）。\n- not only と組むのは but also。neither は nor、either は or、whether は or と組む。\n\n### 追加と例示の区別\n\n「さらに（In addition）」は**別の新しい項目**を足す。「例えば（For example）」は**前の文の中身の具体例**を出す。後ろの文が前の文の一部なのか、並ぶ別の項目なのかで判断する。\n\n### よくある誤り\n\n1. 利点のあとに欠点が来ているのに Moreover を選ぶ → 向きが変わるなら逆接。\n2. Besides を「～以外に（除外）」と取り違える（除外は except）。\n\n### 共通テストでの効き方\n\n意見文では「理由1。さらに理由2。」と根拠を並べる形が多く、Moreover / In addition は「理由がいくつあるか」を数える手がかりになる。「筆者が挙げていない理由」を選ぶ問題では、追加の語の後を1つずつ確認するとよい。","sequence":"## 順序・時のつなぎ言葉\n\n順序・時の語は「**出来事や手順がどの順番で起きたか**」を示す合図です。説明書・レシピ・体験談・歴史の文章でよく使われます。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| first / first of all | 副詞 | まず | First, wash your hands. |\n| next / then | 副詞 | 次に／それから | Then, add the sugar. |\n| after that | 副詞句 | その後 | After that, we had lunch. |\n| finally | 副詞（手順の最後） | 最後に | Finally, bake it for ten minutes. |\n| eventually / in the end | 副詞（長い経過の後） | ついに／結局 | He eventually became a doctor. |\n| at last | 副詞句（待ち望んだ末に） | やっと | At last, the bus came. |\n| meanwhile / in the meantime | 副詞（同じ時間／それまでの間） | その間に | I cooked. Meanwhile, she cleaned. |\n| at the same time | 副詞句 | 同時に | The bell rang. At the same time, the lights went out. |\n| at first | 副詞句（後で変化する） | 最初は | At first, I hated it. But now I love it. |\n| while / before / after / as soon as | 接続詞（後ろは文） | ～の間／前／後／するとすぐ | Wash your hands before you eat. |\n| during / after / before | 前置詞（後ろは名詞・-ing） | ～の間／後／前 | during the break, after finishing |\n\n### 品詞の違いに注意\n\n- **while** は接続詞（後ろは文）、**during** は前置詞（後ろは名詞）。\n  - ○ While I was waiting, I read a book. / ○ During the wait, I read a book.\n  - × During I was waiting, …\n- **after** は接続詞・前置詞の両方に使えるが、**after that** は副詞句で、後ろに名詞をとれない。\n  - ○ After finishing lunch, … / × After that finishing lunch, …\n- **meanwhile・then** は副詞なので、2つの文を1文につなげない。\n\n### 意味の近い語の区別\n\n- **first と at first**: first は「第一に（手順）」、at first は「最初は（後で変わる）」。At first の後には but now / later などの変化が来ることが多い。\n- **finally と eventually**: finally は並べた手順の「最後」にも使える。eventually は「長い時間や苦労の末に」。\n- **meanwhile と in the meantime**: 前者は「同じ時間に別の場所で」、後者は「ある時点までの間」の意味でよく使う。\n\n### よくある誤り\n\n1. then を「だから」の意味だけで考える: 手順の文章では「次に」。\n2. at last を「最後に（手順）」に使う: at last は「待ちに待って、やっと」。\n\n### 共通テストでの効き方\n\n共通テストでは「出来事を起きた順に並べよ」という問題が毎年のように出る。First / Then / After that / Eventually に印をつけて時系列を整理すると解きやすい。本文で述べる順番と実際に起きた順番が違うこともあるので、before / after / meanwhile にも注意。","example":"## 例示・具体化のつなぎ言葉\n\n例示の語は「**前で言った一般的なことを、具体的なもので示す**」合図です。〈一般論 → 具体例〉の順になるのが基本で、英語の文章では「主張 → 例」の形が非常に多く見られます。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| for example / for instance | 副詞句（文頭・文中） | 例えば | Some birds can talk. For example, parrots can copy words. |\n| such as | 前置詞のように働く（名詞の直後） | ～のような | I like fruits such as apples and grapes. |\n| like | 前置詞（会話的） | ～のような | sports like soccer |\n| including | 前置詞（全体の中の一部） | ～を含めて | Ten people, including two teachers, came. |\n| in particular / particularly | 副詞句 | 特に | I love sports. In particular, I love tennis. |\n| especially | 副詞 | 特に | I like music, especially jazz. |\n| specifically | 副詞 | 具体的には | We need help. Specifically, we need two drivers. |\n| to illustrate | 不定詞句 | 例を挙げると | To illustrate, look at this chart. |\n\n### 品詞と置く場所の違い\n\n- **for example / for instance** は副詞句なので、**文の頭**に置いて後ろに完全な文を続けられる。文中にコンマではさんで挿入することもできる。\n- **such as / like / including** は前置詞のように働き、**名詞の直後**に置いて後ろに名詞を並べる。文頭に置いて後ろに文を続けることはできない。\n  - ○ Some fruits, such as oranges, are rich in vitamin C.\n  - ○ For example, oranges contain a lot of vitamin C.\n  - × Such as oranges contain a lot of vitamin C.\n- **in particular / specifically** は「例を1つ挙げる」というより、**話を絞り込む・詳しくする**働き。\n\n### 例示と追加の区別\n\n後ろの文が前の文の**中身（一部）**なら例示、前の文と**並ぶ別の項目**なら追加。「省エネの方法はたくさんある。例えば電気を消す」は、電気を消すことが「省エネの方法」の一部なので例示。\n\n### よくある誤り\n\n1. such as の前の名詞を読み落とす: such as の後ろは**直前の名詞の例**。\n2. 例のほうを筆者の主張と取り違える: 主張は例の前にある一般的な文。\n\n### 共通テストでの効き方\n\n本文の具体例が選択肢では抽象的な言葉に言い換えられることが多い（例：「イルカやカラス」→「一部の動物」）。For example を見たら、その**直前の文**が要点だと考え、例はその裏づけとして読む。長い例は読み飛ばしてもよいが、例の前後で主張が変わっていないかは確認する。","paraphrase":"## 言い換え・要約のつなぎ言葉\n\n言い換えの語は「**前と同じ内容を、別の表現で言い直す**」合図です。新しい情報は足されません。難しい説明をやさしくしたり、長い説明を短くまとめたりします。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| in other words / put another way | 副詞句 | 言い換えれば | He never gives up. In other words, he is patient. |\n| that is (to say) | 副詞句（語句の直後にも置ける） | つまり | at 18:00, that is, six in the evening |\n| namely | 副詞（名詞の中身を特定） | すなわち | two languages, namely English and French |\n| or | 接続詞（同じものの別名） | すなわち | a marsupial, or an animal with a pouch |\n| in short / in brief / in a word | 副詞句（長い話をまとめる） | 要するに／ひとことで言えば | It was cheap, fast, and fun. In short, it was great. |\n| to sum up / in sum / in a nutshell | 副詞句 | 要約すると | To sum up, we need more time. |\n| to put it simply | 不定詞句（難しい説明をやさしく） | 簡単に言えば | To put it simply, plants make food from light. |\n| which means (that) | 関係詞節 | それはつまり～ということだ | It's a holiday, which means the bank is closed. |\n\n### 3つのタイプを区別する\n\n| タイプ | 前の内容 | 後の内容 | 代表語 |\n|---|---|---|---|\n| 言い換え | 表現A | 同じ内容の表現B | in other words, that is |\n| 特定 | 「2つの国」など数や種類 | その中身 | namely |\n| 要約 | 細かい項目の列挙 | ひとことのまとめ | in short, to sum up |\n\n### 言い換えと他の関係の区別\n\n- **例示との違い**: 例示は「一部を取り出す」、言い換えは「全体を別の言葉で言う」。\n- **結果との違い**: 「睡眠が6時間未満 → 休息が足りていない」は同じ事実を別の角度から述べた言い換え。「睡眠不足 → 成績が下がった」は別の出来事が起きた結果。\n- **namely と for example**: namely は全部を挙げる（two countries, namely Japan and Finland）。for example は一部だけ。\n\n### よくある誤り\n\n1. or を常に「または」と訳す: 直後に**前と同じものを指す名詞**が来たら「すなわち」。\n2. In short の後に新しい話題が来ると思う: 前の内容のまとめなので、前を読めば予測できる。\n\n### 共通テストでの効き方\n\n言い換えの語の後ろは、**前の難しい部分をやさしく書き直した文**なので、読み取れなかった箇所の助けになる。また、正解の選択肢は本文を言い換えた表現になっていることが多く、In other words の前後を対応させる練習がそのまま設問対策になる。In short / To sum up の後ろは段落の要旨で、「この段落の内容として適切なもの」の答えに直結する。","conclusion":"## 結論・強調のつなぎ言葉\n\n結論・強調の語は「**ここが一番言いたいこと**」を知らせる合図です。文章の最後で主張をまとめる語と、前の内容を強めたり最も大事な点を示したりする語があります。\n\n### 語の一覧\n\n| 語 | 品詞・使い方 | 意味 | 例文 |\n|---|---|---|---|\n| in conclusion / to conclude | 副詞句（文章の最後） | 結論として | In conclusion, we should protect the forest. |\n| therefore / so | 副詞／接続詞 | したがって／だから | It is late, so let's go home. |\n| overall / all in all | 副詞（全体の評価） | 全体として | There were problems. Overall, it went well. |\n| above all / most importantly | 副詞句 | 何よりも | Be kind. Above all, be honest. |\n| in fact / actually | 副詞句（強め・訂正） | 実際に／実は | He likes dogs. In fact, he has five. |\n| indeed | 副詞（前の内容を裏づける） | 実際に・本当に | It was hot. Indeed, it was 38°C. |\n| after all（文頭） | 副詞句（理由を添える） | 何しろ～だから | Don't worry. After all, it's your first try. |\n| after all（文末） | 副詞句（予定と違う結末） | 結局 | We stayed home after all. |\n\n### in fact の2つの働き\n\n1. **強め**: 前の内容を、より具体的・より強い事実で裏づける。\n   - My grandfather loves baseball. In fact, he has watched every game for fifty years.\n2. **訂正**: 一般的な思い込みや前の否定を受けて「実は（それどころか）」と正す。\n   - The test was not easy. In fact, it was the hardest test ever.\n\nどちらの場合も、in fact の後ろのほうが**より大事な情報**になる。\n\n### after all の位置による違い\n\n- **文頭**の After all は「何といっても～なのだから」と、前の主張の理由を補う。\n- **文末**の after all は「（予定や予想と違って）結局」。\n- 「結局」だけで覚えていると、文頭の用法で誤読しやすい。\n\n### 接続詞と副詞の違い\n\nso は接続詞なので〈文, so 文〉と1文にできるが、therefore は副詞なので、コンマだけで文をつなげない（○ It rained; therefore, we stayed home. / ○ It rained. Therefore, we stayed home.）。\n\n### よくある誤り\n\n1. Above all の後を「さらにもう1つ」と読む: 追加ではなく**最重要**の1つ。\n2. Overall の後の評価と、その前の細かい不満を取り違える: 筆者の最終評価は Overall の後。\n\n### 共通テストでの効き方\n\n「筆者が最も伝えたいこと」「この文章のタイトルとして適切なもの」を選ぶ問題では、In conclusion / Overall / Above all の後ろが答えの根拠になる。また In fact / Indeed の後ろには、主張を支える数字や具体的な事実が来やすく、グラフや表との照合問題の手がかりになる。"};
+  var WORDS = [];
+
+  var els = {};
+  ["unit-groups","selected-unit-box","selected-unit-label","selected-unit-count",
+   "btn-make-quiz","btn-view-guide",
+   "error-banner","error-text","error-close",
+   "view-setup","view-quiz","view-result","view-guide","view-stats",
+   "quiz-count","quiz-score","quiz-unit","quiz-dots","quiz-prompt","quiz-question","quiz-source","quiz-choices",
+   "quiz-feedback","feedback-speak","feedback-sentence","btn-speak","btn-speak-slow","feedback-verdict","feedback-head","feedback-explanation","feedback-translation","feedback-translation-text","feedback-meta",
+   "btn-next-question",
+   "result-frac","result-message","btn-retry-quiz","btn-new-quiz","btn-guide-from-result","btn-change-unit",
+   "guide-content","btn-guide-back","btn-guide-quiz",
+   "stats-body","btn-stats","btn-stats-back","btn-stats-reset","btn-stats-from-result",
+   "btn-wrongbox","btn-wrong-only","range-from","range-to","btn-range"
+  ].forEach(function(id){ els[id.replace(/-([a-z])/g, function(_,c){return c.toUpperCase();})] = document.getElementById(id); });
+
+  var SET_SIZE = 10;
+  var quizData = [];
+  var currentIndex = 0;
+  var score = 0;
+  var results = [];
+  var selectedUnit = null;
+  var isWrongReview = false;
+
+  // 問題文と正解から安定したIDを作る（データの並び順が変わってもずれない）
+  function qid(text){
+    var h = 5381, s = String(text);
+    for(var i=0;i<s.length;i++){ h = ((h*33) ^ s.charCodeAt(i)) >>> 0; }
+    return h.toString(36);
+  }
+  var QID_MAP = {};
+  POOL.forEach(function(q){
+    q.id = qid(q.q + "|" + q.c[q.a]);
+    QID_MAP[q.id] = q;
+  });
+
+  // ===================== 学習記録（この端末のブラウザ内だけに保存） =====================
+  var RECENT_MAX = 60;
+  var DAYS_MAX  = 400;
+
+  function emptyStore(){ return { units:{}, wrong:[], recent:{}, days:[] }; }
+
+  var store = (function(){
+    try{
+      var raw = window.localStorage.getItem(CONFIG.storeKey);
+      if(!raw) return emptyStore();
+      var o = JSON.parse(raw);
+      return {
+        units:  o.units  || {},
+        wrong:  Array.isArray(o.wrong) ? o.wrong : [],
+        recent: o.recent || {},
+        days:   o.days   || []
+      };
+    }catch(e){ return emptyStore(); }
+  })();
+
+  var storageOK = true;
+  function saveStore(){
+    try{ window.localStorage.setItem(CONFIG.storeKey, JSON.stringify(store)); }
+    catch(e){ storageOK = false; }
+  }
+
+  function rangeUnit(from, to){
+    return { id: "r" + from + "-" + to, label: "No." + from + "〜" + to, from: from, to: to };
+  }
+
+  function findUnit(uid){
+    var found = null;
+    UNITS.forEach(function(g){
+      g.items.forEach(function(it){ if(it.id === uid) found = it; });
+    });
+    if(!found){
+      var m = /^r(\d+)-(\d+)$/.exec(uid);
+      if(m) found = rangeUnit(+m[1], +m[2]);
+    }
+    return found;
+  }
+  function unitLabelOf(uid){
+    var u = findUnit(uid);
+    return u ? u.label : uid;
+  }
+
+  function poolOf(unit){
+    if(unit.from){
+      return POOL.filter(function(q){ return q.no >= unit.from && q.no <= unit.to; });
+    }
+    return POOL.filter(function(q){ return q.g === unit.id; });
+  }
+
+  function todayKey(){
+    var d = new Date();
+    function p(n){ return (n<10?"0":"") + n; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+
+  function recordAnswer(id, isCorrect){
+    var at = store.wrong.indexOf(id);
+    if(isCorrect){
+      if(at >= 0) store.wrong.splice(at, 1);   // 正解したら苦手ボックスから外す
+    } else if(at < 0){
+      store.wrong.push(id);
+    }
+  }
+
+  function recordQuizFinished(unitId, asked, correct){
+    var u = store.units[unitId] || { attempts:0, asked:0, correct:0, last:"" };
+    u.attempts += 1;
+    u.asked    += asked;
+    u.correct  += correct;
+    u.last      = todayKey();
+    store.units[unitId] = u;
+    if(store.days.indexOf(u.last) < 0){
+      store.days.push(u.last);
+      if(store.days.length > DAYS_MAX) store.days = store.days.slice(-DAYS_MAX);
+    }
+    saveStore();
+  }
+
+  function rememberAsked(unitId, questions){
+    var seen = store.recent[unitId] || [];
+    questions.forEach(function(q){
+      var at = seen.indexOf(q.id);
+      if(at >= 0) seen.splice(at, 1);
+      seen.push(q.id);
+    });
+    if(seen.length > RECENT_MAX) seen = seen.slice(-RECENT_MAX);
+    store.recent[unitId] = seen;
+    saveStore();
+  }
+
+  function wrongBoxQuestions(limit){
+    var out = [];
+    store.wrong.forEach(function(id){ if(QID_MAP[id]) out.push(QID_MAP[id]); });
+    return shuffleArray(out).slice(0, limit || SET_SIZE);
+  }
+  function wrongBoxCount(){
+    return store.wrong.filter(function(id){ return QID_MAP[id]; }).length;
+  }
+
+  function switchView(name){
+    ["setup","quiz","result","guide","stats"].forEach(function(v){
+      els["view"+v[0].toUpperCase()+v.slice(1)].hidden = (v !== name);
+    });
+    if(name !== "quiz") stopSpeaking();
+    window.scrollTo(0, 0);
+  }
+
+  function showError(msg){
+    els.errorText.textContent = msg;
+    els.errorBanner.hidden = false;
+  }
+  function clearError(){ els.errorBanner.hidden = true; }
+  els.errorClose.addEventListener("click", clearError);
+
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, function(ch){
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch];
+    });
+  }
+  // 《》で囲んだ部分を傍線にする
+  function markup(s){
+    return escapeHTML(s).replace(/《(.+?)》/g, '<span class="bosen">$1</span>');
+  }
+
+  // ---- 単元選び ----
+  function renderUnitGroups(){
+    els.unitGroups.innerHTML = "";
+    UNITS.forEach(function(group){
+      var wrap = document.createElement("div");
+      wrap.className = "unit-group";
+      var h3 = document.createElement("h3");
+      h3.textContent = group.chapter;
+      wrap.appendChild(h3);
+      var chips = document.createElement("div");
+      chips.className = "chips";
+      group.items.forEach(function(item){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip";
+        btn.textContent = item.label;
+        btn.dataset.unitId = item.id;
+        btn.addEventListener("click", function(){ selectUnit(item); });
+        chips.appendChild(btn);
+      });
+      wrap.appendChild(chips);
+      els.unitGroups.appendChild(wrap);
+    });
+  }
+  renderUnitGroups();
+
+  function selectUnit(item){
+    selectedUnit = item;
+    Array.prototype.forEach.call(els.unitGroups.querySelectorAll(".chip"), function(chip){
+      chip.classList.toggle("active", chip.dataset.unitId === item.id);
+    });
+    els.selectedUnitLabel.textContent = item.label + (item.hint ? "（" + item.hint + "）" : "");
+    els.selectedUnitCount.textContent = " 全" + poolOf(item).length + "問";
+    els.selectedUnitBox.hidden = false;
+    els.btnMakeQuiz.disabled = false;
+    els.btnViewGuide.disabled = false;
+    clearError();
+  }
+
+  if(els.btnRange){
+    els.btnRange.addEventListener("click", function(){
+      var a = parseInt(els.rangeFrom.value, 10), b = parseInt(els.rangeTo.value, 10);
+      if(isNaN(a) || isNaN(b)){ showError("はじめとおわりの番号を数字で入れてください。"); return; }
+      if(a > b){ var t = a; a = b; b = t; }
+      a = Math.max(1, a); b = Math.min(CONFIG.maxNo, b);
+      var u = rangeUnit(a, b);
+      if(!poolOf(u).length){ showError("No." + a + "〜" + b + " には問題がありません。"); return; }
+      els.rangeFrom.value = a; els.rangeTo.value = b;
+      selectUnit(u);
+      els.selectedUnitBox.scrollIntoView({ block:"nearest" });
+    });
+  }
+
+  // ---- 出題 ----
+  function shuffleArray(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  function shuffleChoices(q){
+    var order = shuffleArray(q.c.map(function(_, i){ return i; }));
+    var copy = {};
+    Object.keys(q).forEach(function(k){ copy[k] = q[k]; });
+    copy.c = order.map(function(i){ return q.c[i]; });
+    copy.a = order.indexOf(q.a);
+    return copy;
+  }
+
+  // 同じ語が1セットに重ならないように選ぶ（足りなければ重ねる）
+  function pickDistinct(list, n){
+    var used = {}, out = [], rest = [];
+    list.forEach(function(q){
+      if(out.length >= n){ return; }
+      if(q.w && used[q.w]){ rest.push(q); return; }
+      if(q.w) used[q.w] = true;
+      out.push(q);
+    });
+    return out.concat(rest).slice(0, n);
+  }
+
+  function pickQuizForUnit(unit){
+    var pool = poolOf(unit);
+    if(!pool.length) return null;
+    // 直近に出した問題をいったん後回しにして、同じ問題の再出現を減らす
+    var seen = store.recent[unit.id] || [];
+    var fresh = pool.filter(function(q){ return seen.indexOf(q.id) < 0; });
+    var picked;
+    if(fresh.length >= SET_SIZE){
+      picked = pickDistinct(shuffleArray(fresh), SET_SIZE);
+    } else {
+      // 未出題が足りなくなったら一巡したとみなし、記憶を流して全体から選び直す
+      picked = pickDistinct(shuffleArray(fresh).concat(
+        shuffleArray(pool.filter(function(q){ return fresh.indexOf(q) < 0; }))
+      ), SET_SIZE);
+      store.recent[unit.id] = [];
+    }
+    rememberAsked(unit.id, picked);
+    return picked.map(shuffleChoices);
+  }
+
+  function beginQuiz(questions, title){
+    quizData = questions;
+    currentIndex = 0; score = 0; results = [];
+    renderQuizDots();
+    els.quizUnit.textContent = title;
+    renderQuestion();
+    switchView("quiz");
+  }
+
+  function startQuizWith(questions, title){
+    if(!questions || !questions.length) return false;
+    isWrongReview = true;
+    beginQuiz(questions.map(shuffleChoices), title);
+    return true;
+  }
+
+  function startQuiz(){
+    clearError();
+    if(!selectedUnit) return;
+    isWrongReview = false;
+    var qs = pickQuizForUnit(selectedUnit);
+    if(!qs){
+      showError("「" + selectedUnit.label + "」の問題は準備中です。別の単元をお試しください。");
+      switchView("setup");
+      return;
+    }
+    beginQuiz(qs, CONFIG.unitWord + ": " + selectedUnit.label);
+  }
+
+  function renderQuizDots(){
+    els.quizDots.innerHTML = "";
+    quizData.forEach(function(){ els.quizDots.appendChild(document.createElement("span")); });
+    updateDots();
+  }
+  function updateDots(){
+    var dots = els.quizDots.children;
+    for(var i=0;i<dots.length;i++){
+      dots[i].className = "";
+      if(results[i] === "correct") dots[i].classList.add("done-correct");
+      else if(results[i] === "wrong") dots[i].classList.add("done-wrong");
+      else if(i === currentIndex) dots[i].classList.add("current");
+    }
+  }
+
+  // ---- 英語 ----
+  function isEnglish(s){
+    var t = String(s || "").replace(/[\s\d\p{P}《》]/gu, "");
+    if(!t) return false;
+    var ascii = t.replace(/[^A-Za-z]/g, "").length;
+    return ascii / t.length > 0.6;
+  }
+  var canSpeak = !!(window.speechSynthesis && window.SpeechSynthesisUtterance);
+  var enVoice = null;
+  function pickVoice(){
+    if(!canSpeak) return;
+    var vs = window.speechSynthesis.getVoices() || [];
+    var en = vs.filter(function(v){ return /^en[-_]/i.test(v.lang); });
+    var pref = function(re){ return en.filter(function(v){ return re.test(v.lang); }); };
+    var us = pref(/US/i), gb = pref(/GB/i);
+    var cand = us.length ? us : (gb.length ? gb : en);
+    // 高品質な音声（Enhanced / Premium / Google / Natural）を優先
+    enVoice = cand.filter(function(v){ return /enhanced|premium|natural|google|samantha/i.test(v.name); })[0] || cand[0] || null;
+  }
+  if(canSpeak){
+    pickVoice();
+    if(window.speechSynthesis.addEventListener) window.speechSynthesis.addEventListener("voiceschanged", pickVoice);
+  }
+  function stopSpeaking(){
+    if(!canSpeak) return;
+    try{ window.speechSynthesis.cancel(); }catch(e){}
+    if(els.btnSpeak){ els.btnSpeak.setAttribute("aria-pressed","false"); els.btnSpeakSlow.setAttribute("aria-pressed","false"); }
+  }
+  function speak(text, rate, btn){
+    if(!canSpeak || !text) return;
+    stopSpeaking();
+    // 長い文で読み上げが途中で止まるブラウザがあるので、文ごとに分けて順に読む
+    var parts = String(text).match(/[^.!?]+[.!?]*["')]*\s*/g) || [text];
+    btn.setAttribute("aria-pressed","true");
+    parts.forEach(function(part, i){
+      var u = new SpeechSynthesisUtterance(part.trim());
+      u.lang = enVoice ? enVoice.lang : "en-US";
+      if(enVoice) u.voice = enVoice;
+      u.rate = rate;
+      if(i === parts.length-1){ u.onend = u.onerror = function(){ btn.setAttribute("aria-pressed","false"); }; }
+      window.speechSynthesis.speak(u);
+    });
+  }
+  els.btnSpeak.addEventListener("click", function(){ speak(quizData[currentIndex].en, 0.95, els.btnSpeak); });
+  els.btnSpeakSlow.addEventListener("click", function(){ speak(quizData[currentIndex].en, 0.7, els.btnSpeakSlow); });
+
+  function renderQuestion(){
+    var q = quizData[currentIndex];
+    els.quizCount.textContent = "問 " + (currentIndex+1) + " / " + quizData.length;
+    els.quizScore.textContent = "正解 " + score;
+    els.quizPrompt.textContent = q.p || "";
+    els.quizPrompt.hidden = !q.p;
+    els.quizQuestion.innerHTML = markup(q.q);
+    els.quizQuestion.lang = isEnglish(q.q) ? "en" : "ja";
+    stopSpeaking();
+    els.quizQuestion.classList.toggle("big", !!q.big);
+    els.quizSource.textContent = q.s || "";
+    els.quizSource.hidden = !q.s;
+    els.quizFeedback.hidden = true;
+    els.btnNextQuestion.hidden = true;
+    updateDots();
+
+    els.quizChoices.innerHTML = "";
+    var letters = ["A","B","C","D","E","F"];
+    q.c.forEach(function(choiceText, idx){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "choice";
+      btn.innerHTML = '<span class="badge">' + letters[idx] + '</span><span></span>';
+      var label = btn.querySelector("span:last-child");
+      label.textContent = choiceText;
+      if(isEnglish(choiceText)){ label.className = "en"; label.lang = "en"; }
+      btn.addEventListener("click", function(){ onChoose(idx); });
+      els.quizChoices.appendChild(btn);
+    });
+  }
+
+  function onChoose(idx){
+    var q = quizData[currentIndex];
+    var buttons = els.quizChoices.querySelectorAll(".choice");
+    Array.prototype.forEach.call(buttons, function(b){ b.disabled = true; });
+
+    var isCorrect = (idx === q.a);
+    buttons[idx].classList.add(isCorrect ? "correct" : "incorrect");
+    if(!isCorrect) buttons[q.a].classList.add("correct");
+
+    if(isCorrect) score++;
+    results[currentIndex] = isCorrect ? "correct" : "wrong";
+    recordAnswer(q.id, isCorrect);
+    saveStore();
+    updateDots();
+    els.quizScore.textContent = "正解 " + score;
+
+    els.feedbackVerdict.textContent = isCorrect ? "○ 正解！" : "× 残念、不正解";
+    els.feedbackVerdict.className = "verdict " + (isCorrect ? "correct" : "incorrect");
+    els.feedbackHead.textContent = q.h || "";
+    els.feedbackHead.hidden = !q.h;
+    els.feedbackExplanation.textContent = q.e || "";
+    els.feedbackSentence.textContent = q.en || "";
+    els.feedbackSpeak.hidden = !q.en;
+    els.btnSpeak.hidden = els.btnSpeakSlow.hidden = !canSpeak;
+    if(q.t){
+      els.feedbackTranslationText.innerHTML = markup(q.t);
+      els.feedbackTranslation.hidden = false;
+    } else {
+      els.feedbackTranslation.hidden = true;
+    }
+    els.feedbackMeta.textContent = q.m || "";
+    els.feedbackMeta.hidden = !q.m;
+    els.quizFeedback.hidden = false;
+    els.btnNextQuestion.hidden = false;
+    els.btnNextQuestion.textContent = (currentIndex === quizData.length-1) ? "結果を見る" : "次の問題へ";
+    // 解説とボタンが画面の外に出ないように寄せる
+    try{
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      els.btnNextQuestion.scrollIntoView({ block: "end", behavior: reduceMotion ? "auto" : "smooth" });
+    }catch(e){
+      els.btnNextQuestion.scrollIntoView(false);
+    }
+  }
+
+  els.btnNextQuestion.addEventListener("click", function(){
+    if(currentIndex < quizData.length-1){
+      currentIndex++;
+      renderQuestion();
+      els.quizCount.scrollIntoView({ block: "nearest" });
+    } else {
+      showResult();
+    }
+  });
+
+  function showResult(){
+    var total = quizData.length;
+    els.resultFrac.textContent = score + "/" + total;
+    var ratio = score/total;
+    var msg;
+    if(score === total) msg = "満点です！お見事な出来栄え。もう一つ別の範囲にも挑戦してみましょう。";
+    else if(ratio >= 0.7) msg = "よくできました。間違えた問題の解説を読み返して、仕上げていきましょう。";
+    else if(ratio >= 0.4) msg = "もう少しです。解説を読み直して、同じ範囲にもう一度挑戦してみましょう。";
+    else msg = CONFIG.lowScoreMessage;
+    els.resultMessage.textContent = msg;
+
+    if(selectedUnit && !isWrongReview){
+      recordQuizFinished(selectedUnit.id, total, score);
+    } else {
+      saveStore();
+    }
+
+    var wrongCount = results.filter(function(r){ return r === "wrong"; }).length;
+    els.btnWrongOnly.hidden = (wrongCount === 0);
+    if(wrongCount) els.btnWrongOnly.textContent = "間違えた" + wrongCount + "問だけもう一度";
+    els.btnGuideFromResult.hidden = !selectedUnit || isWrongReview;
+    els.btnNewQuiz.hidden = !selectedUnit || isWrongReview;
+
+    switchView("result");
+  }
+
+  els.btnRetryQuiz.addEventListener("click", function(){
+    beginQuiz(quizData.map(shuffleChoices), els.quizUnit.textContent);
+  });
+  els.btnNewQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnChangeUnit.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideFromResult.addEventListener("click", function(){ showGuide(); });
+  els.btnGuideBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnGuideQuiz.addEventListener("click", function(){ startQuiz(); });
+
+  // ---- 学習ガイド / 単語一覧 ----
+  function renderMarkdown(text){
+    try{
+      if(window.marked && typeof window.marked.parse === "function") return window.marked.parse(text);
+    }catch(e){}
+    return escapeHTML(text).replace(/\n/g, "<br>");
+  }
+
+  function wordListHTML(unit){
+    var rows = WORDS.filter(function(w){
+      return unit.from ? (w.no >= unit.from && w.no <= unit.to) : w.g === unit.id;
+    });
+    if(!rows.length) return "";
+    var html = '<h2>' + escapeHTML(unit.label) + ' の語</h2>'
+             + '<div style="overflow-x:auto"><table class="word-table"><thead><tr>'
+             + '<th>' + (unit.from ? "No." : "頁") + '</th><th>語</th><th>意味</th></tr></thead><tbody>';
+    rows.forEach(function(w){
+      html += '<tr><td class="no">' + (unit.from ? w.no : "p." + w.pg) + '</td>'
+           +  '<td class="w">' + escapeHTML(w.w) + (w.k ? '<small>' + escapeHTML(w.k) + (w.h ? "・" + escapeHTML(w.h) : "") + '</small>' : "") + '</td>'
+           +  '<td>' + escapeHTML(w.m) + (unit.from && w.pg ? ' <span style="color:var(--ink-soft);font-size:.78rem">p.' + w.pg + '</span>' : "") + '</td></tr>';
+    });
+    return html + '</tbody></table></div>';
+  }
+
+  function showGuide(){
+    clearError();
+    if(!selectedUnit) return;
+    var html = GUIDES[selectedUnit.id] ? renderMarkdown(GUIDES[selectedUnit.id]) : wordListHTML(selectedUnit);
+    els.guideContent.innerHTML = html || "<p>「" + escapeHTML(selectedUnit.label) + "」のガイドは準備中です。</p>";
+    switchView("guide");
+  }
+
+  // ===================== 記録画面 =====================
+  function pct(n, d){ return d ? Math.round(n / d * 100) : 0; }
+
+  function dayKey(d){
+    function p(x){ return (x<10?"0":"") + x; }
+    return d.getFullYear() + "-" + p(d.getMonth()+1) + "-" + p(d.getDate());
+  }
+  function streakDays(){
+    if(!store.days.length) return 0;
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var n = 0, cur = new Date();
+    if(!set[dayKey(cur)]) cur.setDate(cur.getDate() - 1);   // 今日まだなら昨日から数える
+    while(set[dayKey(cur)]){ n++; cur.setDate(cur.getDate() - 1); }
+    return n;
+  }
+
+  function calendarHTML(){
+    var now = new Date();
+    var year = now.getFullYear(), month = now.getMonth();
+    var first = new Date(year, month, 1).getDay();
+    var last = new Date(year, month+1, 0).getDate();
+    var set = {};
+    store.days.forEach(function(d){ set[d] = true; });
+    var html = '<div class="cal">';
+    ["日","月","火","水","木","金","土"].forEach(function(w){ html += '<span class="head">' + w + '</span>'; });
+    for(var i=0;i<first;i++) html += '<span></span>';
+    for(var d=1; d<=last; d++){
+      var cls = [];
+      if(set[dayKey(new Date(year, month, d))]) cls.push("on");
+      if(d === now.getDate()) cls.push("today");
+      html += '<span class="' + cls.join(" ") + '">' + d + '</span>';
+    }
+    return html + '</div>';
+  }
+
+  function renderStats(){
+    var uids = Object.keys(store.units);
+    var totalAttempts = 0, totalAsked = 0, totalCorrect = 0;
+    uids.forEach(function(u){
+      totalAttempts += store.units[u].attempts;
+      totalAsked    += store.units[u].asked;
+      totalCorrect  += store.units[u].correct;
+    });
+
+    var html = "";
+    if(!storageOK){
+      html += '<p class="stats-empty">このブラウザでは記録を保存できない設定になっています（プライベートモードなど）。'
+           +  'その場合でも、いま解いている分の「間違えた問題だけもう一度」は使えます。</p>';
+    }
+    if(!totalAttempts){
+      html += '<p class="stats-empty">まだ記録がありません。範囲を選んで10問解くと、ここに正答率と学習した日が残ります。</p>';
+      els.statsBody.innerHTML = html;
+      return;
+    }
+
+    html += '<div class="stat-grid">'
+         +  '<div class="stat-tile"><span class="k">挑戦した回数</span><span class="v">' + totalAttempts + '<small>回</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">解いた問題</span><span class="v">' + totalAsked + '<small>問</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">通算の正答率</span><span class="v">' + pct(totalCorrect, totalAsked) + '<small>%</small></span></div>'
+         +  '<div class="stat-tile"><span class="k">連続学習日数</span><span class="v">' + streakDays() + '<small>日</small></span></div>'
+         +  '</div>';
+
+    var wn = wrongBoxCount();
+    html += '<div class="stats-section-title">苦手ボックス</div>';
+    if(wn){
+      html += '<div class="wrongbox-line"><span>間違えたまま正解していない問題が <strong>' + wn + '問</strong> あります。</span>'
+           +  '<button type="button" class="btn btn-primary" id="btn-wrongbox-2">ここから10問解く</button></div>';
+    } else {
+      html += '<p class="stats-empty">いまは空です。間違えた問題がここにたまり、正解すると消えます。</p>';
+    }
+
+    uids.sort(function(a,b){
+      return pct(store.units[a].correct, store.units[a].asked) - pct(store.units[b].correct, store.units[b].asked);
+    });
+    html += '<div class="stats-section-title">' + CONFIG.unitWord + 'ごとの成績（正答率の低い順）</div>';
+    html += '<div style="overflow-x:auto"><table class="stat-table"><thead><tr>'
+         +  '<th>' + CONFIG.unitWord + '</th><th class="num">挑戦</th><th class="num">正答率</th><th style="width:90px"></th><th class="num">最終</th>'
+         +  '</tr></thead><tbody>';
+    uids.forEach(function(uid){
+      var u = store.units[uid];
+      var r = pct(u.correct, u.asked);
+      var cls = r < 50 ? "low" : (r < 80 ? "mid" : "");
+      html += '<tr><td>' + escapeHTML(unitLabelOf(uid)) + '</td>'
+           +  '<td class="num">' + u.attempts + '回</td>'
+           +  '<td class="num">' + r + '%</td>'
+           +  '<td><span class="rate-bar"><i class="' + cls + '" style="width:' + r + '%"></i></span></td>'
+           +  '<td class="num">' + (u.last || "-").slice(5).replace("-", "/") + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<div class="stats-section-title">今月の学習した日</div>' + calendarHTML();
+
+    els.statsBody.innerHTML = html;
+    var btn2 = document.getElementById("btn-wrongbox-2");
+    if(btn2) btn2.addEventListener("click", openWrongBox);
+  }
+
+  function openWrongBox(){
+    clearError();
+    var qs = wrongBoxQuestions(SET_SIZE);
+    if(!qs.length){
+      showError("苦手ボックスは空です。まずは範囲を選んで挑戦してみましょう。");
+      switchView("setup");
+      return;
+    }
+    startQuizWith(qs, "苦手ボックス(" + qs.length + "問)");
+  }
+
+  function showStats(){ clearError(); renderStats(); switchView("stats"); }
+
+  els.btnStats.addEventListener("click", showStats);
+  els.btnStatsFromResult.addEventListener("click", showStats);
+  els.btnStatsBack.addEventListener("click", function(){ clearError(); refreshWrongBoxButton(); switchView("setup"); });
+  els.btnWrongbox.addEventListener("click", openWrongBox);
+
+  els.btnStatsReset.addEventListener("click", function(){
+    if(!window.confirm("これまでの記録と苦手ボックスをすべて消します。よろしいですか？")) return;
+    store = emptyStore();
+    try{ window.localStorage.removeItem(CONFIG.storeKey); }catch(e){}
+    renderStats();
+  });
+
+  els.btnWrongOnly.addEventListener("click", function(){
+    var wrong = quizData.filter(function(_, i){ return results[i] === "wrong"; });
+    if(!wrong.length) return;
+    startQuizWith(wrong, "間違えた問題の解き直し(" + wrong.length + "問)");
+  });
+
+  function refreshWrongBoxButton(){
+    var n = wrongBoxCount();
+    els.btnWrongbox.textContent = n ? ("苦手ボックスから10問(" + n + "問たまっています)") : "苦手ボックスから10問";
+    els.btnWrongbox.disabled = (n === 0);
+  }
+  refreshWrongBoxButton();
+
+  els.btnMakeQuiz.addEventListener("click", function(){ startQuiz(); });
+  els.btnViewGuide.addEventListener("click", function(){ showGuide(); });
+})();
+</script>
+</body>
+</html>
