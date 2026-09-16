@@ -490,6 +490,10 @@ nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:
 .speak-btn{ font:inherit; font-size:.84rem; padding:6px 14px; border-radius:999px; cursor:pointer;
   border:1.5px solid var(--line); background:var(--surface); color:var(--ink); }
 .speak-btn:hover{ border-color:var(--ai); color:var(--ai); }
+.word-table td.w span[lang="en"]{ font-family:'Source Serif 4','Shippori Mincho',serif; font-size:1.05rem; }
+.speak-mini{ font:inherit; font-size:.72rem; padding:1px 6px; border-radius:6px; cursor:pointer;
+  border:1px solid var(--line); background:var(--surface); color:var(--ink); vertical-align:middle; }
+.speak-mini[aria-pressed="true"]{ border-color:var(--ai); }
 .speak-btn[aria-pressed="true"]{ background:var(--ai); color:var(--surface); border-color:var(--ai); }
 nav.sister{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; margin:0 0 18px; }
 nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1px solid var(--line);
@@ -533,7 +537,7 @@ nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:
     <div class="rod" style="margin-top:16px"><span class="knob"></span><span class="knob"></span></div>
   </header>
 
-  <nav class="sister" aria-label="道場の切り替え"><a href="./" aria-current="page">英文法道場</a><a href="kaishaku.html">英文解釈道場</a><a href="tsunagi.html">つなぎ言葉道場</a></nav>
+  <nav class="sister" aria-label="道場の切り替え"><a href="./" aria-current="page">英文法道場</a><a href="kaishaku.html">英文解釈道場</a><a href="tsunagi.html">つなぎ言葉道場</a><a href="tango.html">英単語道場</a></nav>
 
   <div id="error-banner" hidden>
     <span id="error-text"></span>
@@ -1159,11 +1163,18 @@ nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:
              + '<th>' + (unit.from ? "No." : "頁") + '</th><th>語</th><th>意味</th></tr></thead><tbody>';
     rows.forEach(function(w){
       html += '<tr><td class="no">' + (unit.from ? w.no : "p." + w.pg) + '</td>'
-           +  '<td class="w">' + escapeHTML(w.w) + (w.k ? '<small>' + escapeHTML(w.k) + (w.h ? "・" + escapeHTML(w.h) : "") + '</small>' : "") + '</td>'
+           +  '<td class="w"><span lang="en">' + escapeHTML(w.w) + '</span>'
+           +  (canSpeak ? ' <button type="button" class="speak-mini" data-say="' + escapeHTML(w.w) + '" aria-label="' + escapeHTML(w.w) + ' の発音を聞く">🔊</button>' : '')
+           +  (w.k ? '<small>' + escapeHTML(w.k) + (w.h ? "・" + escapeHTML(w.h) : "") + '</small>' : "") + '</td>'
            +  '<td>' + escapeHTML(w.m) + (unit.from && w.pg ? ' <span style="color:var(--ink-soft);font-size:.78rem">p.' + w.pg + '</span>' : "") + '</td></tr>';
     });
     return html + '</tbody></table></div>';
   }
+
+  els.guideContent.addEventListener("click", function(ev){
+    var b = ev.target.closest ? ev.target.closest(".speak-mini") : null;
+    if(b) speak(b.getAttribute("data-say"), 0.85, b);
+  });
 
   function showGuide(){
     clearError();
