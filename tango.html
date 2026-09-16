@@ -7,60 +7,72 @@
 <title>英単語道場</title>
 <style>
   :root{
-    --ai:#23406e;
-    --ai-deep:#172b4d;
-    --yamabuki:#dda23a;
-    --yamabuki-deep:#a8761c;
+    --ai:#1b4b8a;
+    --ai-deep:#123364;
+    --yamabuki:#f4d35e;
+    --yamabuki-deep:#c9a227;
     --wakatake:#3f8a63;
     --wakatake-bg:#e6f0e8;
     --kobai:#b8483f;
     --kobai-bg:#f6e6e2;
-    --bg:#eef1f5;
-    --surface:#fbfcfe;
-    --surface-2:#e0e6ee;
-    --ink:#1e2530;
-    --ink-soft:#566170;
-    --line:#c6d0dc;
-    --shadow:rgba(30,37,48,0.13);
-    --focus:#a8761c;
+    --bg:#f6f8fb;
+    --surface:#ffffff;
+    --surface-2:#e6ecf5;
+    --ink:#1a2433;
+    --ink-soft:#56647a;
+    --line:#c9d5e6;
+    --shadow:rgba(26,36,51,0.12);
+    --focus:#1b4b8a;
+    --ruled:#d3e0f1;
+    --margin-red:#eab0ad;
+    --btn-ink:#2b2400;
+    --marker:rgba(244,211,94,0.55);
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --ai:#8fb0e6;
-      --ai-deep:#c3d4f2;
-      --yamabuki:#e0ac47;
-      --yamabuki-deep:#f0c877;
+      --ai:#8fb4ea;
+      --ai-deep:#c4d7f5;
+      --yamabuki:#f1d36b;
+      --yamabuki-deep:#f7e39e;
       --wakatake:#7fc39e;
       --wakatake-bg:#1c3329;
       --kobai:#e2938c;
       --kobai-bg:#3a2320;
-      --bg:#10151d;
-      --surface:#171e29;
-      --surface-2:#212a38;
-      --ink:#e6ebf2;
-      --ink-soft:#9aa6b6;
-      --line:#334154;
+      --bg:#0f1520;
+      --surface:#161e2b;
+      --surface-2:#1f2938;
+      --ink:#e5ebf3;
+      --ink-soft:#9aa8ba;
+      --line:#2e3b4f;
       --shadow:rgba(0,0,0,0.45);
-      --focus:#e0ac47;
+      --focus:#f1d36b;
+      --ruled:#1a2433;
+      --margin-red:#5a2e33;
+      --btn-ink:#2b2400;
+      --marker:rgba(241,211,107,0.30);
     }
   }
   :root[data-theme="dark"]{
-    --ai:#8fb0e6;
-    --ai-deep:#c3d4f2;
-    --yamabuki:#e0ac47;
-    --yamabuki-deep:#f0c877;
+    --ai:#8fb4ea;
+    --ai-deep:#c4d7f5;
+    --yamabuki:#f1d36b;
+    --yamabuki-deep:#f7e39e;
     --wakatake:#7fc39e;
     --wakatake-bg:#1c3329;
     --kobai:#e2938c;
     --kobai-bg:#3a2320;
-    --bg:#10151d;
-    --surface:#171e29;
-    --surface-2:#212a38;
-    --ink:#e6ebf2;
-    --ink-soft:#9aa6b6;
-    --line:#334154;
+    --bg:#0f1520;
+    --surface:#161e2b;
+    --surface-2:#1f2938;
+    --ink:#e5ebf3;
+    --ink-soft:#9aa8ba;
+    --line:#2e3b4f;
     --shadow:rgba(0,0,0,0.45);
-    --focus:#e0ac47;
+    --focus:#f1d36b;
+    --ruled:#1a2433;
+    --margin-red:#5a2e33;
+    --btn-ink:#2b2400;
+    --marker:rgba(241,211,107,0.30);
   }
 
   *{ box-sizing:border-box; }
@@ -478,6 +490,40 @@ nav.sister a{ font-size:.82rem; padding:6px 14px; border-radius:999px; border:1p
   color:var(--ink-soft); text-decoration:none; background:var(--surface); }
 nav.sister a:hover{ border-color:var(--ai); color:var(--ai); }
 nav.sister a[aria-current]{ background:var(--ai); border-color:var(--ai); color:var(--surface); font-weight:700; }
+
+/* ==== 英語道場の装い: 罫線ノートと万年筆のインク ==== */
+.stage::before,
+:root:not([data-theme="light"]) .stage::before,
+:root[data-theme="dark"] .stage::before{
+  background-image:
+    linear-gradient(90deg, transparent 38px, var(--margin-red) 38px, var(--margin-red) 39px, transparent 39px,
+                    transparent 42px, var(--margin-red) 42px, var(--margin-red) 43px, transparent 43px),
+    linear-gradient(transparent 29px, var(--ruled) 29px, var(--ruled) 30px, transparent 30px);
+  background-size:100% 100%, 100% 30px;
+  opacity:1; mix-blend-mode:normal;
+}
+.rod{ gap:6px; }
+.rod::before,.rod::after{ height:2px; border-radius:1px; background:var(--ai); }
+.rod .knob{
+  width:10px; height:10px; border-radius:50% 50% 50% 0; transform:rotate(-45deg);
+  background:var(--ai); box-shadow:none;
+}
+.rod .knob + .knob{ display:none; }
+header.masthead h1{ font-family:'Source Serif 4','Shippori Mincho',serif; font-weight:700; letter-spacing:.01em; }
+header.masthead h1 .hl, header.masthead h1{ background:linear-gradient(transparent 62%, var(--marker) 62%); display:inline; padding:0 .15em; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+header.masthead p{ margin-top:12px; }
+.card{ border-radius:4px; }
+.chip{ border-radius:6px; }
+.btn-primary,
+:root:not([data-theme="light"]) .btn-primary,
+:root[data-theme="dark"] .btn-primary{ color:var(--btn-ink); }
+.stamp{
+  transform:rotate(-8deg); border:2px dashed var(--ai); color:var(--ai);
+  box-shadow:inset 0 0 0 5px var(--surface), inset 0 0 0 7px var(--ai), 0 3px 10px var(--shadow);
+}
+.unit-group h3{ border-bottom:1px solid var(--ai); }
+.steps .num{ color:var(--ai); }
+.cal span.today{ outline-color:var(--ai); }
 
 
 /* ==== 英語道場 追加分 ==== */
